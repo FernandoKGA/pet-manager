@@ -41,6 +41,8 @@ jobs:
         run: bin/rake
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2.3.6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest

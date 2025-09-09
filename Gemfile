@@ -52,6 +52,8 @@ group :development, :test do
   gem 'faker'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner-active_record'
+  gem 'coveralls', require: false
+  gem 'simplecov', require: false
 end
 
 group :development do
