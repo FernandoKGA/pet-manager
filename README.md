@@ -8,6 +8,7 @@ A gestão adequada da saúde e bem-estar dos animais de estimação representa u
 - Fernando Karchiloff Gouveia de Amorim - 10387644
 - Gabriel Montagnini - 17462310
 - Gregório Assagra de Almeida Filho - 10856824
+- Ingrid Batista Conceição - 15084829
 - Marcia Garcia - 10833186
 - Mateus Caetano da Silva - 12543989
 - Mateus Saldanha - 10882873
