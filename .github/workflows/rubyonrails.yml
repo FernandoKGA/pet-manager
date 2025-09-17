@@ -13,15 +13,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    # services:
-    #   postgres:
-    #     image: postgres:11-alpine
-    #     ports:
-    #       - "5432:5432"
-    #     env:
-    #       POSTGRES_DB: rails_test
-    #       POSTGRES_USER: rails
-    #       POSTGRES_PASSWORD: password
+    services:
+      postgres:
+        image: postgres:17.4-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: myapp_test
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgresql
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env:
       RAILS_ENV: test
       # DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
