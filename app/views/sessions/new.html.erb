@@ -1,8 +1,23 @@
-<div>
-    <h1>Login</h1>
-    <%= form_for :session, url: login_path, method: :post do |form| %>
-      <%= form.label :email, "Email:" %><%= form.email_field :email%><br />
-      <%= form.label :password, "Senha:"%><%= form.password_field :password %><br />
-      <%= form.submit 'Logar' %>
-    <% end %>
+<!-- app/views/sessions/new.html.erb -->
+<div class="container">
+  <div class="left-panel"><%= image_tag "logo.png", size: "300x300", alt: "Logo Pet Manager", class: "logo-image" %></div>
+  <div class="right-panel">
+    <div class="login-box">
+      <h2>Olá!</h2>
+      <p>Logue para entrar no sistema</p>
+
+      <%= form_for :session, url: login_path, method: :post, html: { class: "login-form" } do |form| %>
+        <div class="input-group">
+          <%= form.email_field :email, placeholder: "Email" %>
+        </div>
+        <div class="input-group">
+          <%= form.password_field :password, placeholder: "Senha" %>
+        </div>
+        <%= form.submit "Logar", class: "btn-login" %>
+      <% end %>
+
+      <a href="#" class="forgot-link">Esqueci minha senha</a><br />
+      Não tem uma conta? <a href="#" class="register-link"><strong>Cadastre-se agora!</strong></a>
+    </div>
+  </div>
 </div>
