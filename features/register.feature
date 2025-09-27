@@ -8,8 +8,7 @@ Funcionalidade: registrar-se na plataforma
 
 Cenario: registro realizado com sucesso
     Dado que estou na tela de registro
-    Quando eu insiro meu email
-    E meu nome
-    E uma senha
-    E clico em registrar
-    Então eu devo ver uma mensagem informando que fui registrado com sucesso
+    Quando eu insiro meu email e meu nome
+    E insiro uma senha válida e a confirmo
+    E clico em "Registrar"
+    Então eu devo ser redirecionado para a página de login
