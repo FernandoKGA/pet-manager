@@ -53,7 +53,6 @@ group :development, :test do
   gem 'faker'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner-active_record'
-  gem 'coveralls_reborn', require: false
   gem 'simplecov', require: false
 end
 
