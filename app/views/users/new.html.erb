@@ -2,7 +2,19 @@
   <h1>Registre-se</h1>
   <p>Insira seus dados para criar uma conta.</p>
 
-  <%= form_with(model: @user, url: "/users") do |form| %>
+  <%= form_with(model: @user, url: "/users", local: true) do |form| %>
+    
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2>Erro no registro</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
     <div class="form-group">
       <%= form.label :first_name, 'Nome' %>
       <%= form.text_field :first_name, required: true, placeholder: 'Seu nome' %>
@@ -25,7 +37,7 @@
 
     <div class="form-group">
       <%= form.label :password_confirmation, 'Confirme sua senha' %>
-      <%= form.password_field :password_confirmation, required: true %>
+      <%= form.password_field :password_confirmation, required: true, placeholder: 'Insira a senha novamente' %>
     </div>
 
     <div class="form-actions">

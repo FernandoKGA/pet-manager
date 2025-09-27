@@ -9,9 +9,12 @@ Quando('eu insiro meu email e meu nome') do
   fill_in 'Sobrenome', :with => 'da Silva'
 end
 
-E('insiro uma senha válida e a confirmo') do
-  fill_in 'Senha', :with => 'senha123'
-  fill_in 'Confirme sua senha', :with => 'senha123'
+Quando('eu altero o campo {string} com {string}') do | field, value |
+  fill_in field, :with => value
+end
+
+E('preencho o campo {string} com {string}') do | field, value |
+  fill_in field, :with => value
 end
 
 E('clico em {string}') do |button_name|
@@ -20,4 +23,8 @@ end
 
 Então('eu devo ser redirecionado para a página de login') do
   expect(page).to have_current_path('/login')
+end
+
+Então('eu devo ver a mensagem {string}') do |message|
+  expect(page).to have_selector('li', text: message)
 end

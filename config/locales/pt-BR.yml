@@ -1,0 +1,19 @@
+pt-BR:
+  activerecord:
+    attributes:
+      user:
+        password: "Senha"
+        password_confirmation: ""
+
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: "- formato de email inválido"
+            password_confirmation:
+              confirmation: "As senhas não coincidem"
+
+      messages:
+        confirmation: "não confere com %{attribute}"
+        blank:  "-  não pode ser vazio"
