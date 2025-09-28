@@ -51,6 +51,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'faker'
+  gem 'capybara'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner-active_record'
   gem 'simplecov', require: false
