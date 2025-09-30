@@ -1,29 +1,27 @@
-#language: pt
+Feature: platform registration
 
-Funcionalidade: registrar-se na plataforma
+    As a pet owner
+    So that I can use the platform
+    I want to be able to register using my personal data
 
-    Como um dono de pet
-    Para que eu possa usar a plataforma
-    Quero poder me registrar usando meus dados
+Background:
+    Given Im in the register page
+    And I fill the field "Email" with "teste@valido.com"
+    And I fill the field "Nome" with "Teste"
+    And I fill the field "Sobrenome" with "da Silva"
+    And I fill the field "Senha" with "123456"
+    And I fill the field "Confirme sua senha" with "123456"
 
-Contexto:
-    Dado que estou na tela de registro
-    E preencho o campo "Email" com "teste@valido.com"
-    E preencho o campo "Nome" com "Teste"
-    E preencho o campo "Sobrenome" com "da Silva"
-    E preencho o campo "Senha" com "123456"
-    E preencho o campo "Confirme sua senha" com "123456"
+Scenario: successfull registration
+    And I click in "Registrar"
+    Then I should be redirected to the login page
 
-Cenario: registro realizado com sucesso
-    E clico em "Registrar"
-    Então eu devo ser redirecionado para a página de login
+Scenario Outline: invalid data registration
+    When I change the field "<field>" with "<value>"
+    And I click in "Registrar"
+    Then I should see "<message>"
 
-Esquema do Cenário: registro com dados inválidos
-    Quando eu altero o campo "<field>" com "<value>"
-    E clico em "Registrar"
-    Então eu devo ver a mensagem "<message>"
-
-Exemplos:
+Examples:
     | field              | value         | message                       |
     | Email              | email.invalid | formato de email inválido     |
     | Confirme sua senha | 323456        | As senhas não coincidem       |

@@ -1,30 +1,24 @@
 
-Dado('que estou na tela de registro') do
+Given('Im in the register page') do
   visit '/register'
 end
 
-Quando('eu insiro meu email e meu nome') do
-  fill_in 'Email', :with => 'teste@petmanager.com'
-  fill_in 'Nome', :with => 'Teste'
-  fill_in 'Sobrenome', :with => 'da Silva'
-end
-
-Quando('eu altero o campo {string} com {string}') do | field, value |
+When('I change the field {string} with {string}') do | field, value |
   fill_in field, :with => value
 end
 
-E('preencho o campo {string} com {string}') do | field, value |
+And('I fill the field {string} with {string}') do | field, value |
   fill_in field, :with => value
 end
 
-E('clico em {string}') do |button_name|
+And('I click in {string}') do |button_name|
   click_button button_name
 end
 
-Então('eu devo ser redirecionado para a página de login') do
+Then('I should be redirected to the login page') do
   expect(page).to have_current_path('/login')
 end
 
-Então('eu devo ver a mensagem {string}') do |message|
+Then('I should see {string}') do |message|
   expect(page).to have_selector('li', text: message)
 end
