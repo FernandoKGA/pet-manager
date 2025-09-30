@@ -1,0 +1,11 @@
+<h1>Meus Pets</h1>
+
+<%= link_to "Cadastrar novo pet", new_pet_path %>
+
+<ul>
+  <% @pets.each do |pet| %>
+    <li>
+      <%= link_to pet.nome, pet_path(pet) %> - <%= pet.tipo %> (<%= pet.idade %> anos)
+    </li>
+  <% end %>
+</ul>
