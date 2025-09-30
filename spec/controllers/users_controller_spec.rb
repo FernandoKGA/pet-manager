@@ -36,13 +36,12 @@ RSpec.describe UsersController, type: :controller do
     end
 
     context 'passwords do not match' do
-      it 'should not create the user' do
+      it 'should not create the user and refresh the page' do
         expect {
           post :create, params: invalid_pass
         }.to_not change(User, :count) 
-      end
       
-      it 'should refresh the page' do
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response).to render_template(:new)
       end
     end
