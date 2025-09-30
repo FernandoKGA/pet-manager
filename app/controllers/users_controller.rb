@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if (@user.save)
       redirect_to('/login')
     else
-      render :new
+      render :new, status: :unprocessable_content
     end
   end
 
