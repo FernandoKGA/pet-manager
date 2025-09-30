@@ -10,7 +10,7 @@ class PetsController < ApplicationController
     if @pet.save
       redirect_to user_path(current_user), notice: "Pet cadastrado com sucesso!"
     else
-      flash.now[:alert] = "Não foi possível salvar o pet."
+      flash.now[:alert] = "Não foi possível guardar as informações do pet."
       render :new, status: :unprocessable_entity
     end
   end
