@@ -1,156 +1,56 @@
-<h1 class="title">Editar Pet</h1>
+<div class="pets-edit-page">
+  <h1 class="title">Editar Pet</h1>
 
-<%= form_with(model: @pet, local: true, html: { class: "pet-form" }) do |f| %>
-  <% if @pet.errors.any? %>
-    <div class="error-messages">
-      <h3><%= pluralize(@pet.errors.count, "erro") %> impediram o salvamento:</h3>
-      <ul>
-        <% @pet.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+  <%= form_with(model: @pet, local: true, html: { class: "pet-form" }) do |f| %>
+    <% if @pet.errors.any? %>
+      <div class="error-messages">
+        <h3><%= pluralize(@pet.errors.count, "erro") %> impediram o salvamento:</h3>
+        <ul>
+          <% @pet.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name, "Nome" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :birthdate, "Data de Nascimento" %>
+      <%= f.date_field :birthdate, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :size, "Tamanho" %>
+      <%= f.number_field :size, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :species, "Espécie" %>
+      <%= f.text_field :species, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :breed, "Raça" %>
+      <%= f.text_field :breed, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :gender, "Gênero" %>
+      <%= f.text_field :gender, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :sinpatinhas_id, "ID Sinpatinhas" %>
+      <%= f.text_field :sinpatinhas_id, class: "form-control" %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "Atualizar", class: "btn" %>
+      <%= link_to "Cancelar", user_path(current_user), class: "btn btn-secondary", data: { turbo: false } %>
     </div>
   <% end %>
-
-  <div class="form-group">
-    <%= f.label :name, "Nome" %>
-    <%= f.text_field :name, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :birthdate, "Data de Nascimento" %>
-    <%= f.date_field :birthdate, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :size, "Tamanho" %>
-    <%= f.number_field :size, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :species, "Espécie" %>
-    <%= f.text_field :species, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :breed, "Raça" %>
-    <%= f.text_field :breed, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :gender, "Gênero" %>
-    <%= f.text_field :gender, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :sinpatinhas_id, "ID Sinpatinhas" %>
-    <%= f.text_field :sinpatinhas_id, class: "form-control" %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.submit "Atualizar", class: "btn" %>
-    <%= link_to "Cancelar", user_path(current_user), class: "btn btn-secondary", data: { turbo: false } %>
-  </div>
-<% end %>
-
-<style>
-  body {
-    font-family: "Arial", sans-serif;
-    background-color: #f9fafb;
-    display: flex;
-    justify-content: center;
-    padding: 2rem;
-  }
-
-  .title {
-    text-align: center;
-    color: #333;
-    margin-bottom: 2rem;
-  }
-
-  .pet-form {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    width: 400px;
-  }
-
-  .error-messages {
-    background-color: #fee;
-    border: 1px solid #fcc;
-    border-radius: 6px;
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    color: #c33;
-  }
-
-  .error-messages h3 {
-    margin-top: 0;
-    font-size: 1rem;
-  }
-
-  .error-messages ul {
-    margin: 0.5rem 0 0 1.5rem;
-    padding: 0;
-  }
-
-  .form-group {
-    margin-bottom: 1.2rem;
-  }
-
-  .form-group label {
-    display: block;
-    margin-bottom: 0.4rem;
-    font-weight: bold;
-    color: #555;
-  }
-
-  .form-control {
-    width: 100%;
-    padding: 0.6rem;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-    font-size: 1rem;
-    box-sizing: border-box;
-  }
-
-  .form-control:focus {
-    outline: none;
-    border-color: #4f46e5;
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
-  }
-
-  .form-actions {
-    text-align: center;
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  .btn {
-    background-color: #4f46e5;
-    color: #fff;
-    padding: 0.7rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  .btn:hover {
-    background-color: #4338ca;
-  }
-
-  .btn-secondary {
-    background-color: #6b7280;
-  }
-
-  .btn-secondary:hover {
-    background-color: #4b5563;
-  }
-</style>
+</div>
