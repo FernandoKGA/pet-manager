@@ -22,7 +22,7 @@ When('I click the Logar button') do
 end
 
 Then (/^I should see the initial user page$/) do
-  expect(page).to have_content("Você está logado!")
+  expect(page).to have_content("Estamos felizes em ter você AUqui")
 end
 
 When(/^I fill the login form with invalid login information$/) do

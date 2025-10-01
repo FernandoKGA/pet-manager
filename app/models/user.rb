@@ -5,4 +5,5 @@ class User < ApplicationRecord
   validates :first_name, presence: true, length: {maximum: 255}
   validates :last_name, presence: true, length: {maximum: 255}
 
+  has_many :pets, dependent: :destroy
 end
