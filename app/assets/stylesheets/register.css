@@ -1,0 +1,104 @@
+/*
+  Estilos de layout aplicados apenas à página de registro.
+  Adicione a classe "registration-body" à tag <body> da sua página de registro.
+*/
+.registration-body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Estilos específicos para o formulário de registro,
+  garantindo que não afetem outras páginas.
+*/
+.registration-container {
+    background: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+.registration-container h1 {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.registration-container p {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.registration-container .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.registration-container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.registration-container .form-group input[type="text"],
+.registration-container .form-group input[type="password"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+}
+
+.registration-container .form-actions {
+    margin-top: 20px;
+}
+
+.registration-container .form-actions input[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: #007bff;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.registration-container .form-actions input[type="submit"]:hover {
+    background: #0056b3;
+}
+
+/* Estilos para mensagens de erro, agora dentro do contêiner */
+.registration-container #error_explanation {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px 20px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.registration-container #error_explanation h2 {
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.registration-container #error_explanation ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.registration-container #error_explanation li {
+    font-size: 14px;
+}
