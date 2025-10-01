@@ -3,6 +3,8 @@
 
 A gestão adequada da saúde e bem-estar dos animais de estimação representa um desafio significativo para seus proprietários, que frequentemente enfrentam dificuldades para organizar e acompanhar informações críticas como histórico médico, calendário de vacinas, consultas veterinárias, administração de medicamentos, controle de peso, gastos relacionados aos cuidados e outros dados essenciais para o cuidado responsável. Atualmente, essas informações ficam dispersas em diferentes locais - cadernetas de vacinação físicas, receitas médicas, anotações em papel, lembretes no celular ou até mesmo apenas na memória - resultando em perda de dados importantes, esquecimento de medicações, atraso em vacinas e dificuldade para fornecer um histórico completo ao veterinário durante consultas. Nossa plataforma SaaS visa centralizar e digitalizar todas essas informações em um ambiente seguro e intuitivo, oferecendo funcionalidades como lembretes automatizados, gráficos de acompanhamento, histórico médico completo e ferramentas de gestão financeira, permitindo que os tutores mantenham um controle abrangente e organizado da saúde de seus pets, resultando em melhor qualidade de vida para os animais e maior tranquilidade para seus proprietários.
 
+Link projeto: [Pet Manager](https://pet-manager-prod-01b0422e1f6d.herokuapp.com/)
+
 ## Integrantes do projeto
 
 - Fernando Karchiloff Gouveia de Amorim - 10387644
