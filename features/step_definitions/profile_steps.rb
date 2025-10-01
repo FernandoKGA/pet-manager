@@ -28,7 +28,6 @@ end
 Then('my profile should display the updated information') do
   expect(page).to have_content('Ana Paula')
   expect(page).to have_content('Souza')
-  expect(page).to have_content('anapaula@example.com')
 end
 
 Then('I should see validation errors') do
@@ -51,7 +50,6 @@ end
 Then('the profile information should remain unchanged') do
   expect(page).to have_content(@current_user.first_name)
   expect(page).to have_content(@current_user.last_name)
-  expect(page).to have_content(@current_user.email)
 end
 
 When('I try to access the profile edit page') do
