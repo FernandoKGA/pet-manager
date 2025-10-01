@@ -6,9 +6,7 @@
 
   <!-- Ações principais -->
   <div style="margin: 1.5rem 0;">
-    <button style="padding: 10px 16px; margin-right: 8px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;">
-      Editar cadastro
-    </button>
+    <%= link_to 'Editar cadastro', edit_user_path(@user) %>
 
     <%= link_to "Cadastrar pet", new_pet_path,
       style: "padding: 10px 16px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; text-decoration: none;" %>

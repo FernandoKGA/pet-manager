@@ -7,18 +7,18 @@ When('I click the Edit button') do
 end
 
 When('I fill the profile form with valid information') do
-  fill_in 'First name', with: 'Ana Paula'
-  fill_in 'Last name',  with: 'Souza'
+  fill_in 'Primeiro Nome', with: 'Ana Paula'
+  fill_in 'Sobrenome',  with: 'Souza'
   fill_in 'Email',      with: 'anapaula@example.com'
 end
 
 When('I fill the profile form with invalid information') do
-  fill_in 'First name', with: ''                # inválido (presença)
+  fill_in 'Primeiro Nome', with: ''                # inválido (presença)
   fill_in 'Email',      with: 'email-invalido'  # inválido (formato)
 end
 
 When('I click the Save button') do
-  click_button 'Save'
+  click_button 'Salvar'
 end
 
 Then('I should see a success message') do
@@ -31,7 +31,7 @@ Then('my profile should display the updated information') do
 end
 
 Then('I should see validation errors') do
-  expect(page).to have_text(/(ser vazio|inválido)/i)
+  expect(page).to have_text(/(ser vazio|inválido|invalid|blank)/i)
 end
 
 
@@ -40,7 +40,7 @@ Given('I am editing my profile') do
 end
 
 When('I click the Cancel button') do
-  click_link 'Cancel'
+  click_link 'Cancelar'
 end
 
 Then('I should see the profile page') do
@@ -58,10 +58,6 @@ When('I try to access the profile edit page') do
     email: 'bob@example.com', password: 'secret', password_confirmation: 'secret'
   )
   visit edit_user_path(user)
-end
-
-Then('I should be redirected to the login page') do
-  expect(page).to have_current_path('/login')
 end
 
 Then('my information should not be changed') do

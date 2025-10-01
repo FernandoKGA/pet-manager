@@ -8,14 +8,14 @@
     </div>
   <% end %>
 
-  <div><%= f.label :first_name, 'First name' %><br><%= f.text_field :first_name %></div>
-  <div><%= f.label :last_name,  'Last name'  %><br><%= f.text_field :last_name  %></div>
+  <div><%= f.label :first_name, 'Primeiro Nome' %><br><%= f.text_field :first_name %></div>
+  <div><%= f.label :last_name,  'Sobrenome'  %><br><%= f.text_field :last_name  %></div>
   <div><%= f.label :email,      'Email'      %><br><%= f.email_field :email     %></div>
 
   <%# senha opcional na edição %>
   <div><%= f.label :password, 'Password (leave blank to keep current)' %><br><%= f.password_field :password %></div>
   <div><%= f.label :password_confirmation, 'Password confirmation' %><br><%= f.password_field :password_confirmation %></div>
 
-  <%= f.submit 'Save' %>
-  <%= link_to 'Cancel', @user %>
+  <%= f.submit 'Salvar' %>
+  <%= link_to 'Cancelar', @user %>
 <% end %>
