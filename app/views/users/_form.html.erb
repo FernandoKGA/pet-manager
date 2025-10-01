@@ -1,0 +1,21 @@
+<%= form_with model: @user do |f| %>
+  <% if @user.errors.any? %>
+    <div class="errors">
+      <h3><%= pluralize(@user.errors.count, "error") %> prohibited saving:</h3>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div><%= f.label :first_name, 'First name' %><br><%= f.text_field :first_name %></div>
+  <div><%= f.label :last_name,  'Last name'  %><br><%= f.text_field :last_name  %></div>
+  <div><%= f.label :email,      'Email'      %><br><%= f.email_field :email     %></div>
+
+  <%# senha opcional na edição %>
+  <div><%= f.label :password, 'Password (leave blank to keep current)' %><br><%= f.password_field :password %></div>
+  <div><%= f.label :password_confirmation, 'Password confirmation' %><br><%= f.password_field :password_confirmation %></div>
+
+  <%= f.submit 'Save' %>
+  <%= link_to 'Cancel', @user %>
+<% end %>
