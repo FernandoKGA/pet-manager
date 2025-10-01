@@ -22,6 +22,6 @@ Scenario Outline: invalid data registration
     Then I should see "<message>"
 
 Examples:
-    | field              | value         | message                       |
-    | Email              | email.invalid | formato de email inválido     |
-    | Confirme sua senha | 323456        | As senhas não coincidem       |
+    | field              | value         | message                                            |
+    | Email              | email.invalid | Email is invalid                                   |
+    | Confirme sua senha | 323456        | Password confirmation doesn't match Password       |
