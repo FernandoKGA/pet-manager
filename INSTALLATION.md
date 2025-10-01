@@ -30,13 +30,13 @@ Rodar o projeto exige instalação de programas adicionais que não estão prese
 
 ### Essenciais
 
-`sudo apt-get install libvips pkg-config`
+`sudo apt install libvips pkg-config zlib1g-dev libffi-dev`
 
 ### Git
 
 Git é um programa de versionamento de código amplamente utilizado pelo mundo do desenvolvimento.
 
-`sudo apt-get install git`
+`sudo apt install git`
 
 Para configurar o Git, use:
 ```bash
