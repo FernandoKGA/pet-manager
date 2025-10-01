@@ -24,6 +24,6 @@ When("I press {string}") do |button|
   click_button button
 end
 
-Then("I should see {string}") do |text|
+Then("I should see the message {string}") do |text|
   expect(page).to have_content(text)
 end
