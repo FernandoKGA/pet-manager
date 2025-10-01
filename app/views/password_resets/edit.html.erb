@@ -1,0 +1,24 @@
+<div class="container-custom">
+  <div class="left-panel"><%= image_tag "logo.png", size: "300x300", alt: "Logo Pet Manager", class: "logo-image" %></div>
+  <div class="right-panel">
+    <div class="login-box">
+      <h2>Troque sua senha</h2>
+      <p>Coloque sua nova senha</p>
+
+      <%= form_for :user, url: password_reset_path, method: :patch, html: { class: "login-form" } do |form| %>
+        <div class="input-group">
+            <%= form.password_field :password, placeholder: "Sua nova senha",
+                                        autocomplete: "current-password" %>
+        </div>
+        <div class="input-group">
+            <%= form.password_field :password_confirmation, placeholder: "Confirme sua nova senha",
+                                        autocomplete: "current-password" %>
+        </div>
+        <%= form.submit "Trocar senha", class: "btn-login" %>
+      <% end %>
+      <br />
+      Já tem uma conta? <%= link_to "Logar", login_path, class: 'register-link' %></a>
+    </div>
+  </div>
+</div>
+
