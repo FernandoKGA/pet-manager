@@ -12,6 +12,10 @@
   </head>
 
   <body class="<%= yield(:body_class) %>">
+    <% if logged_in? %>    
+      <%= link_to "Logout", logout_path, data: { turbo_method: :delete } %>
+    <% end %>
+
     <% flash.each do |message_type, message| %>
       <%= content_tag 'div', class: "alert alert-#{message_type}", role: 'alert' do %>
         <%= message %>
@@ -20,5 +24,6 @@
     <% end %>
     
     <%= yield %>
+      
   </body>
 </html>
