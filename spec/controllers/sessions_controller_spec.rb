@@ -65,4 +65,22 @@ RSpec.describe SessionsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'when user is logged in' do
+      before do
+        session[:user_id] = user.id
+        allow(controller).to receive(:logged_in?).and_return(true)
+        allow(controller).to receive(:current_user).and_return(user)
+        get :new
+      end
+
+      it 'logs out the user' do
+        expect { delete :destroy }.to change { session[:user_id] }.from(user.id).to nil
+        expect(session[:user_id]).to be_nil
+        expect(response).to redirect_to(login_path)
+        expect(flash[:success]).to eq('Logout com sucesso')
+      end
+    end
+  end
 end
