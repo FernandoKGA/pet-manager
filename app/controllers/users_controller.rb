@@ -1,22 +1,30 @@
+
 class UsersController < ApplicationController
+
   skip_before_action :authenticate_user, only: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update]
   before_action :authorize_user!, only: [:edit, :update]
+
 
   def new
     @user = User.new
   end
 
   def create
-    @user = User.new(create_user_params)
-    if @user.save
+    @user = User.new(user_params)
+    if (@user.save)
       redirect_to('/login')
     else
-      # dica: :unprocessable_entity é o símbolo correto
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
-
+  
+  def index
+    if current_user
+      @pets = current_user.pets
+    end
+  end
+  
   def show
     @user = current_user
     @pets = @user.pets  # pega todos os pets do usuário logado
@@ -55,5 +63,9 @@ class UsersController < ApplicationController
         permitted.delete(:password_confirmation)
       end
       permitted
+    end
+
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 end
