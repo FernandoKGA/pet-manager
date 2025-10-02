@@ -13,8 +13,7 @@
     <%= button_to 'Editar cadastro',
               edit_user_path(@user),
               class: 'btn-primary',
-              method: :get,
-              form: { style: 'display:inline' } %>
+              method: :get %>
 
       <%= link_to "Cadastrar pet", new_pet_path, class: "btn-secondary" %>
     </div>
