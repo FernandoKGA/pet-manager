@@ -1,0 +1,56 @@
+<div class="pets-edit-page">
+  <h1 class="title">Editar Pet</h1>
+
+  <%= form_with(model: @pet, local: true, html: { class: "pet-form" }) do |f| %>
+    <% if @pet.errors.any? %>
+      <div class="error-messages">
+        <h3><%= pluralize(@pet.errors.count, "erro") %> impediram o salvamento:</h3>
+        <ul>
+          <% @pet.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :name, "Nome" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :birthdate, "Data de Nascimento" %>
+      <%= f.date_field :birthdate, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :size, "Tamanho" %>
+      <%= f.number_field :size, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :species, "Espécie" %>
+      <%= f.text_field :species, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :breed, "Raça" %>
+      <%= f.text_field :breed, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :gender, "Gênero" %>
+      <%= f.text_field :gender, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :sinpatinhas_id, "ID Sinpatinhas" %>
+      <%= f.text_field :sinpatinhas_id, class: "form-control" %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit "Atualizar", class: "btn" %>
+      <%= link_to "Cancelar", user_path(current_user), class: "btn btn-secondary", data: { turbo: false } %>
+    </div>
+  <% end %>
+</div>
