@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-
+  before_action :set_pet, only: [:show, :edit, :update]
 
   def new
     @pet = current_user.pets.build
@@ -16,12 +16,29 @@ class PetsController < ApplicationController
   end
 
   def show
-    @pet = current_user.pets.find(params[:id])
+    # @pet já está definido pelo before_action
+  end
+
+  def edit
+    # @pet já está definido pelo before_action
+  end
+
+  def update
+    if @pet.update(pet_params)
+      redirect_to user_path(current_user), notice: "Pet atualizado com sucesso!"
+    else
+      flash.now[:alert] = "Não foi possível atualizar as informações do pet."
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
 
+  def set_pet
+    @pet = current_user.pets.find(params[:id])
+  end
+
   def pet_params
-    params.require(:pet).permit(:name, :species, :breed)
+    params.require(:pet).permit(:name, :birthdate, :size, :species, :breed, :gender, :sinpatinhas_id)
   end
 end
