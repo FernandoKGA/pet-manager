@@ -1,74 +1,74 @@
-<div style="max-width: 1000px; margin: 0 auto; padding: 2rem; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh;">
+<%= stylesheet_link_tag "dashboard", "data-turbo-track": "reload" %>
+<div class="dashboard-container">
 
   <!-- Card de Boas-vindas -->
-  <div style="background: white; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-    <h1 style="margin: 0 0 0.5rem 0; color: #1a202c; font-size: 2rem;">
+  <div class="welcome-card">
+    <h1 class="welcome-title">
       Bem-vindo, <%= current_user.first_name %> <%= current_user.last_name %>! 👋
     </h1>
-    <p style="margin: 0; color: #718096; font-size: 1.1rem;">
+    <p class="welcome-subtitle">
       Estamos felizes em ter você AUqui 🎉
     </p>
 
     <!-- Ações principais -->
-    <div style="margin-top: 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-      <button style="padding: 8px 16px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.875rem; font-weight: 600; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); transition: transform 0.2s;">
+    <div class="welcome-actions">
+      <button class="btn-primary">
         Editar cadastro
       </button>
 
-      <%= link_to "Cadastrar pet", new_pet_path,
-        style: "padding: 8px 16px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; font-size: 0.875rem; font-weight: 600; box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3); transition: transform 0.2s; display: inline-block;" %>
+      <%= link_to "Cadastrar pet", new_pet_path, class: "btn-secondary" %>
     </div>
   </div>
 
   <!-- Seção dos Pets -->
-  <div style="background: white; border-radius: 16px; padding: 2rem; box-shadow: 0 10px 30px rgba(0,0,0,0.2);">
-    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem;">
+  <div class="pets-section">
+    <div class="pets-header">
       <div>
-        <h2 style="margin: 0; color: #1a202c; font-size: 1.75rem;">🐾 Meus Pets</h2>
-        <p style="margin: 0.5rem 0 0 0; color: #718096;">Aqui estão seus pets cadastrados</p>
+        <h2 class="pets-title">🐾 Meus Pets</h2>
+        <p class="pets-subtitle">Aqui estão seus pets cadastrados</p>
       </div>
-      <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.5rem 1rem; border-radius: 20px; font-weight: 600;">
+      <div class="pets-counter">
         <%= @pets.count %> <%= @pets.count == 1 ? 'pet' : 'pets' %>
       </div>
     </div>
 
     <% if @pets.present? %>
-      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+      <div class="pets-grid">
         <% @pets.each do |pet| %>
-          <div style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; position: relative; overflow: hidden;">
+          <div class="pet-card">
             
             <!-- Decoração -->
-            <div style="position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: rgba(255,255,255,0.3); border-radius: 50%;"></div>
+            <div class="pet-card-decoration"></div>
             
             <!-- Conteúdo -->
-            <div style="position: relative; z-index: 1; padding: 1.5rem;">
-              <div style="background: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            <div class="pet-card-content">
+              <div class="pet-avatar">
+                🐶
               </div>
               
-              <h3 style="margin: 0 0 0.5rem 0; color: #1a202c; font-size: 1.5rem; font-weight: 700;">
+              <h3 class="pet-name">
                 <%= pet.name %>
               </h3>
               
-              <p style="margin: 0 0 1rem 0; color: #4a5568; font-size: 1rem;">
+              <p class="pet-info">
                 <%= pet.species %> • <%= pet.breed || 'SRD' %>
               </p>
             </div>
 
             <!-- Botão Editar -->
-            <div style="padding: 0 1.5rem 1.5rem 1.5rem;">
-              <%= link_to "✏️ Editar", edit_pet_path(pet), 
-                style: "display: block; width: 100%; text-align: center; padding: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 0.875rem; transition: transform 0.2s; box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3); box-sizing: border-box;" %>
+            <div class="pet-card-footer">
+              <%= link_to "✏️ Editar", edit_pet_path(pet), class: "btn-edit" %>
             </div>
           </div>
         <% end %>
       </div>
     <% else %>
-      <div style="text-align: center; padding: 3rem; background: #f7fafc; border-radius: 12px; border: 2px dashed #cbd5e0;">
-        <div style="font-size: 4rem; margin-bottom: 1rem;">🐾</div>
-        <p style="color: #718096; font-size: 1.1rem; margin: 0;">
+      <div class="empty-state">
+        <div class="empty-state-icon">🐾</div>
+        <p class="empty-state-text">
           Você ainda não cadastrou nenhum pet.
         </p>
-        <p style="color: #a0aec0; margin: 0.5rem 0 0 0;">
+        <p class="empty-state-subtext">
           Clique em "Cadastrar pet" para adicionar seu primeiro amiguinho!
         </p>
       </div>
