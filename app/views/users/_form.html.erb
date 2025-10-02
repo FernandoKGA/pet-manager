@@ -13,8 +13,8 @@
   <div><%= f.label :email,      'Email'      %><br><%= f.email_field :email     %></div>
 
   <%# senha opcional na edição %>
-  <div><%= f.label :password, 'Password (leave blank to keep current)' %><br><%= f.password_field :password %></div>
-  <div><%= f.label :password_confirmation, 'Password confirmation' %><br><%= f.password_field :password_confirmation %></div>
+  <div><%= f.label :password, 'Senha (deixe em branco para manter a mesma)' %><br><%= f.password_field :password %></div>
+  <div><%= f.label :password_confirmation, 'Confirmar senha' %><br><%= f.password_field :password_confirmation %></div>
 
   <%= f.submit 'Salvar' %>
   <%= button_to 'Cancelar',
