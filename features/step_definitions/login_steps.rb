@@ -14,7 +14,7 @@ When (/^I fill the login form with login information$/) do
 end
 
 When (/^I click the (.*) button$/) do |button_name|
-    click_button button_name
+  click_button button_name
 end
 
 Then (/^I should see the initial user page$/) do
