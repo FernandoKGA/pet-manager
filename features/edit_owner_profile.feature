@@ -12,7 +12,7 @@ Scenario: Update profile with valid data
     Given I am on the profile page
     When I click the Edit button
     And I fill the profile form with valid information
-    And I click the Save button
+    And I click the Salvar button
     Then I should see a success message
     And my profile should display the updated information
 
@@ -20,7 +20,7 @@ Scenario: Try to save with invalid data
     Given I am on the profile page
     When I click the Edit button
     And I fill the profile form with invalid information
-    And I click the Save button
+    And I click the Salvar button
     Then I should see validation errors
     And my information should not be changed
 

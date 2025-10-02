@@ -17,5 +17,9 @@
   <div><%= f.label :password_confirmation, 'Password confirmation' %><br><%= f.password_field :password_confirmation %></div>
 
   <%= f.submit 'Salvar' %>
-  <%= link_to 'Cancelar', @user %>
+  <%= button_to 'Cancelar',
+              @user,
+              method: :get,
+              form: { style: 'display:inline' } %>
+
 <% end %>

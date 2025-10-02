@@ -13,9 +13,6 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :show, :edit, :update]
   get       '/register',  to: 'users#new', as: 'users_new'
-  get       '/login',     to: 'sessions#new'
-  post      '/login',     to: 'sessions#create'
-  delete    '/logout',    to: 'sessions#destroy'
 
   
   resources :pets, only: [:new, :create, :show]

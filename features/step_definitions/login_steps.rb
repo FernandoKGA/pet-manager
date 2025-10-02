@@ -13,12 +13,8 @@ When (/^I fill the login form with login information$/) do
   fill_in "Senha", :with => "teste001user"
 end
 
-# When (/^I click the (.*) button$/) do |button_name|
-#   click_button button_name
-# end
-
-When('I click the Logar button') do
-  click_button 'Logar'
+When (/^I click the (.*) button$/) do |button_name|
+  click_button button_name
 end
 
 Then (/^I should see the initial user page$/) do
