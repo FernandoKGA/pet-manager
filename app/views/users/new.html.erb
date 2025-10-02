@@ -1,0 +1,49 @@
+<% content_for :body_class, 'registration-body' %>
+
+<div class="registration-container">
+  <h1>Registre-se</h1>
+  <p>Insira seus dados para criar uma conta.</p>
+
+  <%= form_with(model: @user, url: "/users", local: true) do |form| %>
+    
+    <% if @user.errors.any? %>
+      <div id="error_explanation">
+        <h2>Erro no registro</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :first_name, 'Nome' %>
+      <%= form.text_field :first_name, required: true, placeholder: 'Seu nome' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :last_name, 'Sobrenome' %>
+      <%= form.text_field :last_name, required: true, placeholder: 'Seu sobrenome' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :email, 'Email' %>
+      <%= form.text_field :email, required: true, placeholder: 'seu@email.com' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :password, 'Senha' %>
+      <%= form.password_field :password, required: true, placeholder: 'Mínimo de 6 caracteres' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :password_confirmation, 'Confirme sua senha' %>
+      <%= form.password_field :password_confirmation, required: true, placeholder: 'Insira a senha novamente' %>
+    </div>
+
+    <div class="form-actions">
+      <%= form.submit 'Registrar' %>
+    </div>
+  <% end %>
+</div>
