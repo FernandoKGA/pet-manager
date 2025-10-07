@@ -175,6 +175,7 @@ GEM
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
+    json (2.13.2)
     launchy (3.1.1)
       addressable (~> 2.8)
       childprocess (~> 5.0)
@@ -234,6 +235,7 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    prism (1.4.0)
     psych (5.2.6)
       date
       stringio
@@ -289,6 +291,7 @@ GEM
     regexp_parser (2.11.2)
     reline (0.6.2)
       io-console (~> 0.5)
+    rexml (3.4.4)
     rspec-core (3.13.5)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.5)
@@ -306,7 +309,16 @@ GEM
       rspec-mocks (~> 3.13)
       rspec-support (~> 3.13)
     rspec-support (3.13.5)
+    rubyzip (3.1.1)
     securerandom (0.4.1)
+    selenium-webdriver (4.36.0)
+      base64 (~> 0.2)
+      json (<= 2.13.2)
+      logger (~> 1.4)
+      prism (~> 1.0, < 1.5)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 4.0)
+      websocket (~> 1.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -339,6 +351,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    websocket (1.2.11)
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
@@ -374,6 +387,7 @@ DEPENDENCIES
   rails (~> 7.1.5, >= 7.1.5.2)
   rails-controller-testing
   rspec-rails
+  selenium-webdriver
   simplecov
   sprockets-rails
   stimulus-rails

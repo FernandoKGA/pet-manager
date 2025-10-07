@@ -1,0 +1,8 @@
+<%= form_with(model: expense, url: expenses_path, local: true) do |f| %>
+  <div><%= f.label :amount, "Valor" %><%= f.number_field :amount %></div>
+  <div><%= f.label :category, "Categoria" %><%= f.text_field :category %></div>
+  <div><%= f.label :description, "Descrição" %><%= f.text_area :description %></div>
+  <div><%= f.label :date, "Data" %><%= f.date_field :date %></div>
+  <div><%= f.label :pet_id, "Pet" %><%= f.collection_select :pet_id, pets, :id, :name %></div>
+  <%= f.submit "Salvar", class: "btn btn-success" %>
+<% end %>

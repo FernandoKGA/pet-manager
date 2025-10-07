@@ -1,0 +1,23 @@
+<h1>Meus Gastos</h1>
+
+<div>
+  <%= link_to "Voltar", user_path(current_user), class: "btn btn-secondary" %>
+  <%= button_to "Adicionar gasto", "#", id: "add-expense-btn", class: "btn btn-primary", method: :get %>
+</div>
+
+<div>
+  <label>Pet:</label>
+  <%= select_tag :pet_id, options_from_collection_for_select(@pets, :id, :name), include_blank: "Todos" %>
+
+  <label>Período:</label>
+  <%= select_tag :period, options_for_select(["Última semana", "Último mês", "Último ano"]), include_blank: "Todos" %>
+</div>
+
+<div id="chart" style="height: 300px;">
+  <!-- aqui depois você renderiza o gráfico via JS -->
+</div>
+
+<!-- Modal -->
+<div id="expense-modal" style="display:none;">
+  <%= render 'form', expense: Expense.new, pets: @pets %>
+</div>
