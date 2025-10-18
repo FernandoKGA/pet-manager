@@ -28,6 +28,22 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_01_001101) do
     t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
+  create_table "reminder_notifications", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "pet_id", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.string "category", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "due_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["due_at"], name: "index_reminder_notifications_on_due_at"
+    t.index ["pet_id"], name: "index_reminder_notifications_on_pet_id"
+    t.index ["user_id", "status"], name: "index_reminder_notifications_on_user_id_and_status"
+    t.index ["user_id"], name: "index_reminder_notifications_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", limit: 255
     t.string "first_name", limit: 255
@@ -41,4 +57,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_01_001101) do
   end
 
   add_foreign_key "pets", "users"
+  add_foreign_key "reminder_notifications", "pets"
+  add_foreign_key "reminder_notifications", "users"
 end
