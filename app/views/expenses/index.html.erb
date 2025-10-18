@@ -1,23 +1,44 @@
-<h1>Meus Gastos</h1>
+<h1>Minhas finanças</h1>
 
-<div>
-  <%= link_to "Voltar", user_path(current_user), class: "btn btn-secondary" %>
-  <%= button_to "Adicionar gasto", "#", id: "add-expense-btn", class: "btn btn-primary", method: :get %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <%= link_to "Voltar", user_path(@user), class: "btn btn-secondary", data: { turbo: false } %>
+  <button id="add-expense-btn" class="btn btn-primary">Adicionar gasto</button>
 </div>
 
-<div>
-  <label>Pet:</label>
-  <%= select_tag :pet_id, options_from_collection_for_select(@pets, :id, :name), include_blank: "Todos" %>
+<hr>
 
-  <label>Período:</label>
-  <%= select_tag :period, options_for_select(["Última semana", "Último mês", "Último ano"]), include_blank: "Todos" %>
-</div>
+<%= form_with(url: expenses_path, method: :get, data: { turbo_frame: "expenses_area", class: "mb-3" }) do %>
+  <div>
+    <%= label_tag :pet_id, "Pet", class: "form-label me-2" %>
+    <%= select_tag :pet_id, 
+                   options_from_collection_for_select(@pets, :id, :name, params[:pet_id]), 
+                   include_blank: "Todos", 
+                   onchange: "this.form.requestSubmit()",
+                   class: "form-select d-inline-block w-auto me-4" %>
 
-<div id="chart" style="height: 300px;">
-  <!-- aqui depois você renderiza o gráfico via JS -->
-</div>
+    <%= label_tag :period, "Período", class: "form-label me-2" %>
+    <%= select_tag :period, 
+                   options_for_select([["Última semana", "Última semana"], 
+                                       ["Último mês", "Último mês"], 
+                                       ["Último ano", "Último ano"]], 
+                                       params[:period]), 
+                   include_blank: "Todos", 
+                   onchange: "this.form.requestSubmit()",
+                   class: "form-select d-inline-block w-auto" %>
+  </div>
+<% end %>
 
-<!-- Modal -->
-<div id="expense-modal" style="display:none;">
-  <%= render 'form', expense: Expense.new, pets: @pets %>
+<turbo-frame id="expenses_area">
+  <div id="chart" style="height: 300px; margin-top: 1rem;">
+    <%= pie_chart @chart_data, donut: true, height: "300px", library: { title: { text: "Gastos por Categoria" } } %>
+  </div>
+</turbo-frame>
+
+<div id="expense-modal" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(0, 0, 0, 0.6); justify-content: center; align-items: center; z-index: 1050;">
+  <div style="background: white; padding: 2rem; border-radius: 8px; max-width: 400px; margin: auto; position: relative;">
+    <button id="close-expense-modal" type="button" class="btn btn-secondary" style="position: absolute; top: 10px; right: 10px;">Fechar</button>
+    <h3>Novo Gasto</h3>
+    <%= render 'form', expense: Expense.new, pets: @pets %>
+  </div>
 </div>

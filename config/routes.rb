@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show, :edit, :update]
   get       '/register',  to: 'users#new', as: 'users_new'
 
-  resources :expenses, only: [:new, :create, :index]
-
   resources :pets, only: [:new, :create, :show, :edit, :update]
 
   resources :expenses, only: [:index, :new, :create]

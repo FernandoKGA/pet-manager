@@ -13,7 +13,7 @@ RSpec.describe ExpensesController, type: :controller do
     context "com parâmetros válidos" do
       it "cria um novo gasto e redireciona" do
         expect {
-          post :create, params: { expense: { amount: 120.5, category: 'Saúde', date: Date.today, pet_id: pet.id } }
+          post :create, params: { expense: { amount: 120.5, category: 'veterinario', date: Date.today, pet_id: pet.id } }
         }.to change(Expense, :count).by(1)
 
         expect(response).to redirect_to(expenses_path)
@@ -21,12 +21,13 @@ RSpec.describe ExpensesController, type: :controller do
     end
 
     context "com parâmetros inválidos" do
-      it "não cria o gasto e renderiza :new" do
+      it "falha ao criar gasto e redireciona com aviso" do
         expect {
           post :create, params: { expense: { amount: nil, category: '', date: '', pet_id: nil } }
         }.to_not change(Expense, :count)
 
-        expect(response).to render_template(:new)
+        expect(response).to redirect_to(expenses_path)
+        expect(flash[:notice]).to eq('Seu gasto não foi registrado. Verifique os dados e tente novamente.')
       end
     end
   end
