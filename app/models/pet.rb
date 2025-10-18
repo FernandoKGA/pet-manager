@@ -4,4 +4,6 @@ class Pet < ApplicationRecord
   validates :breed, presence: true, length: {maximum: 255}
   
   belongs_to :user
+
+  has_many :expenses, dependent: :destroy
 end
