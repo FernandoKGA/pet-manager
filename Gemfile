@@ -69,3 +69,10 @@ group :development do
   # gem "spring"
 end
 
+group :test do
+  gem 'selenium-webdriver'
+  gem 'capybara'
+end
+
+gem "chartkick", "~> 5.2"
+
