@@ -1,7 +1,7 @@
 # spec/system/expenses_dashboard_spec.rb
 require 'rails_helper'
 
-RSpec.describe "Dashboard de gastos", type: :system do
+RSpec.describe "Dashboard de gastos", type: :system, js: true do
   let!(:user) { create(:user, email: "tester@capy.bara", password: "password", first_name: "Tester", last_name: "Capy") }
   let!(:pet) { create(:pet, user: user, name: "ACacoustic") }
 

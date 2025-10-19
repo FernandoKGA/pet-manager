@@ -71,7 +71,6 @@ end
 group :test do
   gem 'selenium-webdriver'
   gem 'capybara'
-  gem 'webdrivers'
 end
 
 gem "chartkick", "~> 5.2"

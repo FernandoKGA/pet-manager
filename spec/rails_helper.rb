@@ -7,7 +7,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 
 require 'rspec/rails'
 require 'capybara/rspec'
-require 'webdrivers/geckodriver'
+require 'selenium-webdriver'
 require 'securerandom'
 
 begin
@@ -25,20 +25,38 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 end
 
-# Configuracao do capybara no CI/CD
-Capybara.register_driver :headless_chrome do |app|
-  options = Selenium::WebDriver::Chrome::Options.new
-  options.add_argument('--headless=new') # Modo headless compatível com CI
+Capybara.register_driver :selenium_chrome_headless_custom do |app|
+  options = Selenium::WebDriver::Options.chrome
+  options.add_argument('--headless=new') # Modo headless moderno
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-dev-shm-usage')
-  options.add_argument('--disable-gpu')
-  options.add_argument('--disable-software-rasterizer')
-  options.add_argument('--window-size=1400,1400')
-  options.add_argument("--user-data-dir=/tmp/chrome-user-data-#{SecureRandom.hex(8)}")
+  options.add_argument('--window-size=1400,900')
 
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: options)
+  service = Selenium::WebDriver::Service.chrome
+  
+  # Você especificou um caminho para o chromedriver, então vamos mantê-lo:
+  service.executable_path = "./config/webdrivers/chromedriver/chromedriver"
+
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    options: options,
+    service: service
+  )
 end
 
+# 2. Configure o RSpec para usar o driver
+RSpec.configure do |config|
+  # ... (suas outras configs: fixture_paths, use_transactional_fixtures, etc.)
 
-Capybara.javascript_driver = :headless_chrome
-Capybara.default_driver = :headless_chrome
+  # Diga ao RSpec para usar seu driver customizado para testes :system
+  config.before(:each, type: :system) do
+    # O :rack_test é para testes rápidos (não-JS)
+    # O :selenium_chrome_headless_custom é para testes com JS (como o seu)
+    driven_by :rack_test 
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless_custom
+  end
+end
