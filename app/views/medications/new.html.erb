@@ -37,10 +37,9 @@
         
         <div class="d-flex gap-2">
           <%= form.submit 'Criar Medicamento', class: 'btn btn-success' %>
-          <%= link_to 'Cancelar', pet_medications_path(@pet), class: 'btn btn-secondary' %>
+          <%= link_to 'Cancelar', user_path(current_user), class: 'btn btn-secondary' %>
         </div>
       <% end %>
     </div>
   </div>
 </div>
-

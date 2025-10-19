@@ -28,7 +28,7 @@
             <td><%= medication.start_date.strftime('%d/%m/%Y') %></td>
             <td>
               <%= link_to 'Editar', edit_pet_medication_path(@pet, medication), class: 'btn btn-sm btn-warning' %>
-              <%= link_to 'Excluir', pet_medication_path(@pet, medication), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger' %>
+              <%= button_to 'Excluir', pet_medication_path(@pet, medication), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger', form: { style: 'display: inline;' } %>
             </td>
           </tr>
         <% end %>
@@ -40,4 +40,3 @@
     </div>
   <% end %>
 </div>
-

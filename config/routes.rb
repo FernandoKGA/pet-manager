@@ -10,13 +10,11 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'  
   resources :password_resets, only: [:new, :create, :edit, :update]
 
-
   resources :users, only: [:new, :create, :show, :edit, :update]
-  get       '/register',  to: 'users#new', as: 'users_new'
+  get '/register', to: 'users#new', as: 'users_new'
 
-  
-    resources :pets, only: [:new, :create, :show, :edit, :update] do
-    resources :medications 
+  resources :pets, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
+    resources :medications
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
