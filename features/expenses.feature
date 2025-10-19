@@ -5,7 +5,7 @@ Feature: Expenses page
   I want to view and register new expenses
 
   Background:
-    Given I'm logged in
+    Given I am logged in as a valid user
     And I have a pet named "ArcticMonkeysAcoustic"
     And I have some expenses for "ArcticMonkeysAcoustic"
 

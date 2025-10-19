@@ -1,17 +1,3 @@
-Given("I'm logged in") do
-  user = User.create!(
-    email: "teste@teste.com",
-    password: "tester",
-    first_name: "teste",
-    last_name: "teste"
-  )
-
-  visit login_path
-  fill_in "Email", with: user.email
-  fill_in "Senha", with: user.password
-  click_button "Logar"
-end
-
 # Criar pet
 Given('I have a pet named {string}') do |pet_name|
   user = User.last
