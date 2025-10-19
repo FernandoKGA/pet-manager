@@ -6,4 +6,9 @@ class Pet < ApplicationRecord
   belongs_to :user
 
   has_many :expenses, dependent: :destroy
+  has_many :weights, dependent: :destroy
+
+  def current_weight
+    weights.order(created_at: :desc).first&.weight
+  end
 end

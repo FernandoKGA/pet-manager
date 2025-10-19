@@ -53,12 +53,16 @@
               
               <p class="pet-info">
                 <%= pet.species %> • <%= pet.breed || 'SRD' %>
+                • <%= pet.current_weight %> kg
               </p>
             </div>
 
             <!-- Botão Editar -->
             <div class="pet-card-footer">
               <%= link_to "✏️ Editar", edit_pet_path(pet), class: "btn-edit" %>
+            </div>
+            <div class="pet-card-footer">
+              <%= link_to "Atualizar peso", new_pet_weight_path(pet), class: "btn-edit" %>
             </div>
           </div>
         <% end %>
@@ -75,5 +79,12 @@
       </div>
     <% end %>
   </div>
+
+  <% if flash[:notice] %>
+    <p style="color: green;"><%= flash[:notice] %></p>
+  <% end %>
+  <% if flash[:alert] %>
+    <p style="color: red;"><%= flash[:alert] %></p>
+  <% end %>
 
 </div>
