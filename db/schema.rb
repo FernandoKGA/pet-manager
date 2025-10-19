@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_01_001101) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_15_185432) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,5 +40,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_01_001101) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "weights", force: :cascade do |t|
+    t.bigint "pet_id", null: false
+    t.decimal "weight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_weights_on_pet_id"
+  end
+
   add_foreign_key "pets", "users"
+  add_foreign_key "weights", "pets"
 end
