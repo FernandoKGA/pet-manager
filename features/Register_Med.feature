@@ -9,26 +9,26 @@ Feature: Medication management
     And I have at least one pet registered
 
   Scenario: Add new medication record
-    When I click the "Adicionar Medicamento" button
-    And I enter the name "Vermífugo X"
-    And I enter the dosage "5ml"
-    And I enter the frequency "Uma vez por mês"
-    And I enter the start date "2025-10-13"
-    And I press "Salvar"
-    Then I should see "Medicamento adicionado com sucesso"
+    When I click on the medication button "Adicionar Medicamento"
+    And I enter the medication name "Vermífugo X"
+    And I enter the medication dosage "5ml"
+    And I enter the medication frequency "Uma vez por mês"
+    And I enter the medication start date "2025-10-13"
+    And I press the medication button "Criar Medicamento"
+    Then I should see the medication message "Medicamento adicionado com sucesso"
     And I should see the medication "Vermífugo X" in the dashboard
 
   Scenario: Update existing medication record
     Given I have an existing medication registered for my pet
     When I click edit on that medication
-    And I update the dosage to "10ml"
-    And I press "Atualizar"
-    Then I should see "Medicamento atualizado com sucesso"
+    And I update the medication dosage to "10ml"
+    And I press the medication button "Atualizar"
+    Then I should see the medication message "Medicamento atualizado com sucesso"
     And I should see the dosage "10ml" in the medication list
 
   Scenario: Remove a medication record
     Given I have an existing medication registered for my pet
     When I click delete on that medication
     And I confirm the deletion
-    Then I should see "Medicamento removido com sucesso"
+    Then I should see the medication message "Medicamento removido com sucesso"
     And the medication should not appear in the dashboard

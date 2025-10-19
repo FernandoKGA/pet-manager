@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :medication do
-    name { "Vermífugo X" }
-    dosage { "5ml" }
-    frequency { "Once a month" }
-    start_date { Date.parse("2025-10-13") }
-    association :pet
+    name { 'Medicamento Teste' }
+    dosage { '5ml' }
+    frequency { 'Uma vez por dia' }
+    start_date { Date.today }
+    pet
   end
 end
