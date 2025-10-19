@@ -1,0 +1,43 @@
+<div class="container mt-4">
+  <div class="row mb-4">
+    <div class="col-md-8">
+      <h1>Medicamentos de <%= @pet.name %></h1>
+    </div>
+    <div class="col-md-4 text-end">
+      <%= link_to 'Adicionar Medicamento', new_pet_medication_path(@pet), class: 'btn btn-primary' %>
+    </div>
+  </div>
+  
+  <% if @medications.any? %>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nome do Medicamento</th>
+          <th>Dosagem</th>
+          <th>Frequência</th>
+          <th>Data de Início</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @medications.each do |medication| %>
+          <tr>
+            <td><%= medication.name %></td>
+            <td><%= medication.dosage %></td>
+            <td><%= medication.frequency %></td>
+            <td><%= medication.start_date.strftime('%d/%m/%Y') %></td>
+            <td>
+              <%= link_to 'Editar', edit_pet_medication_path(@pet, medication), class: 'btn btn-sm btn-warning' %>
+              <%= link_to 'Excluir', pet_medication_path(@pet, medication), method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-sm btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info">
+      Nenhum medicamento registrado. <%= link_to 'Adicionar um agora', new_pet_medication_path(@pet) %>
+    </div>
+  <% end %>
+</div>
+

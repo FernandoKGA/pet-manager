@@ -1,0 +1,34 @@
+Feature: Medication management
+  As a pet owner
+  So that I can keep track of my pet's medications
+  I want to be able to add, update, and remove medication records for my pet
+
+  Background: I am logged in
+    Given I am a registered user
+    And I am logged into my account
+    And I have at least one pet registered
+
+  Scenario: Add new medication record
+    When I click the "Adicionar Medicamento" button
+    And I enter the name "Vermífugo X"
+    And I enter the dosage "5ml"
+    And I enter the frequency "Uma vez por mês"
+    And I enter the start date "2025-10-13"
+    And I press "Salvar"
+    Then I should see "Medicamento adicionado com sucesso"
+    And I should see the medication "Vermífugo X" in the dashboard
+
+  Scenario: Update existing medication record
+    Given I have an existing medication registered for my pet
+    When I click edit on that medication
+    And I update the dosage to "10ml"
+    And I press "Atualizar"
+    Then I should see "Medicamento atualizado com sucesso"
+    And I should see the dosage "10ml" in the medication list
+
+  Scenario: Remove a medication record
+    Given I have an existing medication registered for my pet
+    When I click delete on that medication
+    And I confirm the deletion
+    Then I should see "Medicamento removido com sucesso"
+    And the medication should not appear in the dashboard
