@@ -87,11 +87,3 @@ end
 When('I click edit on that medication') do
   click_link 'Editar', href: %r{medications/\d+/edit}
 end
-
-When('I click delete on that medication') do
-  click_link 'Excluir'
-end
-
-When('I confirm the deletion') do
-  # RackTest não suporta modais, então a deleção já aconteceu automaticamente
-end

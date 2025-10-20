@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get '/register', to: 'users#new', as: 'users_new'
 
   resources :pets, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
-    resources :medications
+    resources :medications, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 
   get "up" => "rails/health#show", as: :rails_health_check
