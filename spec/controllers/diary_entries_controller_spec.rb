@@ -86,9 +86,9 @@ RSpec.describe "DiaryEntries", type: :request do
         }.not_to change(DiaryEntry, :count)
       end
 
-      it "re-renders the index template with an unprocessable_entity status" do
+      it "re-renders the index template with an unprocessable_content status" do
         post pet_diary_entries_path(pet), params: invalid_params
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.body).to include("Diário de #{pet.name}")
       end
     end

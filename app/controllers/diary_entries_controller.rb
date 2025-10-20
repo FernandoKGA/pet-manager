@@ -22,7 +22,7 @@ class DiaryEntriesController < ApplicationController
       redirect_to pet_diary_entries_path(@pet), notice: 'Entrada do diário adicionada com sucesso!'
     else
       @diary_entries = @pet.diary_entries.order(entry_date: :desc)
-      render :index, status: :unprocessable_entity
+      render :index, status: :unprocessable_content
     end
   end
 

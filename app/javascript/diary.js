@@ -1,26 +1,26 @@
 document.addEventListener('turbo:load', () => {
   const modal = document.getElementById('new-entry-modal');
   const openBtn = document.getElementById('open-modal-btn');
-  const closeBtn = document.querySelector('.modal .close-btn'); // Seletor mais específico
+  const closeBtn = modal?.querySelector('.close-btn');
 
-  if (modal && openBtn && closeBtn) {
-    openBtn.onclick = function() {
-      modal.style.display = 'block';
-    }
-
-    closeBtn.onclick = function() {
-      modal.style.display = 'none';
-    }
-
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = 'none';
-      }
-    }
+  if (!modal || !openBtn || !closeBtn) {
+    return;
   }
 
+  const openModal = () => modal.style.display = 'block';
+  const closeModal = () => modal.style.display = 'none';
+
+  openBtn.addEventListener('click', openModal);
+  closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (event) => {
+    if (event.target === modal) {
+      closeModal();
+    }
+  });
+
   const errorExplanation = document.getElementById('error_explanation');
-  if (errorExplanation && modal) {
-    modal.style.display = 'block';
+  if (errorExplanation) {
+    openModal();
   }
 });
