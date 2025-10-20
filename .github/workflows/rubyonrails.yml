@@ -45,6 +45,16 @@ jobs:
       # - name: Set up database schema
       #   run: bin/rails db:schema:load
       # Add or replace test runners here
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v2
+        with:
+          chrome-version: 141
+
+      - name: Clean old Chrome temp dirs
+        run: |
+          sudo rm -rf /tmp/chrome-user-data-* || true
+
+
       - name: Run tests
         run: bin/rake
       - name: Coveralls GitHub Action
