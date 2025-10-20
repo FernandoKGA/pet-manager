@@ -14,6 +14,10 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show, :edit, :update]
   get       '/register',  to: 'users#new', as: 'users_new'
 
+  get '/notification_center', to: 'notification_center#index', as: :notification_center
+  get '/notification_center/:id', to: 'notification_center#show', as: :notification_entry
+  patch '/notification_center/:id/mark_as_read', to: 'notification_center#mark_as_read', as: :notification_mark_as_read
+  patch '/notification_center/mark_all_as_read', to: 'notification_center#mark_all_as_read', as: :notification_mark_all_as_read
   
   resources :pets, only: [:new, :create, :show, :edit, :update] do
     resources :weight, only: [:new, :create], path: 'weight'
