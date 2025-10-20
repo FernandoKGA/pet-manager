@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   
   resources :pets, only: [:new, :create, :show, :edit, :update] do
     resources :weight, only: [:new, :create], path: 'weight'
+    resources :diary_entries, only: [:index, :create, :destroy]
   end
   
   resources :expenses, only: [:index, :new, :create]

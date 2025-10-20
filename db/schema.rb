@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_15_185432) do
+ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "diary_entries", force: :cascade do |t|
+    t.text "content"
+    t.datetime "entry_date"
+    t.bigint "pet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_diary_entries_on_pet_id"
+  end
 
   create_table "expenses", force: :cascade do |t|
     t.decimal "amount"
@@ -69,8 +78,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_15_185432) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "expenses", "pets"
-  add_foreign_key "expenses", "users"
   create_table "weights", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.decimal "weight"
@@ -79,10 +86,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_15_185432) do
     t.index ["pet_id"], name: "index_weights_on_pet_id"
   end
 
+  add_foreign_key "diary_entries", "pets"
+  add_foreign_key "expenses", "pets"
+  add_foreign_key "expenses", "users"
   add_foreign_key "pets", "users"
-  
   add_foreign_key "reminder_notifications", "pets"
   add_foreign_key "reminder_notifications", "users"
-
   add_foreign_key "weights", "pets"
 end
