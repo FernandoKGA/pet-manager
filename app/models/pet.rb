@@ -8,6 +8,7 @@ class Pet < ApplicationRecord
   has_many :reminder_notifications, dependent: :destroy
   has_many :expenses, dependent: :destroy
   has_many :weights, dependent: :destroy
+  has_many :diary_entries, dependent: :destroy
 
   def current_weight
     weights.order(created_at: :desc).first&.weight
