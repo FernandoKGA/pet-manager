@@ -5,6 +5,7 @@ class Pet < ApplicationRecord
 
   belongs_to :user
 
+  has_many :baths, dependent: :destroy
   has_many :reminder_notifications, dependent: :destroy
   has_many :expenses, dependent: :destroy
   has_many :weights, dependent: :destroy

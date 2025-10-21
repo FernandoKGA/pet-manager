@@ -1,0 +1,32 @@
+<%= form_with(model: [@pet, bath], local: true) do |form| %>
+  <% if bath.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(bath.errors.count, "erro") %> impediram este banho de ser salvo:</h2>
+
+      <ul>
+        <% bath.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :date, "Data e Hora" %>
+    <%= form.datetime_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price, "Preço" %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes, "Observações" %>
+    <%= form.text_area :notes %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Salvar Banho", class: "btn btn-primary" %>
+  </div>
+<% end %>
