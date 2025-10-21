@@ -11,11 +11,7 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :users, only: [:new, :create, :show, :edit, :update]
-  get '/register', to: 'users#new', as: 'users_new'
-
-  resources :pets, only: [:new, :create, :show, :edit, :update, :index, :destroy] do
-    resources :medications, only: [:index, :new, :create, :edit, :update, :destroy]
-  end
+   get       '/register',  to: 'users#new', as: 'users_new'
 
   get '/notification_center', to: 'notification_center#index', as: :notification_center
   get '/notification_center/:id', to: 'notification_center#show', as: :notification_entry
@@ -25,6 +21,7 @@ Rails.application.routes.draw do
   resources :pets, only: [:new, :create, :show, :edit, :update] do
     resources :weight, only: [:new, :create], path: 'weight'
     resources :diary_entries, only: [:index, :create, :destroy]
+    resources :medications, only: [:index, :new, :create, :edit, :update, :destroy]
   end
   
   resources :expenses, only: [:index, :new, :create]
