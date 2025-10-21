@@ -13,7 +13,7 @@ class MedicationsController < ApplicationController
   def create
     @medication = @pet.medications.build(medication_params)
     if @medication.save
-      redirect_to pet_medications_path(@pet), notice: 'Medicamento adicionado com sucesso'
+      redirect_to user_path(current_user), notice: 'Medicamento adicionado com sucesso'
     else
       render :new, status: :unprocessable_content
     end
@@ -22,20 +22,20 @@ class MedicationsController < ApplicationController
   def edit
   end
 
-def update
-  if @medication.update(medication_params)
-    redirect_to user_path(current_user), notice: 'Medicamento atualizado com sucesso.'
-  else
-    render :edit
+  def update
+    if @medication.update(medication_params)
+      redirect_to user_path(current_user), notice: 'Medicamento atualizado com sucesso.'
+    else
+      render :edit
+    end
   end
-end
 
-def destroy
-  @pet = Pet.find(params[:pet_id])
-  @medication = @pet.medications.find(params[:id])
-  @medication.destroy
-  redirect_to pet_medications_path(@pet), notice: "Medicamento excluído com sucesso."
-end
+  def destroy
+    @pet = Pet.find(params[:pet_id])
+    @medication = @pet.medications.find(params[:id])
+    @medication.destroy
+    redirect_to user_path(current_user), notice: "Medicamento excluído com sucesso."
+  end
 
   private
 
