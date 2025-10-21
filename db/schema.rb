@@ -14,15 +14,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "medications", force: :cascade do |t|
-    t.bigint "pet_id", null: false
-    t.string "name", null: false
-    t.string "dosage"
-    t.string "frequency"
-    t.date "start_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["pet_id"], name: "index_medications_on_pet_id"
   create_table "diary_entries", force: :cascade do |t|
     t.text "content"
     t.datetime "entry_date"
@@ -43,6 +34,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
     t.datetime "updated_at", null: false
     t.index ["pet_id"], name: "index_expenses_on_pet_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
+  end
+
+  create_table "medications", force: :cascade do |t|
+    t.bigint "pet_id", null: false
+    t.string "name", null: false
+    t.string "dosage"
+    t.string "frequency"
+    t.date "start_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_medications_on_pet_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -87,7 +89,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "medications", "pets"
   create_table "weights", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.decimal "weight"
@@ -99,6 +100,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
   add_foreign_key "diary_entries", "pets"
   add_foreign_key "expenses", "pets"
   add_foreign_key "expenses", "users"
+  add_foreign_key "medications", "pets"
   add_foreign_key "pets", "users"
   add_foreign_key "reminder_notifications", "pets"
   add_foreign_key "reminder_notifications", "users"
