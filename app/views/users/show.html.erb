@@ -108,11 +108,6 @@
               <%= link_to "Atualizar peso", new_pet_weight_path(pet), class: "btn-edit" %>
               <%= link_to "Diário", pet_diary_entries_path(pet), class: "btn-edit" %>
             </div>
-
-            <!-- Botões de Ação -->
-            <div class="pet-card-footer">
-              <%= link_to "✏️ Editar Pet", edit_pet_path(pet), class: "btn-edit" %>
-          </div>
         <% end %>
       </div>
     <% else %>
