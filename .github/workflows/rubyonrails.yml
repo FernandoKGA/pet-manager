@@ -46,6 +46,7 @@ jobs:
       #   run: bin/rails db:schema:load
       # Add or replace test runners here
       - name: Install Chrome
+        id: install_chrome
         uses: browser-actions/setup-chrome@v2
         with:
           chrome-version: 141
@@ -56,6 +57,8 @@ jobs:
 
 
       - name: Run tests
+        env:
+          CHROME_PATH: ${{ steps.install_chrome.outputs.chrome-path }}
         run: bin/rake
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2.3.6
