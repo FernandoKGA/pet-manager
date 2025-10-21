@@ -5,7 +5,10 @@ Given('I am logged in as a valid user') do
     first_name: "Test",
     last_name: "User"
   )
-  visit "/login"
+
+  # Usando o helper da rota
+  visit login_path
+
   fill_in "Email", with: @user.email
   fill_in "Senha", with: "password123"
   click_button "Logar"
