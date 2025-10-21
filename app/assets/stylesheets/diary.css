@@ -1,0 +1,215 @@
+.diary-page-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.diary-header {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.diary-title {
+  margin: 0 0 0.5rem 0;
+  color: #1a202c;
+  font-size: 2rem;
+}
+
+.diary-subtitle {
+  margin: 0;
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+.diary-content-section {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.diary-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.filter-form {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.filter-form label {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.filter-form input[type="date"] {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #cbd5e0;
+}
+
+.diary-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.diary-entry-card {
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.entry-date {
+  font-weight: 600;
+  color: #718096;
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem 0;
+}
+
+.entry-content {
+  color: #2d3748;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(30, 41, 59, 0.6);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10vh auto;
+  padding: 2rem;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-title {
+  margin: 0;
+  color: #1a202c;
+  font-size: 1.5rem;
+}
+
+.close-btn {
+  color: #a0aec0;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #4a5568;
+}
+
+.modal-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.modal-form label {
+  display: block;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 0.5rem;
+}
+
+.modal-form input,
+.modal-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.modal-form .form-actions {
+  margin-top: 1.5rem;
+  text-align: right;
+}
+
+.btn-back {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #764ba2;
+  text-decoration: none;
+  margin-bottom: 1rem;
+}
+
+.btn-back:hover {
+  text-decoration: underline;
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.entry-header .entry-date {
+  margin: 0;
+}
+
+.btn-delete {
+  padding: 4px 10px;
+  background: #f5576c;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-delete:hover {
+  background: #d64555;
+}
+
+@media (max-width: 768px) {
+  .diary-page-container, .diary-header, .diary-content-section {
+    padding: 1.5rem;
+  }
+  .diary-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
