@@ -1,0 +1,17 @@
+<%= form_with(model: [@pet, @weight], url: pet_weight_index_path(@pet), html: { class: "pet-form" }) do |form| %>
+
+  <h2>Registrar novo peso para <%= @pet.name %></h2>
+
+  <div class="form-group">
+    <%= form.label :weight, "Peso atual (kg)" %>
+    <%= form.number_field :weight, step: '0.01', autofocus: true, class: "form-control" %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Atualizar peso", class: "btn" %>
+  </div>
+
+  <div class="form-actions">
+    <%= link_to "Cancelar e voltar", user_path(current_user), class: "btn" %>
+  </div>
+<% end %>

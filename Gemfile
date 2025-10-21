@@ -54,6 +54,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'database_cleaner-active_record'
   gem 'simplecov', require: false
+  gem 'shoulda-matchers'
 end
 
 group :development do
@@ -67,4 +68,11 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+
+group :test do
+  gem 'selenium-webdriver'
+  gem 'capybara'
+end
+
+gem "chartkick", "~> 5.2"
 
