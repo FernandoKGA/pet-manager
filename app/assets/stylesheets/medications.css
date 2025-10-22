@@ -1,0 +1,153 @@
+.pet-medications-section {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.medications-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.medications-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: #333;
+}
+
+.medications-count {
+  background-color: #e8f4f8;
+  color: #0066cc;
+  border-radius: 12px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.medications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.medication-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border-left: 3px solid #0066cc;
+}
+
+.medication-info {
+  flex: 1;
+}
+
+.medication-name {
+  font-size: 13px;
+  margin: 0 0 3px 0;
+  color: #333;
+}
+
+.medication-dosage {
+  font-size: 12px;
+  margin: 0;
+  color: #666;
+}
+
+.medication-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-small {
+  padding: 4px 8px;
+  font-size: 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-edit {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.btn-edit:hover {
+  background-color: #ffe69c;
+}
+
+.btn-delete {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.btn-delete:hover {
+  background-color: #f5c6cb;
+}
+
+.medications-empty {
+  text-align: center;
+  padding: 8px;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+}
+
+.medications-empty-text {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+}
+
+.btn-add-medication {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-add-medication:hover {
+  background-color: #c3e6cb;
+  color: #155724;
+}
+
+.pet-card-footer {
+  display: flex;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.btn-view {
+  flex: 1;
+  padding: 8px;
+  text-align: center;
+  font-size: 12px;
+  background-color: #e7e7ff;
+  color: #0066cc;
+  border: 1px solid #b3b3ff;
+  border-radius: 4px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-view:hover {
+  background-color: #d0d0ff;
+}

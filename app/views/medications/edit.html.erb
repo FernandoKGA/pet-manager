@@ -1,0 +1,47 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8">
+      <h1>Editar Medicamento</h1>
+      
+      <%= form_with(model: [@pet, @medication], local: true) do |form| %>
+        <% if @medication.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(@medication.errors.count, 'erro') %> ao salvar:</h4>
+            <ul>
+              <% @medication.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        
+        <div class="mb-3">
+          <%= form.label :name, 'Nome do Medicamento' %>
+          <%= form.text_field :name, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :dosage, 'Dosagem' %>
+          <%= form.text_field :dosage, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :frequency, 'Frequência' %>
+          <%= form.text_field :frequency, class: 'form-control' %>
+        </div>
+        
+        <div class="mb-3">
+          <%= form.label :start_date, 'Data de Início' %>
+          <%= form.date_field :start_date, class: 'form-control' %>
+        </div>
+        
+        <div class="d-flex gap-2">
+          <%= form.submit 'Atualizar', class: 'btn btn-success' %>
+          <%= link_to 'Cancelar', user_path(current_user), class: 'btn btn-secondary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+

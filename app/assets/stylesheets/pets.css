@@ -3,7 +3,16 @@
   background-color: #f9fafb;
   display: flex;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   padding: 2rem;
+}
+
+.pets-edit-page {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
@@ -17,7 +26,8 @@
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .form-group {
@@ -59,8 +69,36 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin: 0 0.5rem;
 }
 
 .btn:hover {
   background-color: #4338ca;
+}
+
+.btn-secondary {
+  background-color: #6b7280;
+}
+
+.btn-secondary:hover {
+  background-color: #4b5563;
+}
+
+.error-messages {
+  background-color: #fee2e2;
+  color: #991b1b;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #dc2626;
+}
+
+.error-messages h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.error-messages ul {
+  margin: 0;
+  padding-left: 1.5rem;
 }

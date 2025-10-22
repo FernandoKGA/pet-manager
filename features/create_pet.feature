@@ -16,13 +16,13 @@ Feature: Pet registration
     And I fill in the field "Tamanho" with "50"
     And I fill in the field "Gênero" with "Macho"
     And I fill in the field "ID Sinpatinhas" with "12345"
-    And I press "Salvar"
+    And I press "Registrar Pet"
     Then I should see the message "Pet cadastrado com sucesso!"
     And I should see the message "Rex"
 
   Scenario Outline: invalid pet registration
     When I fill in the field "<field>" with "<value>"
-    And I press "Salvar"
+    And I press "Registrar Pet"
     Then I should see the message "<message>"
 
     Examples:
