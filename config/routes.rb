@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :password_resets, only: [:new, :create, :edit, :update]
 
   resources :users, only: [:new, :create, :show, :edit, :update]
-   get       '/register',  to: 'users#new', as: 'users_new'
+  get       '/register',  to: 'users#new', as: 'users_new'
 
   get '/notification_center', to: 'notification_center#index', as: :notification_center
   get '/notification_center/:id', to: 'notification_center#show', as: :notification_entry
