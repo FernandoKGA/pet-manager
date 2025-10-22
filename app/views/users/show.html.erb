@@ -21,11 +21,6 @@
         <span class="badge bg-danger ms-2" data-testid="notification-indicator"><%= @unread_count %></span>
       <% end %>
 
-      <%= button_to 'Editar cadastro',
-                    edit_user_path(@user),
-                    class: 'btn-primary',
-                    method: :get %>
-
       <%= link_to "Cadastrar pet", new_pet_path, class: "btn-secondary" %>
     </div>
   </div>
@@ -102,12 +97,15 @@
                 </div>
               <% end %>
               <%= link_to "+ Adicionar Medicamento", new_pet_medication_path(pet), class: "btn-add-medication" %>
+            </div>
+
             <!-- Botão Editar -->
             <div class="pet-card-footer">
               <%= link_to "✏️ Editar", edit_pet_path(pet), class: "btn-edit" %>
               <%= link_to "Atualizar peso", new_pet_weight_path(pet), class: "btn-edit" %>
               <%= link_to "Diário", pet_diary_entries_path(pet), class: "btn-edit" %>
             </div>
+          </div>
         <% end %>
       </div>
     <% else %>
