@@ -20,15 +20,10 @@ Rails.application.routes.draw do
   patch '/notification_center/:id/mark_as_read', to: 'notification_center#mark_as_read', as: :notification_mark_as_read
   patch '/notification_center/mark_all_as_read', to: 'notification_center#mark_all_as_read', as: :notification_mark_all_as_read
   
-  resources :pets, only: [:new, :create, :show, :edit, :update]
-
-  resources :pets do
-    resources :baths # Linha que aninha os Banhos dentro de Pets
-  end
-
   resources :baths, only: [:show, :edit, :update, :destroy]
   
   resources :pets, only: [:new, :create, :show, :edit, :update] do
+    resources :baths # Linha que aninha os Banhos dentro de Pets
     resources :weight, only: [:new, :create], path: 'weight'
     resources :diary_entries, only: [:index, :create, :destroy]
   end

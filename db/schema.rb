@@ -10,10 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_12_144610) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "baths", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.datetime "date"
@@ -22,9 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_12_144610) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pet_id"], name: "index_baths_on_pet_id"
-ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  end
 
   create_table "diary_entries", force: :cascade do |t|
     t.text "content"
