@@ -1,5 +1,6 @@
 
 class UsersController < ApplicationController
+  include NotificationCenterContext
 
   skip_before_action :authenticate_user, only: [:new, :create]
   before_action :set_user, only: [:show, :edit, :update]
@@ -28,7 +29,7 @@ class UsersController < ApplicationController
   def show
     @user = current_user
     @pets = @user.pets  # pega todos os pets do usuário logado
-    load_notification_center_context
+    prepare_notification_center_context(user: @user)
   end
 
   def edit; end
@@ -70,11 +71,4 @@ class UsersController < ApplicationController
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
 
-    def load_notification_center_context
-      @notifications = @user.reminder_notifications.includes(:pet).ordered_by_due_at
-      @unread_count = @user.reminder_notifications.unread.count
-      @notifications_panel_open = params[:notifications] == 'open' || params[:selected_notification_id].present?
-      selected_id = params[:selected_notification_id]&.to_i
-      @selected_notification = @notifications.find { |item| item.id == selected_id } if selected_id
-    end
 end

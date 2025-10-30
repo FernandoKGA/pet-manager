@@ -3,6 +3,8 @@
 <% unread_count ||= 0 %>
 <% panel_open = local_assigns.fetch(:panel_open, false) %>
 <% user ||= nil %>
+<% custom_reminder_form ||= nil %>
+<% show_custom_reminder_modal = local_assigns.fetch(:show_custom_reminder_modal, false) %>
 
 <div class="notification-overlay <%= 'is-open' if panel_open %>" data-testid="notification-overlay">
   <% if user.present? %>
@@ -21,13 +23,22 @@
         <p class="text-muted mb-0" data-testid="notification-subtitle">Acompanhe os lembretes dos seus pets</p>
       </div>
       <div class="d-flex align-items-center gap-3">
-        <% if notifications_collection.any? %>
-          <%= button_to 'Marcar todas como lidas',
-                        notification_mark_all_as_read_path,
-                        method: :patch,
-                        class: 'btn btn-outline-primary',
-                        data: { testid: 'mark-all-button' } %>
-        <% end %>
+        <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
+          <% if user.present? %>
+            <%= link_to 'Cadastrar um lembrete',
+                        user_path(user, notifications: 'open', reminder_modal: 'new'),
+                        class: 'btn btn-primary',
+                        data: { testid: 'open-custom-reminder' } %>
+          <% end %>
+
+          <% if notifications_collection.any? %>
+            <%= button_to 'Marcar todas como lidas',
+                          notification_mark_all_as_read_path,
+                          method: :patch,
+                          class: 'btn btn-outline-primary',
+                          data: { testid: 'mark-all-button' } %>
+          <% end %>
+        </div>
         <% if user.present? %>
           <%= link_to 'Fechar',
                       user_path(user),
@@ -48,10 +59,14 @@
         <div class="display-4 mb-3" aria-hidden="true">📭</div>
         <h3 class="h5 mb-2">Você ainda não tem notificações</h3>
         <p class="text-muted mb-4">Assim que você cadastrar lembretes, eles aparecem por aqui.</p>
-        <%= link_to 'Cadastrar um lembrete',
-                    '#',
-                    class: 'btn btn-primary',
-                    data: { testid: 'empty-state-cta' } %>
+        <% if user.present? %>
+          <%= link_to 'Cadastrar um lembrete',
+                      user_path(user, notifications: 'open', reminder_modal: 'new'),
+                      class: 'btn btn-primary',
+                      data: { testid: 'empty-state-cta' } %>
+        <% else %>
+          <span class="btn btn-primary disabled">Cadastrar um lembrete</span>
+        <% end %>
       </div>
     <% else %>
       <div class="row gy-4">
@@ -65,6 +80,9 @@
                     <div class="d-flex align-items-center gap-2 flex-wrap">
                       <span class="fw-semibold text-secondary"><%= notification.pet.name %></span>
                       <span class="badge text-bg-secondary" data-testid="category-pill"><%= notification.category %></span>
+                      <% if notification.recurring? %>
+                        <span class="badge text-bg-warning" data-testid="recurrence-badge"><%= notification.recurrence_label %></span>
+                      <% end %>
                       <% if notification.unread? %>
                         <span class="badge text-bg-success" data-testid="new-badge">Nova</span>
                       <% end %>
@@ -121,4 +139,99 @@
       </div>
     <% end %>
   </div>
+
+  <% if show_custom_reminder_modal && custom_reminder_form.present? %>
+    <div class="custom-reminder-modal-backdrop">
+      <div class="custom-reminder-modal" data-testid="custom-reminder-modal">
+        <%= form_with model: custom_reminder_form,
+                      url: notification_center_custom_reminders_path,
+                      data: { testid: 'custom-reminder-form' },
+                      class: 'card shadow-lg p-4 border-0' do |form| %>
+          <div class="mb-3">
+            <h2 class="h4 mb-2" data-testid="modal-heading">Novo lembrete personalizado</h2>
+            <p class="text-muted mb-0">Escolha um pet e defina como quer ser lembrado</p>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <%= form.label :title, 'Título do lembrete', class: 'form-label' %>
+              <%= form.text_field :title, class: 'form-control', autofocus: true %>
+              <% form.object.errors.full_messages_for(:title).each do |message| %>
+                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+              <% end %>
+            </div>
+
+            <div class="col-md-6">
+              <%= form.label :pet_id, 'Pet', class: 'form-label' %>
+              <%= form.collection_select :pet_id,
+                                         user.pets,
+                                         :id,
+                                         :name,
+                                         { prompt: 'Selecione um pet' },
+                                         class: 'form-select' %>
+              <% form.object.errors.full_messages_for(:pet_id).each do |message| %>
+                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+              <% end %>
+            </div>
+
+            <div class="col-md-6">
+              <%= form.label :category, 'Categoria', class: 'form-label' %>
+              <%= form.select :category,
+                              ReminderNotifications::CustomReminderForm::CATEGORY_OPTIONS,
+                              { prompt: 'Selecione uma categoria' },
+                              class: 'form-select' %>
+              <% form.object.errors.full_messages_for(:category).each do |message| %>
+                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+              <% end %>
+            </div>
+
+            <div class="col-md-6">
+              <%= form.label :scheduled_date, 'Data', class: 'form-label' %>
+              <%= form.date_field :scheduled_date,
+                                  class: 'form-control',
+                                  min: Time.zone.today.to_s %>
+              <% form.object.errors.full_messages_for(:scheduled_date).each do |message| %>
+                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+              <% end %>
+            </div>
+
+            <div class="col-md-6">
+              <%= form.label :time, 'Horário', class: 'form-label' %>
+              <%= form.time_field :time, class: 'form-control', step: 60 %>
+              <% form.object.errors.full_messages_for(:time).each do |message| %>
+                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+              <% end %>
+            </div>
+
+            <div class="col-md-6">
+              <%= form.label :recurrence, 'Repetição', class: 'form-label' %>
+              <%= form.select :recurrence,
+                              ReminderNotifications::CustomReminderForm::RECURRENCE_OPTIONS.keys,
+                              {},
+                              class: 'form-select' %>
+              <% form.object.errors.full_messages_for(:recurrence).each do |message| %>
+                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+              <% end %>
+            </div>
+
+            <div class="col-12">
+              <%= form.label :notes, 'Observações', class: 'form-label' %>
+              <%= form.text_area :notes, class: 'form-control', rows: 3 %>
+              <% form.object.errors.full_messages_for(:notes).each do |message| %>
+                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end gap-3 mt-4">
+            <%= link_to 'Cancelar',
+                        user_path(user, notifications: 'open'),
+                        class: 'btn btn-outline-secondary',
+                        data: { testid: 'custom-reminder-cancel' } %>
+            <%= form.submit 'Salvar lembrete', class: 'btn btn-primary', data: { testid: 'custom-reminder-submit' } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
