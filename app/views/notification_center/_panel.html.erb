@@ -16,21 +16,23 @@
   <% else %>
     <div class="notification-overlay__backdrop"></div>
   <% end %>
-  <div class="notification-overlay__content shadow-lg" id="notification-center-card" data-testid="notification-panel">
-    <div class="notification-overlay__header d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
-      <div>
-        <h2 class="h4 mb-1" data-testid="notification-heading">📬 Central de notificações</h2>
-        <p class="text-muted mb-0" data-testid="notification-subtitle">Acompanhe os lembretes dos seus pets</p>
-      </div>
-      <div class="d-flex align-items-center gap-3">
-        <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
+  <div class="notification-overlay__content shadow-lg" id="notification-center-card">
+    <div class="notification-center" data-testid="notification-panel">
+      <header class="notification-center__header" data-testid="notification-header">
+        <div class="notification-center__header-title">
+          <h2 class="h4 mb-1" data-testid="notification-heading">📬 Central de notificações</h2>
+          <p class="text-muted mb-0" data-testid="notification-subtitle">Acompanhe os lembretes dos seus pets</p>
+        </div>
+        <div class="notification-center__header-actions">
+          <span class="badge rounded-pill text-bg-primary px-3 py-2" data-testid="unread-counter">
+            <%= unread_pill_text(unread_count) %>
+          </span>
           <% if user.present? %>
             <%= link_to 'Cadastrar um lembrete',
                         user_path(user, notifications: 'open', reminder_modal: 'new'),
                         class: 'btn btn-primary',
                         data: { testid: 'open-custom-reminder' } %>
           <% end %>
-
           <% if notifications_collection.any? %>
             <%= button_to 'Marcar todas como lidas',
                           notification_mark_all_as_read_path,
@@ -38,200 +40,215 @@
                           class: 'btn btn-outline-primary',
                           data: { testid: 'mark-all-button' } %>
           <% end %>
+          <% if user.present? %>
+            <%= link_to 'Fechar',
+                        user_path(user),
+                        class: 'btn btn-link notification-overlay__close',
+                        data: { testid: 'close-notification-panel' } %>
+          <% end %>
         </div>
-        <% if user.present? %>
-          <%= link_to 'Fechar',
-                      user_path(user),
-                      class: 'btn btn-link notification-overlay__close',
-                      data: { testid: 'close-notification-panel' } %>
-        <% end %>
-      </div>
-    </div>
+      </header>
 
-    <div class="mb-4">
-      <span class="badge rounded-pill text-bg-primary px-3 py-2" data-testid="unread-counter">
-        <%= unread_pill_text(unread_count) %>
-      </span>
-    </div>
+      <% if notifications_collection.blank? %>
+        <div class="notification-center__empty" data-testid="empty-state">
+          <div class="display-4 mb-3" aria-hidden="true">📭</div>
+          <h3 class="h5 mb-2">Você ainda não tem notificações</h3>
+          <p class="text-muted mb-4">Assim que você cadastrar lembretes, eles aparecem por aqui.</p>
+          <% if user.present? %>
+            <%= link_to 'Cadastrar um lembrete',
+                        user_path(user, notifications: 'open', reminder_modal: 'new'),
+                        class: 'btn btn-primary',
+                        data: { testid: 'empty-state-cta' } %>
+          <% else %>
+            <span class="btn btn-primary disabled">Cadastrar um lembrete</span>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="notification-center__body">
+          <aside class="notification-center__pane notification-center__filters" data-testid="notification-filters">
+            <div class="notification-center__filters-card">
+              <h3 class="h6 text-uppercase text-muted mb-3">Resumo</h3>
+              <dl class="row mb-0 small">
+                <dt class="col-7">Total de lembretes</dt>
+                <dd class="col-5 text-end fw-semibold"><%= notifications_collection.count %></dd>
+                <dt class="col-7">Lembretes não lidos</dt>
+                <dd class="col-5 text-end fw-semibold"><%= unread_count %></dd>
+              </dl>
+            </div>
+            <div class="notification-center__filters-card mt-4">
+              <h3 class="h6 text-uppercase text-muted mb-3">Filtros rápidos</h3>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-outline-secondary btn-sm" disabled>Todos</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" disabled>Não lidos</button>
+                <button type="button" class="btn btn-outline-secondary btn-sm" disabled>Próximos 7 dias</button>
+              </div>
+            </div>
+          </aside>
 
-    <% if notifications_collection.blank? %>
-      <div class="text-center py-5 border rounded-4" data-testid="empty-state">
-        <div class="display-4 mb-3" aria-hidden="true">📭</div>
-        <h3 class="h5 mb-2">Você ainda não tem notificações</h3>
-        <p class="text-muted mb-4">Assim que você cadastrar lembretes, eles aparecem por aqui.</p>
-        <% if user.present? %>
-          <%= link_to 'Cadastrar um lembrete',
-                      user_path(user, notifications: 'open', reminder_modal: 'new'),
-                      class: 'btn btn-primary',
-                      data: { testid: 'empty-state-cta' } %>
-        <% else %>
-          <span class="btn btn-primary disabled">Cadastrar um lembrete</span>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="row gy-4">
-        <div class="col-lg-6">
-          <% notifications_collection.each do |notification| %>
-            <div class="card shadow-sm border-0 mb-3" data-testid="notification-card" data-title="<%= notification.title %>">
-              <div class="card-body">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                  <div>
-                    <h3 class="h6 mb-1"><%= notification.title %></h3>
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                      <span class="fw-semibold text-secondary"><%= notification.pet.name %></span>
-                      <span class="badge text-bg-secondary" data-testid="category-pill"><%= notification.category %></span>
-                      <% if notification.recurring? %>
-                        <span class="badge text-bg-warning" data-testid="recurrence-badge"><%= notification.recurrence_label %></span>
-                      <% end %>
-                      <% if notification.unread? %>
-                        <span class="badge text-bg-success" data-testid="new-badge">Nova</span>
-                      <% end %>
+          <section class="notification-center__pane notification-center__list" data-testid="notification-list">
+            <% notifications_collection.each do |notification| %>
+              <div class="card shadow-sm border-0 notification-center__card" data-testid="notification-card" data-title="<%= notification.title %>">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                      <h3 class="h6 mb-1"><%= notification.title %></h3>
+                      <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <span class="fw-semibold text-secondary"><%= notification.pet.name %></span>
+                        <span class="badge text-bg-secondary" data-testid="category-pill"><%= notification.category %></span>
+                        <% if notification.recurring? %>
+                          <span class="badge text-bg-warning" data-testid="recurrence-badge"><%= notification.recurrence_label %></span>
+                        <% end %>
+                        <% if notification.unread? %>
+                          <span class="badge text-bg-success" data-testid="new-badge">Nova</span>
+                        <% end %>
+                      </div>
+                    </div>
+                    <span class="badge text-bg-info" data-testid="due-badge"><%= notification.due_label %></span>
+                  </div>
+                  <% if notification.description.present? %>
+                    <p class="text-muted mb-3"><%= notification.description %></p>
+                  <% end %>
+                  <div class="d-flex flex-wrap gap-2">
+                    <%= link_to 'Ver detalhes',
+                                notification_entry_path(notification),
+                                class: 'btn btn-link p-0',
+                                data: { testid: 'view-details-action' } %>
+                    <%= button_to 'Marcar como lida',
+                                  notification_mark_as_read_path(notification),
+                                  method: :patch,
+                                  class: "btn btn-sm btn-primary #{'disabled' if notification.read?}",
+                                  disabled: notification.read?,
+                                  data: { testid: 'mark-as-read-action' } %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </section>
+
+          <section class="notification-center__pane notification-center__details" data-testid="notification-details-pane">
+            <%= link_to '← Voltar', '#notification-list', class: 'btn btn-link notification-center__back px-0' %>
+            <% if show_custom_reminder_modal && custom_reminder_form.present? %>
+              <div class="notification-center__form" data-testid="custom-reminder-modal">
+                <%= form_with model: custom_reminder_form,
+                              url: notification_center_custom_reminders_path,
+                              data: { testid: 'custom-reminder-form' },
+                              class: 'card shadow-sm border-0 h-100' do |form| %>
+                  <div class="card-body">
+                    <div class="mb-4">
+                      <h2 class="h5 mb-2" data-testid="modal-heading">Novo lembrete personalizado</h2>
+                      <p class="text-muted mb-0">Escolha um pet e defina como quer ser lembrado</p>
+                    </div>
+
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <%= form.label :title, 'Título do lembrete', class: 'form-label' %>
+                        <%= form.text_field :title, class: 'form-control', autofocus: true %>
+                        <% form.object.errors.full_messages_for(:title).each do |message| %>
+                          <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+                        <% end %>
+                      </div>
+
+                      <div class="col-md-6">
+                        <%= form.label :pet_id, 'Pet', class: 'form-label' %>
+                        <%= form.collection_select :pet_id,
+                                                   user.pets,
+                                                   :id,
+                                                   :name,
+                                                   { prompt: 'Selecione um pet' },
+                                                   class: 'form-select' %>
+                        <% form.object.errors.full_messages_for(:pet_id).each do |message| %>
+                          <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+                        <% end %>
+                      </div>
+
+                      <div class="col-md-6">
+                        <%= form.label :category, 'Categoria', class: 'form-label' %>
+                        <%= form.select :category,
+                                        ReminderNotifications::CustomReminderForm::CATEGORY_OPTIONS,
+                                        { prompt: 'Selecione uma categoria' },
+                                        class: 'form-select' %>
+                        <% form.object.errors.full_messages_for(:category).each do |message| %>
+                          <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+                        <% end %>
+                      </div>
+
+                      <div class="col-md-6">
+                        <%= form.label :scheduled_date, 'Data', class: 'form-label' %>
+                        <%= form.date_field :scheduled_date,
+                                            class: 'form-control',
+                                            min: Time.zone.today.to_s %>
+                        <small class="text-muted">Datas anteriores a hoje ficam indisponíveis.</small>
+                        <% form.object.errors.full_messages_for(:scheduled_date).each do |message| %>
+                          <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+                        <% end %>
+                      </div>
+
+                      <div class="col-md-6">
+                        <%= form.label :time, 'Horário', class: 'form-label' %>
+                        <%= form.time_field :time, class: 'form-control', step: 60 %>
+                        <% form.object.errors.full_messages_for(:time).each do |message| %>
+                          <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+                        <% end %>
+                      </div>
+
+                      <div class="col-md-6">
+                        <%= form.label :recurrence, 'Repetição', class: 'form-label' %>
+                        <%= form.select :recurrence,
+                                        ReminderNotifications::CustomReminderForm::RECURRENCE_OPTIONS.keys,
+                                        {},
+                                        class: 'form-select' %>
+                        <% form.object.errors.full_messages_for(:recurrence).each do |message| %>
+                          <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+                        <% end %>
+                      </div>
+
+                      <div class="col-12">
+                        <%= form.label :notes, 'Observações', class: 'form-label' %>
+                        <%= form.text_area :notes, class: 'form-control', rows: 3 %>
+                        <% form.object.errors.full_messages_for(:notes).each do |message| %>
+                          <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
+                        <% end %>
+                      </div>
                     </div>
                   </div>
-                  <span class="badge text-bg-info" data-testid="due-badge"><%= notification.due_label %></span>
-                </div>
-                <% if notification.description.present? %>
-                  <p class="text-muted mb-3"><%= notification.description %></p>
+
+                  <div class="card-footer bg-white border-0 d-flex justify-content-end gap-3">
+                    <%= link_to 'Cancelar',
+                                user_path(user, notifications: 'open'),
+                                class: 'btn btn-outline-secondary',
+                                data: { testid: 'custom-reminder-cancel' } %>
+                    <%= form.submit 'Salvar lembrete', class: 'btn btn-primary', data: { testid: 'custom-reminder-submit' } %>
+                  </div>
                 <% end %>
-                <div class="d-flex flex-wrap gap-2">
-                  <%= link_to 'Ver detalhes',
-                              notification_entry_path(notification),
-                              class: 'btn btn-link p-0',
-                              data: { testid: 'view-details-action' } %>
-                  <%= button_to 'Marcar como lida',
-                                notification_mark_as_read_path(notification),
-                                method: :patch,
-                                class: "btn btn-sm btn-primary #{'disabled' if notification.read?}",
-                                disabled: notification.read?,
-                                data: { testid: 'mark-as-read-action' } %>
+              </div>
+            <% elsif selected_notification.present? %>
+              <aside class="card shadow-sm border-0 h-100" data-testid="notification-details">
+                <div class="card-body">
+                  <h2 class="h5 mb-3"><%= selected_notification.title %></h2>
+                  <% if selected_notification.description.present? %>
+                    <p class="mb-3"><%= selected_notification.description %></p>
+                  <% end %>
+                  <span class="badge text-bg-info mb-4" data-testid="detail-due"><%= selected_notification.due_label %></span>
+                  <div class="d-flex flex-wrap gap-2">
+                    <%= button_to 'Marcar como lida',
+                                  notification_mark_as_read_path(selected_notification),
+                                  method: :patch,
+                                  class: "btn btn-primary #{'disabled' if selected_notification.read?}",
+                                  disabled: selected_notification.read?,
+                                  data: { testid: 'detail-mark-as-read' } %>
+                  </div>
                 </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-        <div class="col-lg-6">
-          <% if selected_notification.present? %>
-            <aside class="card shadow-sm border-0" data-testid="notification-details">
-              <div class="card-body">
-                <h2 class="h5 mb-3"><%= selected_notification.title %></h2>
-                <% if selected_notification.description.present? %>
-                  <p class="mb-3"><%= selected_notification.description %></p>
-                <% end %>
-                <span class="badge text-bg-info mb-4" data-testid="detail-due"><%= selected_notification.due_label %></span>
-                <div class="d-flex flex-wrap gap-2">
-                  <%= button_to 'Marcar como lida',
-                                notification_mark_as_read_path(selected_notification),
-                                method: :patch,
-                                class: "btn btn-primary #{'disabled' if selected_notification.read?}",
-                                disabled: selected_notification.read?,
-                                data: { testid: 'detail-mark-as-read' } %>
+              </aside>
+            <% else %>
+              <aside class="card shadow-sm border-0 text-center text-muted py-5 h-100" data-testid="notification-details-placeholder">
+                <div class="card-body">
+                  <p class="mb-0">Selecione um lembrete para visualizar os detalhes.</p>
                 </div>
-              </div>
-            </aside>
-          <% else %>
-            <aside class="card shadow-sm border-0 text-center text-muted py-5" data-testid="notification-details-placeholder">
-              <div class="card-body">
-                <p class="mb-0">Selecione um lembrete para visualizar os detalhes.</p>
-              </div>
-            </aside>
-          <% end %>
+              </aside>
+            <% end %>
+          </section>
         </div>
-      </div>
-    <% end %>
-  </div>
-
-  <% if show_custom_reminder_modal && custom_reminder_form.present? %>
-    <div class="custom-reminder-modal-backdrop">
-      <div class="custom-reminder-modal" data-testid="custom-reminder-modal">
-        <%= form_with model: custom_reminder_form,
-                      url: notification_center_custom_reminders_path,
-                      data: { testid: 'custom-reminder-form' },
-                      class: 'card shadow-lg p-4 border-0' do |form| %>
-          <div class="mb-3">
-            <h2 class="h4 mb-2" data-testid="modal-heading">Novo lembrete personalizado</h2>
-            <p class="text-muted mb-0">Escolha um pet e defina como quer ser lembrado</p>
-          </div>
-
-          <div class="row g-3">
-            <div class="col-12">
-              <%= form.label :title, 'Título do lembrete', class: 'form-label' %>
-              <%= form.text_field :title, class: 'form-control', autofocus: true %>
-              <% form.object.errors.full_messages_for(:title).each do |message| %>
-                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
-              <% end %>
-            </div>
-
-            <div class="col-md-6">
-              <%= form.label :pet_id, 'Pet', class: 'form-label' %>
-              <%= form.collection_select :pet_id,
-                                         user.pets,
-                                         :id,
-                                         :name,
-                                         { prompt: 'Selecione um pet' },
-                                         class: 'form-select' %>
-              <% form.object.errors.full_messages_for(:pet_id).each do |message| %>
-                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
-              <% end %>
-            </div>
-
-            <div class="col-md-6">
-              <%= form.label :category, 'Categoria', class: 'form-label' %>
-              <%= form.select :category,
-                              ReminderNotifications::CustomReminderForm::CATEGORY_OPTIONS,
-                              { prompt: 'Selecione uma categoria' },
-                              class: 'form-select' %>
-              <% form.object.errors.full_messages_for(:category).each do |message| %>
-                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
-              <% end %>
-            </div>
-
-            <div class="col-md-6">
-              <%= form.label :scheduled_date, 'Data', class: 'form-label' %>
-              <%= form.date_field :scheduled_date,
-                                  class: 'form-control',
-                                  min: Time.zone.today.to_s %>
-              <% form.object.errors.full_messages_for(:scheduled_date).each do |message| %>
-                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
-              <% end %>
-            </div>
-
-            <div class="col-md-6">
-              <%= form.label :time, 'Horário', class: 'form-label' %>
-              <%= form.time_field :time, class: 'form-control', step: 60 %>
-              <% form.object.errors.full_messages_for(:time).each do |message| %>
-                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
-              <% end %>
-            </div>
-
-            <div class="col-md-6">
-              <%= form.label :recurrence, 'Repetição', class: 'form-label' %>
-              <%= form.select :recurrence,
-                              ReminderNotifications::CustomReminderForm::RECURRENCE_OPTIONS.keys,
-                              {},
-                              class: 'form-select' %>
-              <% form.object.errors.full_messages_for(:recurrence).each do |message| %>
-                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
-              <% end %>
-            </div>
-
-            <div class="col-12">
-              <%= form.label :notes, 'Observações', class: 'form-label' %>
-              <%= form.text_area :notes, class: 'form-control', rows: 3 %>
-              <% form.object.errors.full_messages_for(:notes).each do |message| %>
-                <p class="text-danger small mt-1" data-testid="field-error"><%= message %></p>
-              <% end %>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-end gap-3 mt-4">
-            <%= link_to 'Cancelar',
-                        user_path(user, notifications: 'open'),
-                        class: 'btn btn-outline-secondary',
-                        data: { testid: 'custom-reminder-cancel' } %>
-            <%= form.submit 'Salvar lembrete', class: 'btn btn-primary', data: { testid: 'custom-reminder-submit' } %>
-          </div>
-        <% end %>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
