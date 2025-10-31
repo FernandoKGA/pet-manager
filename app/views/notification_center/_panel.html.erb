@@ -85,7 +85,7 @@
             </div>
           </aside>
 
-          <section class="notification-center__pane notification-center__list" data-testid="notification-list">
+          <section id="notification-list" class="notification-center__pane notification-center__list" data-testid="notification-list">
             <% notifications_collection.each do |notification| %>
               <div class="card shadow-sm border-0 notification-center__card" data-testid="notification-card" data-title="<%= notification.title %>">
                 <div class="card-body">
@@ -103,7 +103,7 @@
                         <% end %>
                       </div>
                     </div>
-                    <span class="badge text-bg-info" data-testid="due-badge"><%= notification.due_label %></span>
+                    <span class="<%= notification_due_badge_class(notification) %>" data-testid="due-badge"><%= notification.due_label %></span>
                   </div>
                   <% if notification.description.present? %>
                     <p class="text-muted mb-3"><%= notification.description %></p>
@@ -126,7 +126,7 @@
           </section>
 
           <section class="notification-center__pane notification-center__details" data-testid="notification-details-pane">
-            <%= link_to '← Voltar', '#notification-list', class: 'btn btn-link notification-center__back px-0' %>
+            <%= link_to '← Voltar', '#notification-list', class: 'btn btn-link notification-center__back px-0 d-lg-none', aria: { label: 'Voltar para a lista de lembretes' } %>
             <% if show_custom_reminder_modal && custom_reminder_form.present? %>
               <div class="notification-center__form" data-testid="custom-reminder-modal">
                 <%= form_with model: custom_reminder_form,
@@ -228,7 +228,7 @@
                   <% if selected_notification.description.present? %>
                     <p class="mb-3"><%= selected_notification.description %></p>
                   <% end %>
-                  <span class="badge text-bg-info mb-4" data-testid="detail-due"><%= selected_notification.due_label %></span>
+                  <span class="<%= notification_due_badge_class(selected_notification) %> mb-4" data-testid="detail-due"><%= selected_notification.due_label %></span>
                   <div class="d-flex flex-wrap gap-2">
                     <%= button_to 'Marcar como lida',
                                   notification_mark_as_read_path(selected_notification),
