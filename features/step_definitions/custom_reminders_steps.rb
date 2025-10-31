@@ -1,11 +1,17 @@
-When('I click the call to action button {string}') do |label|
-  if page.has_css?('[data-testid="empty-state-cta"]', wait: 0)
-    find('[data-testid="empty-state-cta"]').click
-  elsif page.has_css?('[data-testid="open-custom-reminder"]', wait: 0)
+def wait_for_custom_reminder_form
+  expect(page).to have_css('[data-testid="custom-reminder-form"]')
+end
+
+When('I click the call to action button {string}') do |_label|
+  if page.has_css?('[data-testid="open-custom-reminder"]', wait: 0)
     find('[data-testid="open-custom-reminder"]').click
+  elsif page.has_css?('[data-testid="empty-state-cta"]', wait: 0)
+    find('[data-testid="empty-state-cta"]').click
   else
-    click_on label
+    raise 'Call to action button not found in notification center'
   end
+
+  wait_for_custom_reminder_form
 end
 
 def translate_date_input(value)
@@ -94,4 +100,22 @@ end
 Then('I should see the recurrence badge {string} on the notification card {string}') do |badge_text, title|
   card = find(%(div[data-testid="notification-card"][data-title="#{title}"]))
   expect(card).to have_css('[data-testid="recurrence-badge"]', text: badge_text)
+end
+
+Then('I should see the notification center layout panes') do
+  expect(page).to have_css('[data-testid="notification-filters"]')
+  expect(page).to have_css('[data-testid="notification-list"]')
+  expect(page).to have_css('[data-testid="notification-details-pane"]')
+end
+
+Then('I should see the notification header actions') do
+  within('[data-testid="notification-header"]') do
+    expect(page).to have_css('[data-testid="notification-heading"]', text: '📬 Central de notificações')
+    expect(page).to have_css('[data-testid="unread-counter"]')
+    expect(page).to have_css('[data-testid="open-custom-reminder"]')
+    if page.has_css?('[data-testid="notification-card"]', wait: 0)
+      expect(page).to have_css('[data-testid="mark-all-button"]')
+    end
+    expect(page).to have_css('[data-testid="close-notification-panel"]')
+  end
 end
