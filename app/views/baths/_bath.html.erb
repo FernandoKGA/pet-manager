@@ -1,0 +1,27 @@
+<div id="<%= dom_id bath %>">
+  <p>
+    <strong>Pet:</strong>
+    <%= bath.pet_id %>
+  </p>
+
+  <p>
+    <strong>Data e Hora:</strong>
+    <%= bath.date %>
+  </p>
+
+  <p>
+    <strong>Tosa:</strong>
+    <%= bath.tosa ? "Sim" : "Não" %>
+  </p>
+
+  <p>
+    <strong>Preço:</strong>
+    <%= number_to_currency(bath.price, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %>
+  </p>
+
+  <p>
+    <strong>Observações:</strong>
+    <%= bath.notes %>
+  </p>
+
+</div>
