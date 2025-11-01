@@ -68,35 +68,45 @@
               </p>
             </div>
 
-            <!-- Seção de Medicamentos -->
+            <!-- Seção de Medicamentos com Collapse -->
             <div class="pet-medications-section">
-              <div class="medications-header">
-                <h4 class="medications-title">💊 Medicamentos</h4>
-                <span class="medications-count">
-                  <%= pet.medications.count %>
-                </span>
-              </div>
+              <button class="medications-header medications-toggle" 
+                      type="button"
+                      data-bs-toggle="collapse" 
+                      data-bs-target="#medications-<%= pet.id %>" 
+                      aria-expanded="false" 
+                      aria-controls="medications-<%= pet.id %>">
+                <div class="medications-header-content">
+                  <h4 class="medications-title">💊 Medicamentos</h4>
+                  <span class="medications-count">
+                    <%= pet.medications.count %>
+                  </span>
+                </div>
+                <span class="collapse-icon">▼</span>
+              </button>
 
-              <% if pet.medications.any? %>
-                <div class="medications-list">
-                  <% pet.medications.each do |medication| %>
-                    <div class="medication-item">
-                      <div class="medication-info">
-                        <p class="medication-name"><strong><%= medication.name %></strong></p>
-                        <p class="medication-dosage"><%= medication.dosage %> • <%= medication.frequency %></p>
+              <div class="collapse" id="medications-<%= pet.id %>">
+                <% if pet.medications.any? %>
+                  <div class="medications-list">
+                    <% pet.medications.each do |medication| %>
+                      <div class="medication-item">
+                        <div class="medication-info">
+                          <p class="medication-name"><strong><%= medication.name %></strong></p>
+                          <p class="medication-dosage"><%= medication.dosage %> • <%= medication.frequency %></p>
+                        </div>
+                        <div class="medication-actions">
+                          <%= link_to "✏️", edit_pet_medication_path(pet, medication), class: "btn-small btn-edit", title: "Editar" %>
+                        </div>
                       </div>
-                      <div class="medication-actions">
-                        <%= link_to "✏️", edit_pet_medication_path(pet, medication), class: "btn-small btn-edit", title: "Editar" %>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-              <% else %>
-                <div class="medications-empty">
-                  <p class="medications-empty-text">Nenhum medicamento registrado</p>
-                </div>
-              <% end %>
-              <%= link_to "+ Adicionar Medicamento", new_pet_medication_path(pet), class: "btn-add-medication" %>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="medications-empty">
+                    <p class="medications-empty-text">Nenhum medicamento registrado</p>
+                  </div>
+                <% end %>
+                <%= link_to "+ Adicionar Medicamento", new_pet_medication_path(pet), class: "btn-add-medication" %>
+              </div>
             </div>
 
             <!-- Botão Editar -->
