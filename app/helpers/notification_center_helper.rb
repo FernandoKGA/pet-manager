@@ -9,4 +9,11 @@ module NotificationCenterHelper
       "#{count} lembretes pendentes"
     end
   end
+
+  def notification_due_badge_class(record)
+    base_classes = 'badge'
+    return "#{base_classes} text-bg-info" unless record.respond_to?(:due_at) && record.due_at.present?
+
+    record.due_at.to_date < Time.zone.today ? "#{base_classes} text-bg-danger" : "#{base_classes} text-bg-info"
+  end
 end

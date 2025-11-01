@@ -18,27 +18,37 @@
     <% end %>
 
     <div class="form-group">
-      <%= form.label :first_name, 'Nome' %>
+      <%= form.label :first_name do %>
+        Nome <span style="color: red;">*</span>
+      <% end %>
       <%= form.text_field :first_name, required: true, placeholder: 'Seu nome' %>
     </div>
 
     <div class="form-group">
-      <%= form.label :last_name, 'Sobrenome' %>
+      <%= form.label :last_name do %>
+        Sobrenome <span style="color: red;">*</span>
+      <% end %>
       <%= form.text_field :last_name, required: true, placeholder: 'Seu sobrenome' %>
     </div>
 
     <div class="form-group">
-      <%= form.label :email, 'Email' %>
+      <%= form.label :email do %>
+        Email <span style="color: red;">*</span>
+      <% end %>
       <%= form.text_field :email, required: true, placeholder: 'seu@email.com' %>
     </div>
 
     <div class="form-group">
-      <%= form.label :password, 'Senha' %>
+      <%= form.label :password do %>
+        Senha <span style="color: red;">*</span>
+      <% end %>
       <%= form.password_field :password, required: true, placeholder: 'Mínimo de 6 caracteres' %>
     </div>
 
     <div class="form-group">
-      <%= form.label :password_confirmation, 'Confirme sua senha' %>
+      <%= form.label :password_confirmation do %>
+        Confirme sua senha <span style="color: red;">*</span>
+      <% end %>
       <%= form.password_field :password_confirmation, required: true, placeholder: 'Insira a senha novamente' %>
     </div>
 

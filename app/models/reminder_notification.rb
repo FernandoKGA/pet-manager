@@ -1,4 +1,11 @@
 class ReminderNotification < ApplicationRecord
+  RECURRENCE_LABELS = {
+    'none' => nil,
+    'daily' => 'Diariamente'
+  }.freeze
+
+  attribute :recurrence, :string, default: 'none'
+
   belongs_to :user
   belongs_to :pet
 
@@ -7,6 +14,7 @@ class ReminderNotification < ApplicationRecord
   validates :title, presence: true
   validates :category, presence: true
   validates :due_at, presence: true
+  validates :recurrence, inclusion: { in: RECURRENCE_LABELS.keys }
 
   scope :ordered_by_due_at, -> { order(due_at: :asc, created_at: :asc) }
 
@@ -35,6 +43,14 @@ class ReminderNotification < ApplicationRecord
     return if read?
 
     update!(status: :read)
+  end
+
+  def recurrence_label
+    RECURRENCE_LABELS.fetch(recurrence)
+  end
+
+  def recurring?
+    recurrence != 'none'
   end
 
   private
