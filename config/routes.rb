@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   get 'home/index'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   # 
@@ -16,11 +17,15 @@ Rails.application.routes.draw do
   get '/notification_center/:id', to: 'notification_center#show', as: :notification_entry
   patch '/notification_center/:id/mark_as_read', to: 'notification_center#mark_as_read', as: :notification_mark_as_read
   patch '/notification_center/mark_all_as_read', to: 'notification_center#mark_all_as_read', as: :notification_mark_all_as_read
+
+  resources :baths, only: [:show, :edit, :update, :destroy]
+
   namespace :notification_center do
     resources :custom_reminders, only: [:new, :create]
   end
   
   resources :pets, only: [:new, :create, :show, :edit, :update] do
+    resources :baths # Linha que aninha os Banhos dentro de Pets
     resources :weight, only: [:new, :create], path: 'weight'
     resources :diary_entries, only: [:index, :create, :destroy]
     resources :medications, only: [:index, :new, :create, :edit, :update, :destroy]

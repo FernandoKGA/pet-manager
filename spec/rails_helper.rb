@@ -30,6 +30,13 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  # Linha crucial para habilitar 'sign_in', 'sign_out', etc. em Request Specs
+  #config.include Devise::Test::IntegrationHelpers, type: :request
+
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_paths = [
+    Rails.root.join('spec/fixtures')
+  ]
   config.fixture_paths = [Rails.root.join('spec/fixtures')]
 
   config.use_transactional_fixtures = true

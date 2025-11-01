@@ -41,6 +41,5 @@ module PetManager
 
     config.time_zone = 'America/Sao_Paulo'
 
-    # config.i18n.default_locale = :'pt-BR'
   end
 end
