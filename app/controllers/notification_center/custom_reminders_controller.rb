@@ -38,7 +38,7 @@ module NotificationCenter
       )
 
       flash.now[:alert] = 'Não foi possível salvar o lembrete. Verifique os campos destacados.'
-      render 'users/show', status: :unprocessable_entity
+      render 'users/show', status: :unprocessable_content
     end
 
     def custom_reminder_params
