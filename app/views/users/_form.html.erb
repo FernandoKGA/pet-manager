@@ -1,0 +1,25 @@
+<%= form_with model: @user do |f| %>
+  <% if @user.errors.any? %>
+    <div class="errors">
+      <h3><%= pluralize(@user.errors.count, "error") %> prohibited saving:</h3>
+      <ul>
+        <% @user.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div><%= f.label :first_name, 'Primeiro Nome' %><br><%= f.text_field :first_name %></div>
+  <div><%= f.label :last_name,  'Sobrenome'  %><br><%= f.text_field :last_name  %></div>
+  <div><%= f.label :email,      'Email'      %><br><%= f.email_field :email     %></div>
+
+  <%# senha opcional na edição %>
+  <div><%= f.label :password, 'Senha (deixe em branco para manter a mesma)' %><br><%= f.password_field :password %></div>
+  <div><%= f.label :password_confirmation, 'Confirmar senha' %><br><%= f.password_field :password_confirmation %></div>
+
+  <%= f.submit 'Salvar' %>
+  <%= button_to 'Cancelar',
+              @user,
+              method: :get,
+              form: { style: 'display:inline' } %>
+
+<% end %>

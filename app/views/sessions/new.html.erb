@@ -16,7 +16,7 @@
         <%= form.submit "Logar", class: "btn-login" %>
       <% end %>
 
-      <a href="#" class="forgot-link">Esqueci minha senha</a><br />
+      <%= link_to "Esqueci minha senha", new_password_reset_path, class: 'forgot-link' %><br />
       Não tem uma conta? <strong><%= link_to "Cadastre-se agora!", users_new_path, class: "register-link" %></strong>
     </div>
   </div>

@@ -2,6 +2,9 @@
 class UsersController < ApplicationController
 
   skip_before_action :authenticate_user, only: [:new, :create]
+  before_action :set_user, only: [:show, :edit, :update]
+  before_action :authorize_user!, only: [:edit, :update]
+
 
   def new
     @user = User.new
@@ -25,10 +28,53 @@ class UsersController < ApplicationController
   def show
     @user = current_user
     @pets = @user.pets  # pega todos os pets do usuário logado
+    load_notification_center_context
   end
-  
-  private 
+
+  def edit; end
+
+  def update
+    if @user.update(update_user_params)
+      flash[:notice] = 'Profile updated successfully'
+      redirect_to @user
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  private
+    def set_user
+      @user = User.find(params[:id])
+    end
+
+    def authorize_user!
+      redirect_to('/login') unless current_user == @user
+    end
+
+    # criação exige senha
+    def create_user_params
+      params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    end
+
+    # edição permite senha opcional (ignora se em branco)
+    def update_user_params
+      permitted = params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+      if permitted[:password].blank?
+        permitted.delete(:password)
+        permitted.delete(:password_confirmation)
+      end
+      permitted
+    end
+
     def user_params
       params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation)
+    end
+
+    def load_notification_center_context
+      @notifications = @user.reminder_notifications.includes(:pet).ordered_by_due_at
+      @unread_count = @user.reminder_notifications.unread.count
+      @notifications_panel_open = params[:notifications] == 'open' || params[:selected_notification_id].present?
+      selected_id = params[:selected_notification_id]&.to_i
+      @selected_notification = @notifications.find { |item| item.id == selected_id } if selected_id
     end
 end

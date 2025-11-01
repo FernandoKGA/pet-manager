@@ -1,0 +1,124 @@
+<% notifications_collection = Array(notifications) %>
+<% selected_notification ||= nil %>
+<% unread_count ||= 0 %>
+<% panel_open = local_assigns.fetch(:panel_open, false) %>
+<% user ||= nil %>
+
+<div class="notification-overlay <%= 'is-open' if panel_open %>" data-testid="notification-overlay">
+  <% if user.present? %>
+    <%= link_to '',
+                user_path(user),
+                class: 'notification-overlay__backdrop',
+                data: { testid: 'notification-overlay-backdrop' },
+                aria: { label: 'Fechar central de notificações' } %>
+  <% else %>
+    <div class="notification-overlay__backdrop"></div>
+  <% end %>
+  <div class="notification-overlay__content shadow-lg" id="notification-center-card" data-testid="notification-panel">
+    <div class="notification-overlay__header d-flex flex-column flex-lg-row align-items-lg-center justify-content-between gap-3">
+      <div>
+        <h2 class="h4 mb-1" data-testid="notification-heading">📬 Central de notificações</h2>
+        <p class="text-muted mb-0" data-testid="notification-subtitle">Acompanhe os lembretes dos seus pets</p>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <% if notifications_collection.any? %>
+          <%= button_to 'Marcar todas como lidas',
+                        notification_mark_all_as_read_path,
+                        method: :patch,
+                        class: 'btn btn-outline-primary',
+                        data: { testid: 'mark-all-button' } %>
+        <% end %>
+        <% if user.present? %>
+          <%= link_to 'Fechar',
+                      user_path(user),
+                      class: 'btn btn-link notification-overlay__close',
+                      data: { testid: 'close-notification-panel' } %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <span class="badge rounded-pill text-bg-primary px-3 py-2" data-testid="unread-counter">
+        <%= unread_pill_text(unread_count) %>
+      </span>
+    </div>
+
+    <% if notifications_collection.blank? %>
+      <div class="text-center py-5 border rounded-4" data-testid="empty-state">
+        <div class="display-4 mb-3" aria-hidden="true">📭</div>
+        <h3 class="h5 mb-2">Você ainda não tem notificações</h3>
+        <p class="text-muted mb-4">Assim que você cadastrar lembretes, eles aparecem por aqui.</p>
+        <%= link_to 'Cadastrar um lembrete',
+                    '#',
+                    class: 'btn btn-primary',
+                    data: { testid: 'empty-state-cta' } %>
+      </div>
+    <% else %>
+      <div class="row gy-4">
+        <div class="col-lg-6">
+          <% notifications_collection.each do |notification| %>
+            <div class="card shadow-sm border-0 mb-3" data-testid="notification-card" data-title="<%= notification.title %>">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                  <div>
+                    <h3 class="h6 mb-1"><%= notification.title %></h3>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                      <span class="fw-semibold text-secondary"><%= notification.pet.name %></span>
+                      <span class="badge text-bg-secondary" data-testid="category-pill"><%= notification.category %></span>
+                      <% if notification.unread? %>
+                        <span class="badge text-bg-success" data-testid="new-badge">Nova</span>
+                      <% end %>
+                    </div>
+                  </div>
+                  <span class="badge text-bg-info" data-testid="due-badge"><%= notification.due_label %></span>
+                </div>
+                <% if notification.description.present? %>
+                  <p class="text-muted mb-3"><%= notification.description %></p>
+                <% end %>
+                <div class="d-flex flex-wrap gap-2">
+                  <%= link_to 'Ver detalhes',
+                              notification_entry_path(notification),
+                              class: 'btn btn-link p-0',
+                              data: { testid: 'view-details-action' } %>
+                  <%= button_to 'Marcar como lida',
+                                notification_mark_as_read_path(notification),
+                                method: :patch,
+                                class: "btn btn-sm btn-primary #{'disabled' if notification.read?}",
+                                disabled: notification.read?,
+                                data: { testid: 'mark-as-read-action' } %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-lg-6">
+          <% if selected_notification.present? %>
+            <aside class="card shadow-sm border-0" data-testid="notification-details">
+              <div class="card-body">
+                <h2 class="h5 mb-3"><%= selected_notification.title %></h2>
+                <% if selected_notification.description.present? %>
+                  <p class="mb-3"><%= selected_notification.description %></p>
+                <% end %>
+                <span class="badge text-bg-info mb-4" data-testid="detail-due"><%= selected_notification.due_label %></span>
+                <div class="d-flex flex-wrap gap-2">
+                  <%= button_to 'Marcar como lida',
+                                notification_mark_as_read_path(selected_notification),
+                                method: :patch,
+                                class: "btn btn-primary #{'disabled' if selected_notification.read?}",
+                                disabled: selected_notification.read?,
+                                data: { testid: 'detail-mark-as-read' } %>
+                </div>
+              </div>
+            </aside>
+          <% else %>
+            <aside class="card shadow-sm border-0 text-center text-muted py-5" data-testid="notification-details-placeholder">
+              <div class="card-body">
+                <p class="mb-0">Selecione um lembrete para visualizar os detalhes.</p>
+              </div>
+            </aside>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

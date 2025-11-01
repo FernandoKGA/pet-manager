@@ -1,0 +1,93 @@
+<%= stylesheet_link_tag "diary", "data-turbo-track": "reload" %>
+
+<div class="dashboard-container">
+  <div class="diary-page-container">
+  
+    <div class="diary-header">
+      <%= link_to "← Voltar para o Dashboard", user_path(@pet.user), class: 'btn-back' %>
+      <h1 class="diary-title">Diário de <%= @pet.name %></h1>
+      <p class="diary-subtitle">Acompanhe todos os eventos e anotações importantes do seu pet.</p>
+    </div>
+
+    <div class="diary-content-section">
+      <div class="diary-actions">
+        <%= form_with(url: pet_diary_entries_path(@pet), method: :get, class: 'filter-form') do |form| %>
+          <%= form.label :filter_date, "Filtrar por dia:" %>
+          <%= form.date_field :filter_date, value: params[:filter_date] %>
+          <%= form.submit "Filtrar", class: 'btn-primary' %>
+          <%= link_to "Limpar", pet_diary_entries_path(@pet), class: 'btn-secondary' %>
+        <% end %>
+
+        <button type="button" id="open-modal-btn" class="btn-primary">
+          Adicionar Entrada
+        </button>
+      </div>
+
+      <div class="diary-feed">
+        <% if @diary_entries.any? %>
+          <% @diary_entries.each do |entry| %>
+            <div class="diary-entry-card">
+              <div class="entry-header">
+                <p class="entry-date"><%= l(entry.entry_date, format: :long) %></p>
+                <%= button_to "Remover", 
+                                pet_diary_entry_path(@pet, entry), 
+                                method: :delete, 
+                                class: 'btn-delete'
+                                %>
+              </div>
+              <p class="entry-content"><%= entry.content %></p>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="empty-state">
+            <p class="empty-state-text">Nenhuma entrada encontrada.</p>
+            <p class="empty-state-subtext">
+              <% if params[:filter_date].present? %>
+                Tente limpar o filtro ou adicione uma nova entrada para este dia!
+              <% else %>
+                Que tal adicionar a primeira anotação no diário do <%= @pet.name %>?
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div id="new-entry-modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title">Nova Anotação</h2>
+      <button class="close-btn">&times;</button>
+    </div>
+    
+    <%= form_with(model: [@pet, @diary_entry], url: pet_diary_entries_path(@pet), class: 'modal-form') do |form| %>
+      <% if form.object.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(form.object.errors.count, "erro") %> impediu a gravação:</h2>
+          <ul>
+            <% form.object.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= form.label :entry_date, "Data e Hora" %>
+        <%= form.datetime_local_field :entry_date, value: Time.current.strftime('%Y-%m-%dT%H:%M'), class: 'form-control' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :content, "Anotação" %>
+        <%= form.text_area :content, rows: 6, placeholder: 'Descreva aqui o que aconteceu...', class: 'form-control' %>
+      </div>
+
+      <div class="form-actions">
+        <%= form.submit "Salvar Anotação", class: 'btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<%= javascript_import_module_tag "diary" %>
