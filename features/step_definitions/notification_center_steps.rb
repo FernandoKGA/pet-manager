@@ -256,8 +256,14 @@ Then('I should see the information chip {string}') do |label|
 end
 
 Then('I should see the primary action button {string}') do |label|
-  within('[data-testid="notification-details"]') do
-    expect(page).to have_css('button', text: label)
+  if page.has_css?('[data-testid="custom-reminder-modal"]', wait: 0)
+    within('[data-testid="custom-reminder-modal"]') do
+      expect(page).to have_button(label)
+    end
+  else
+    within('[data-testid="notification-details"]') do
+      expect(page).to have_css('button', text: label)
+    end
   end
 end
 
