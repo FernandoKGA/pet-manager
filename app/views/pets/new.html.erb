@@ -2,37 +2,51 @@
 
   <%= form_with(model: @pet, local: true, html: { class: "pet-form" }) do |f| %>
     <div class="form-group">
-      <%= f.label :name, "Nome" %>
+      <%= f.label :name do %>
+        Nome <span style="color: red;">*</span>
+      <% end %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :birthdate, "Data de Nascimento" %>
+      <%= f.label :birthdate do %>
+        Data de Nascimento
+      <% end %>
       <%= f.date_field :birthdate, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :size, "Tamanho" %>
+      <%= f.label :size do %>
+        Tamanho
+      <% end %>
       <%= f.number_field :size, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :species, "Espécie" %>
+      <%= f.label :species do %>
+        Espécie <span style="color: red;">*</span>
+      <% end %>
       <%= f.text_field :species, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :breed, "Raça" %>
+      <%= f.label :breed do %>
+        Raça <span style="color: red;">*</span>
+      <% end %>
       <%= f.text_field :breed, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :gender, "Gênero" %>
+      <%= f.label :gender do %>
+        Gênero
+      <% end %>
       <%= f.text_field :gender, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :sinpatinhas_id, "ID Sinpatinhas" %>
+      <%= f.label :sinpatinhas_id do %>
+        ID Sinpatinhas
+      <% end %>
       <%= f.text_field :sinpatinhas_id, class: "form-control" %>
     </div>
 
