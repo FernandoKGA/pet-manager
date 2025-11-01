@@ -50,10 +50,6 @@ When('I fill in {string} with {string}') do |field_label, value|
   fill_in field_label, with: value
 end
 
-When("I click the button {string}") do |button_text|
-  click_on button_text
-end
-
 Then("I should see the following message {string}") do |text|
   expect(page).to have_content(text)
 end
