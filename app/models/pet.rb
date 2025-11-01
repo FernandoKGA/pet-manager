@@ -1,4 +1,5 @@
 class Pet < ApplicationRecord
+
   validates :name, presence: true, length: {maximum: 255}
   validates :species, presence: true, length: {maximum: 255}
   validates :breed, presence: true, length: {maximum: 255}
@@ -6,6 +7,7 @@ class Pet < ApplicationRecord
   belongs_to :user
 
   has_many :baths, dependent: :destroy
+  has_many :medications, dependent: :destroy
   has_many :reminder_notifications, dependent: :destroy
   has_many :expenses, dependent: :destroy
   has_many :weights, dependent: :destroy
@@ -14,4 +16,5 @@ class Pet < ApplicationRecord
   def current_weight
     weights.order(created_at: :desc).first&.weight
   end
+
 end

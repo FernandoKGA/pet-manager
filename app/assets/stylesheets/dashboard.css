@@ -8,7 +8,7 @@
   min-height: 100vh;
 }
 
-/* Card de Boas-vindas */
+/* Card de Boas-vindas*/
 .welcome-card {
   background: white;
   border-radius: 16px;
@@ -208,6 +208,161 @@
 .btn-edit:hover {
   transform: translateY(-2px);
   text-decoration: none;
+}
+
+/* Seção de Medicamentos */
+.pet-medications-section {
+  padding: 0 1.5rem 1rem 1.5rem;
+  border-top: 1px solid rgba(203, 213, 224, 0.5);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
+
+.medications-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.medications-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2d3748;
+}
+
+.medications-count {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.medications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.medication-item {
+  background: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.medication-info {
+  flex: 1;
+}
+
+.medication-name {
+  margin: 0 0 0.25rem 0;
+  color: #1a202c;
+  font-size: 0.875rem;
+}
+
+.medication-dosage {
+  margin: 0;
+  color: #718096;
+  font-size: 0.75rem;
+}
+
+.medication-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-small {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: transform 0.2s;
+}
+
+.btn-small:hover {
+  transform: scale(1.1);
+}
+
+.medications-empty {
+  padding: 1rem;
+  text-align: center;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.medications-empty-text {
+  margin: 0;
+  color: #a0aec0;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+.btn-add-medication {
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+}
+
+.btn-add-medication:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+/* Estilos para o Collapse de Medicamentos */
+.medications-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.medications-toggle:hover {
+  opacity: 0.8;
+}
+
+.medications-header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.collapse-icon {
+  font-size: 0.875rem;
+  transition: transform 0.3s ease;
+  color: #6c757d;
+}
+
+.medications-toggle[aria-expanded="true"] .collapse-icon {
+  transform: rotate(180deg);
+}
+
+.collapse {
+  transition: height 0.3s ease;
 }
 
 /* Estado vazio */
