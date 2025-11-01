@@ -14,7 +14,9 @@
     <% end %>
 
     <div class="form-group">
-      <%= f.label :name, "Nome" %>
+      <%= f.label :name do %>
+        Nome <span style="color: red;">*</span>
+      <% end %>
       <%= f.text_field :name, class: "form-control" %>
     </div>
 
@@ -29,12 +31,16 @@
     </div>
 
     <div class="form-group">
-      <%= f.label :species, "Espécie" %>
+      <%= f.label :species do %>
+        Espécie <span style="color: red;">*</span>
+      <% end %>
       <%= f.text_field :species, class: "form-control" %>
     </div>
 
     <div class="form-group">
-      <%= f.label :breed, "Raça" %>
+      <%= f.label :breed do %>
+        Raça <span style="color: red;">*</span>
+      <% end %>
       <%= f.text_field :breed, class: "form-control" %>
     </div>
 
