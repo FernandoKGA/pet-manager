@@ -22,12 +22,6 @@ module NotificationCenter
 
     private
 
-    def authenticate_user
-      return if logged_in?
-
-      redirect_to login_path, alert: 'Faça login para cadastrar lembretes personalizados'
-    end
-
     def render_invalid_form
       @user = current_user
       @pets = @user.pets

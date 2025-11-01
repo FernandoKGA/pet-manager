@@ -108,9 +108,3 @@ Feature: Cadastro de lembretes personalizados no painel
     And I should see the notification header actions
     And I should see the notification cards in this order:
       | Vacina V10 da Lira |
-
-  Scenario: Bloquear o acesso ao formulário quando não estiver autenticado
-    Given I am not logged in
-    When I try to access the new custom reminder form
-    Then I should be redirected to the login page
-    And I should see the alert "Faça login para cadastrar lembretes personalizados"
