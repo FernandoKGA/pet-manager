@@ -1,22 +1,26 @@
 <%= form_with(model: expense, url: expenses_path, local: true) do |f| %>
   <div>
-    <%= f.label :amount, "Valor" %><br>
+    <%= f.label :amount do %>
+      Valor <span style="color: red;">*</span>
+    <% end %><br>
     <%= f.number_field :amount, step: 0.01 %>
   </div>
 
-<div>
-  <%= f.label :category, "Categoria" %><br>
-  <%= f.select :category, 
-        options_for_select([
-          ['Alimentação', 'alimentacao'],
-          ['Veterinário', 'veterinario'],
-          ['Higiene', 'higiene'],
-          ['Brinquedos', 'brinquedos'],
-          ['Outros', 'outros']
-        ], expense.category),
-        {}, 
-        class: "form-select" %>
-</div>
+  <div>
+    <%= f.label :category do %>
+      Categoria <span style="color: red;">*</span>
+    <% end %><br>
+    <%= f.select :category, 
+      options_for_select([
+        ['Alimentação', 'alimentacao'],
+        ['Veterinário', 'veterinario'],
+        ['Higiene', 'higiene'],
+        ['Brinquedos', 'brinquedos'],
+        ['Outros', 'outros']
+      ], expense.category),
+      {}, 
+      class: "form-select" %>
+  </div>
 
   <div>
     <%= f.label :description, "Descrição" %><br>
@@ -24,12 +28,16 @@
   </div>
 
   <div>
-    <%= f.label :date, "Data" %><br>
+    <%= f.label :date do %>
+      Data <span style="color: red;">*</span>
+    <% end %><br>
     <%= f.date_field :date %>
   </div>
 
   <div>
-    <%= f.label :pet_id, "Pet" %><br>
+    <%= f.label :pet_id do %>
+      Pet <span style="color: red;">*</span>
+    <% end %><br>
     <%= f.collection_select :pet_id, pets, :id, :name, {}, { id: "expense_pet_select" } %>
   </div>
 
