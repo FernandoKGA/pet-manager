@@ -16,6 +16,7 @@ Feature: Pet registration
     And I fill in the field "Tamanho" with "50"
     And I fill in the field "Gênero" with "Macho"
     And I fill in the field "ID Sinpatinhas" with "12345"
+    And I attach the file "spec/fixtures/files/bee.png" to "Foto do pet"
     And I press "Salvar"
     Then I should see the message "Pet cadastrado com sucesso!"
     And I should see the message "Rex"
