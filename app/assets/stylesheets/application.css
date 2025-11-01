@@ -15,39 +15,6 @@
  *= require dashboard
  */
 
-.alert {
-    position: fixed;
-    top: 20px;
-    right: -10px;
-    color: #1a202c;
-    background-color: rgba(255, 255, 255, 0.95);
-    z-index: 2100;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 18px;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(31, 41, 55, 0.15);
-    min-width: 220px;
-    max-width: 280px;
-    border: 1px solid rgba(148, 163, 184, 0.35);
-    font-weight: 600;
-    text-align: left;
-}
-
-.alert-notice {
-  background-color: #ecfdf5;
-  color: #047857;
-  border-color: rgba(16, 185, 129, 0.4);
-}
-
-.alert-alert,
-.alert-error {
-  background-color: #fef2f2;
-  color: #b91c1c;
-  border-color: rgba(239, 68, 68, 0.4);
-}
-
 .closebtn {
   margin-left: auto;
   color: inherit;

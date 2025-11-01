@@ -1,4 +1,4 @@
-<header class="align-items-center mb-4 border-bottom" id="pet-manager-header">
+<header class="align-items-center border-bottom" id="pet-manager-header">
   <nav class="navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Pet Manager</a>
@@ -8,7 +8,7 @@
         <li class="nav-item"><a href="#" class="nav-link">Contato</a></li>
       </ul>
       <% if logged_in? %>
-        <a href="#">Logout</a>
+        <%= link_to "Logout", logout_path, data: { turbo_method: :delete } %>
       <% else %>
         <a href="/login" class="btn">Login</a>
         <a href="/register" class="btn btn-primary">Cadastre-se</a>
