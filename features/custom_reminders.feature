@@ -12,6 +12,19 @@ Feature: Cadastro de lembretes personalizados no painel
     Then I should see the notification header actions
     And I should see the illustration "📭"
     And I should see the call to action button "Cadastrar um lembrete"
+    When I click the call to action button "Cadastrar um lembrete"
+    Then I should see the modal heading "Novo lembrete personalizado"
+    And I should see the helper text "Escolha um pet e defina como quer ser lembrado"
+    And I should see the following fields in the reminder form:
+      | Título do lembrete |
+      | Pet |
+      | Categoria |
+      | Data |
+      | Horário |
+      | Repetição |
+      | Observações |
+    And I should see the primary action button "Salvar lembrete"
+    And I should see the secondary action button "Cancelar"
 
   Scenario: Abrir o formulário de novo lembrete com notificações existentes
     Given I am logged in

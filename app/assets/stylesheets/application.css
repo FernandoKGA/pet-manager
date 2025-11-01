@@ -250,6 +250,12 @@ footer {
   text-align: center;
 }
 
+.notification-center__empty-list {
+  border: 1px dashed rgba(148, 163, 184, 0.4);
+  border-radius: 16px;
+  background: rgba(248, 250, 252, 0.6);
+}
+
 .btn.notification-center__back {
   display: none !important;
   margin-bottom: 16px;
