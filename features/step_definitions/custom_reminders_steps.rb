@@ -41,13 +41,7 @@ When('I fill the reminder form with:') do |table|
   end
 end
 
-When('I click the primary action button {string}') do |label|
-  within('[data-testid="custom-reminder-modal"]') do
-    click_on label
-  end
-end
-
-When('I click the secondary action button {string}') do |label|
+When('I click the action button {string}') do |label|
   within('[data-testid="custom-reminder-modal"]') do
     click_on label
   end

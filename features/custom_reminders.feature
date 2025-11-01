@@ -52,7 +52,7 @@ Feature: Cadastro de lembretes personalizados no painel
       | Horário            | 09:00                 |
       | Repetição          | Não repetir           |
       | Observações        | Comprar 2 sacos de 10 kg sabor frango |
-    And I click the primary action button "Salvar lembrete"
+    And I click the action button "Salvar lembrete"
     Then I should see a toast message "Lembrete cadastrado com sucesso! 🎯"
     And I should see the notification cards in this order:
       | Comprar ração premium |
@@ -76,7 +76,7 @@ Feature: Cadastro de lembretes personalizados no painel
       | Horário            | 21:00              |
       | Repetição          | Diariamente        |
       | Observações        | Administrar comprimido após o jantar |
-    And I click the primary action button "Salvar lembrete"
+    And I click the action button "Salvar lembrete"
     Then I should see a toast message "Vamos te lembrar todos os dias às 21h. 💊"
     And the notification card "Antipulgas da Lira" should display the badge "Nova"
     And I should see the recurrence badge "Diariamente" on the notification card "Antipulgas da Lira"
@@ -103,7 +103,7 @@ Feature: Cadastro de lembretes personalizados no painel
       | Vacina V10 da Lira | Saúde     | Amanhã   | unread | Lira |
     When I open the notification center from the dashboard
     And I click the call to action button "Cadastrar um lembrete"
-    And I click the secondary action button "Cancelar"
+    And I click the action button "Cancelar"
     Then I should not see the reminder modal
     And I should see the notification header actions
     And I should see the notification cards in this order:
