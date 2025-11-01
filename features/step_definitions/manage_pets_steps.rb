@@ -65,6 +65,7 @@ And('I update the pet information with valid data') do
   fill_in 'Tamanho', with: '65'
 end
 
+
 Then('I should see the updated information in my pets page') do
   # Verifica apenas se o nome foi atualizado
   expect(page).to have_content('Buddy Updated')

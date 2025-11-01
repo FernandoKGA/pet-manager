@@ -6,7 +6,12 @@ class PetsController < ApplicationController
   end
 
   def create
-    @pet = current_user.pets.build(pet_params)
+    @pet = current_user.pets.build(pet_params.except(:photo_file))
+
+    if params.dig(:pet, :photo_file).present?
+      @pet.attach_uploaded_file(params[:pet][:photo_file])
+    end
+
     if @pet.save
       redirect_to user_path(current_user), notice: "Pet cadastrado com sucesso!"
     else
@@ -16,15 +21,19 @@ class PetsController < ApplicationController
   end
 
   def show
-    # @pet já está definido pelo before_action
+
   end
 
   def edit
-    # @pet já está definido pelo before_action
+
   end
 
   def update
-    if @pet.update(pet_params)
+    if params.dig(:pet, :photo_file).present?
+      @pet.attach_uploaded_file(params[:pet][:photo_file])
+    end
+
+    if @pet.update(pet_params.except(:photo_file))
       redirect_to user_path(current_user), notice: "Pet atualizado com sucesso!"
     else
       flash.now[:alert] = "Não foi possível atualizar as informações do pet."
@@ -39,6 +48,9 @@ class PetsController < ApplicationController
   end
 
   def pet_params
-    params.require(:pet).permit(:name, :birthdate, :size, :species, :breed, :gender, :sinpatinhas_id)
+    params.require(:pet).permit(
+      :name, :birthdate, :size, :species, :breed, :gender, :sinpatinhas_id,
+      :photo_file
+    )
   end
 end

@@ -76,3 +76,6 @@ end
 
 gem "chartkick", "~> 5.2"
 
+
+gem 'image_processing', '~> 1.13'    
+gem 'mini_magick', '~> 4.11'         

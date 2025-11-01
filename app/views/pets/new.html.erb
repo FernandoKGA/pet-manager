@@ -1,6 +1,6 @@
 <div class="pets-new">
 
-  <%= form_with(model: @pet, local: true, html: { class: "pet-form" }) do |f| %>
+  <%= form_with(model: @pet, local: true, html: { class: "pet-form", multipart: true }) do |f| %>
     <div class="form-group">
       <%= f.label :name do %>
         Nome <span style="color: red;">*</span>
@@ -50,9 +50,65 @@
       <%= f.text_field :sinpatinhas_id, class: "form-control" %>
     </div>
 
+    <!-- Nova seção: upload da foto -->
+    <div class="form-group">
+      <%= label_tag :pet_photo_file do %>
+        Foto do pet
+      <% end %>
+      <%= file_field_tag 'pet[photo_file]', accept: 'image/*', id: 'pet_photo_file', class: 'form-control-file' %>
+      <small class="form-text text-muted">Tipos permitidos: png, jpg, jpeg, gif. Máx: 5MB.</small>
+
+      <!-- Preview / mostra foto atual se existir -->
+      <div id="photo_preview" style="margin-top:10px;">
+        <% if @pet&.photo_attached? %>
+          <div class="current-photo">
+            <p>Foto atual:</p>
+            <%= image_tag @pet.photo_data_uri, alt: @pet.name, style: "max-width: 300px; max-height: 300px; display:block; margin-bottom:8px;" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
     <div class="form-actions">
       <%= f.submit "Salvar", class: "btn" %>
     </div>
   <% end %>
 
 </div>
+
+<!-- Inline JS para preview do cliente (copiar/colar no layout se preferir separar) -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var input = document.getElementById('pet_photo_file');
+    var preview = document.getElementById('photo_preview');
+
+    if (!input || !preview) return;
+
+    input.addEventListener('change', function(event) {
+      var file = event.target.files[0];
+      if (!file) return;
+
+      var allowed = ['image/png','image/jpg','image/jpeg','image/gif'];
+      if (!allowed.includes(file.type)) {
+        alert('Tipo de arquivo não permitido. Use png, jpg, jpeg ou gif.');
+        input.value = '';
+        return;
+      }
+
+      // Limite de tamanho (5MB)
+      var maxBytes = 5 * 1024 * 1024;
+      if (file.size > maxBytes) {
+        alert('Arquivo muito grande. Máx 5MB.');
+        input.value = '';
+        return;
+      }
+
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        // substitui preview existente
+        preview.innerHTML = '<img src="' + e.target.result + '" style="max-width:300px; max-height:300px; display:block; margin-top:8px;" alt="Pré-visualização da foto" />';
+      };
+      reader.readAsDataURL(file);
+    });
+  });
+</script>
