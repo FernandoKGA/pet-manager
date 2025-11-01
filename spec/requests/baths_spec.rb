@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe "Baths", type: :request do
   # Setup dos objetos de contexto e hashes de dados
-  let(:user_email) { "teste#{rand(100)}@exemplo.com"}
 
   let!(:user) { FactoryBot.create(:user) }
 

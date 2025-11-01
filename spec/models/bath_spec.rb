@@ -1,31 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Bath, type: :model do
-  # Método auxiliar para criar um usuário válido
-  def create_user(email = "teste#{rand(100)}@exemplo.com")
-    User.create!(
-      email: email,
-      first_name: 'Bob',
-      last_name:  'Burnquist',
-      password:   'secret123',
-    )
-  end
-
-  # Setup dos objetos de contexto
-  let(:user) { create_user }
-
-  # Método auxiliar para criar um pet válido, que precisa de um usuário
-  def create_pet(user)
-    Pet.create!(
-      name: "Rex",
-      species: 'Cachorro',
-      breed:  'Vira-lata',
-      user_id: user.id,
-    )
-  end
-
-  # Setup dos objetos de contexto
-  let(:pet) { create_pet(user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:pet) { FactoryBot.create(:pet, user: user) }
 
   # Falha 1: Associações
   describe 'Associações' do

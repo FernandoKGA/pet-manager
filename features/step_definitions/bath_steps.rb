@@ -36,7 +36,7 @@ Given("I am on the new_pet_bath_path") do
 end
 
 When('I click on {string}') do |button_text|
-  click_on button_text
+ click_on button_text
 end
 
 When('I select the current date and time for {string}') do |field_label|
