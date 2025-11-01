@@ -15,6 +15,59 @@
  *= require dashboard
  */
 
+/* ==========================================================================
+   DESIGN SYSTEM (PALETA 3)
+   ========================================================================== */
+:root {
+  /* 1. Cores da Marca (Brand) */
+  --brand-primary-base: #764ba2;
+  --brand-primary-light: #b09dc7;
+  --brand-primary-dark: #5e3a80;
+  --brand-primary-base-rgb: 118, 75, 162; /* Para box-shadows com alfa */
+
+  --brand-secondary-base: #667eea;
+  --brand-secondary-light: #a3b0f2;
+  --brand-secondary-dark: #4a61d1;
+  
+  /* 2. Cores Neutras (Neutrals) */
+  --neutral-0: #ffffff;
+  --neutral-0-rgb: 255, 255, 255;
+  --neutral-100: #f7fafc;  /* Fundo de seção/página (substitui #f8f9fa, #f9fafb, #f4f4f4) */
+  --neutral-200: #e2e8f0;  /* Bordas sutis, fundo de botão desabilitado */
+  --neutral-300: #cbd5e0;  /* Bordas de inputs (substitui #ccc, #ddd) */
+  --neutral-400: #a0aec0;  /* Placeholders, ícones sutis */
+  --neutral-500: #718096;  /* Sub-títulos, texto secundário */
+  --neutral-600: #4a5568;  /* Texto de corpo (parágrafos, substitui #555) */
+  --neutral-700: #2d3748;  /* Texto de corpo com destaque (substitui #333) */
+  --neutral-800: #1a202c;  /* Títulos principais (substitui #111827) */
+
+  /* 3. Cores Semânticas (Status) */
+  --status-danger-base: #f5576c;
+  --status-danger-light: #fde7ea; /* Fundo de erro (substitui #f8d7da) */
+  --status-danger-dark: #d64555;  /* Hover de perigo (substitui #721c24) */
+
+  --status-warning-base: #FB923C; /* Laranja */
+  --status-warning-light: #fff4e9;
+  --status-warning-dark: #e47514;
+  
+  --status-success-base: #10B981;
+  --status-success-light: #D1FAE5;
+  --status-success-dark: #047857;
+
+  /* 4. Gradientes (Gradients) */
+  --gradient-primary: linear-gradient(135deg, var(--brand-secondary-base) 0%, var(--brand-primary-base) 100%);
+  --gradient-accent: linear-gradient(135deg, #f093fb 0%, var(--status-danger-base) 100%);
+  --gradient-neutral-card: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+  /* 5. Sombras (Shadows) - Bônus */
+  --shadow-brand: 0 2px 8px rgba(102, 126, 234, 0.3);
+  --shadow-danger: 0 2px 8px rgba(245, 87, 108, 0.3);
+}
+/* ==========================================================================
+   FIM DO DESIGN SYSTEM
+   ========================================================================== */
+
+
 .closebtn {
   margin-left: auto;
   color: inherit;
@@ -27,11 +80,11 @@
 }
 
 .closebtn:hover {
-  color: #111827;
+  color: var(--neutral-800); 
 }
 
 body {
-  background-color: #f8f9fa;
+  background-color: var(--neutral-100); 
 }
 
 /* color: #0675e3; */
