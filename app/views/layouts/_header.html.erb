@@ -1,0 +1,18 @@
+<header class="align-items-center mb-4 border-bottom" id="pet-manager-header">
+  <nav class="navbar">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Pet Manager</a>
+      <ul class="navbar-nav flex-row flex-fill justify-content-evenly">
+        <li class="nav-item"><a href="#" class="nav-link">Sobre</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Funcionalidades</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Contato</a></li>
+      </ul>
+      <% if logged_in? %>
+        <a href="#">Logout</a>
+      <% else %>
+        <a href="/login" class="btn">Login</a>
+        <a href="/register" class="btn btn-primary">Cadastre-se</a>
+      <% end %>
+    </div>
+  </nav>
+</header>
