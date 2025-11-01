@@ -13,12 +13,18 @@
 
   <div class="field">
     <%= form.label :date, "Data e Hora" %>
-    <%= form.datetime_select :date %>
+    <%= form.datetime_field :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :tosa, "Tosa" %>
+    <%= form.radio_button :tosa, true %> Sim
+    <%= form.radio_button :tosa, false %> Não
   </div>
 
   <div class="field">
     <%= form.label :price, "Preço" %>
-    <%= form.text_field :price %>
+    <%= form.text_field :price, placeholder: "R$ 90,00" %>
   </div>
 
   <div class="field">

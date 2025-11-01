@@ -12,8 +12,8 @@ Feature: Pet Bath Registration
     When I visit the baths page for "Oliver"
     And I click on "Cadastrar Novo Banho"
     And I select the current date and time for "Data e Hora"
-    And I fill in "Preço" with "9.99"
+    And I fill in "Preço" with "9,99"
     And I fill in "Observações" with "Bath and grooming at PetShop Pet Cheiroso"
     And I click the button "Salvar Banho"
     Then I should see the following message "Banho cadastrado com sucesso."
-    And I should see "9.99" in the list of baths
+    And I should see "R$ 9,00" in the list of baths

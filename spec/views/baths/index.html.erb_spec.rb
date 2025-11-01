@@ -38,11 +38,11 @@ RSpec.describe "baths/index", type: :view do
     # Verifica se existem 2 linhas na tabela
     assert_select "table tbody tr", count: 2
 
-    # Verifica os preços formatados (segunda coluna)
-    assert_select "table tbody tr td:nth-child(2)", text: /R\$9.99/, count: 2
+    # Verifica as observações (quarta coluna)
+    assert_select "table tbody tr td:nth-child(4)", text: /Banho Legal/, count: 2
 
-    # Verifica as observações (terceira coluna)
-    assert_select "table tbody tr td:nth-child(3)", text: /Banho Legal/, count: 2
+    # Verifica os preços formatados (terceira coluna)
+    assert_select "table tbody tr td:nth-child(3)", text: /R\$ 9,99/, count: 2
 
     # Verifica a data (primeira coluna) no formato dd/mm/yyyy
     assert_select "table tbody tr td:nth-child(1)", text: /\d{2}\/\d{2}\/\d{4}/, count: 2

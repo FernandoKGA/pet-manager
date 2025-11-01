@@ -40,29 +40,10 @@ When('I click on {string}') do |button_text|
 end
 
 When('I select the current date and time for {string}') do |field_label|
-  now = Time.current
-  
-  # Tratar o fieldset (grupo de campos) do campo "Data e Hora"
-  
-  field_prefix = 'bath_date' 
-  # Substitua 'bath_date' pelo prefixo correto se for diferente (ex: bath_bath_date)
-  
-  # 1. Ano
-  select now.year.to_s, from: "#{field_prefix}_1i"
-  
-  # 2. Mês
-  select now.strftime('%B'), from: "#{field_prefix}_2i" 
-  # Ou use o número do mês formatado (ex: '01', '02') se suas traduções estiverem desligadas:
-  # select now.strftime('%m'), from: "#{field_prefix}_2i" 
-  
-  # 3. Dia
-  select now.day.to_s.rjust(2, '0'), from: "#{field_prefix}_3i"
-  
-  # 4. Hora
-  select now.hour.to_s.rjust(2, '0'), from: "#{field_prefix}_4i"
-  
-  # 5. Minuto
-  select now.min.to_s.rjust(2, '0'), from: "#{field_prefix}_5i"
+  within("form") do
+    save_and_open_page
+    fill_in field_label, with: Time.now.strftime("%Y-%m-%d %H:%M")
+  end
 end
 
 When('I fill in {string} with {string}') do |field_label, value|

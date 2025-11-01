@@ -71,6 +71,6 @@ class BathsController < ApplicationController
 
     # Strong Parameters
     def bath_params
-      params.require(:bath).permit(:date, :price, :notes)
+      params.require(:bath).permit(:date, :tosa, :price, :notes)
     end
 end

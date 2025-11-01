@@ -41,6 +41,8 @@ module PetManager
 
     config.time_zone = 'America/Sao_Paulo'
 
-    # config.i18n.default_locale = :'pt-BR'
+    # Necessário para os valores monetários
+    #config.i18n.default_locale = :'pt-BR'
+    #config.i18n.available_locales = [:'pt-BR', :en]
   end
 end

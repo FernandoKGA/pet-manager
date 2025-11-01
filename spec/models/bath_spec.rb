@@ -30,12 +30,12 @@ RSpec.describe Bath, type: :model do
   # Falha 1: Associações
   describe 'Associações' do
     it 'pertence a um Pet' do
-      bath = Bath.new(pet: pet, date: Time.now, price: 10.0)
+      bath = Bath.new(pet: pet, date: Time.now, price: 10.00)
       expect(bath.pet).to eq(pet)
     end
     
     it 'é inválido sem um Pet' do
-      bath = Bath.new(date: Time.now, price: 10.0)
+      bath = Bath.new(date: Time.now, price: 10.00)
       expect(bath).to_not be_valid
       # Verifica a mensagem de erro da associação obrigatória
       expect(bath.errors[:pet]).to include("must exist")
@@ -47,9 +47,9 @@ RSpec.describe Bath, type: :model do
     
     # Falha 2: Teste de presença da data
     it 'é inválido sem data' do
-      bath = Bath.new(pet: pet, date: nil, price: 10.0)
+      bath = Bath.new(pet: pet, date: nil, price: 10.00)
       expect(bath).to_not be_valid
-      expect(bath.errors[:date]).to include("can't be blank")
+      expect(bath.errors[:date]).to include("Campo data obrigatório.")
     end
 
     # Falha 3: Teste de validação de preço (numericality e > 0)

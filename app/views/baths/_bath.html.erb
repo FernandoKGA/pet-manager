@@ -10,8 +10,13 @@
   </p>
 
   <p>
+    <strong>Tosa:</strong>
+    <%= bath.tosa ? "Sim" : "Não" %>
+  </p>
+
+  <p>
     <strong>Preço:</strong>
-    <%= bath.price %>
+    <%= number_to_currency(bath.price, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %>
   </p>
 
   <p>

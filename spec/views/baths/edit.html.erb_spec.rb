@@ -41,7 +41,7 @@ RSpec.describe "baths/edit", type: :view do
     assert_select "form[action=?][method=?]", pet_bath_path(pet, bath), "post" do
       assert_select "input[name=?]", "bath[price]"
       assert_select "textarea[name=?]", "bath[notes]"
-      assert_select "select[name^=?]", "bath[date"  # para o campo date multi-select
+      assert_select "input[name=?]", "bath[date]"
     end
 
     # Verifica se o link de voltar está presente

@@ -4,25 +4,11 @@ RSpec.describe "Baths", type: :request do
   # Setup dos objetos de contexto e hashes de dados
   let(:user_email) { "teste#{rand(100)}@exemplo.com"}
 
-  let(:user) do
-    User.create!(
-      email: user_email,
-      first_name: 'Bob',
-      last_name:  'Burnquist',
-      password:   'secret123'
-    )
-  end
+  let!(:user) { FactoryBot.create(:user) }
 
-  let(:pet) do
-    Pet.create!(
-      name: "Rex",
-      species: 'Cachorro',
-      breed:  'Vira-lata',
-      user_id: user.id,
-    )
-  end
+  let!(:pet) { FactoryBot.create(:pet, user: user) }
 
-  let!(:bath) { Bath.create!(pet: pet, date: 1.day.ago, price: 49.99) }
+  let!(:bath) { FactoryBot.create(:bath, pet: pet) }
 
   let(:valid_bath_params) do
     { date: Time.now, price: 75.50 }
@@ -31,7 +17,6 @@ RSpec.describe "Baths", type: :request do
     { date: nil, price: 75.50 }
   end
 
-  # Simulação de Login (Ajuste para seu sistema de autenticação)
   before do
     #sign_in user
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
@@ -42,7 +27,15 @@ RSpec.describe "Baths", type: :request do
       get pet_baths_path(pet)
       expect(response).to have_http_status(200)
       expect(response.body).to include(pet.name) # Verifica se o nome do pet está na página
-      expect(response.body).to include(bath.price.to_s) # Verifica se o banho está listado
+      #expect(response.body).to include(bath.price.to_s) # Verifica se o banho está listado
+      formatted_price = ActionController::Base.helpers.number_to_currency(
+        bath.price,
+        unit: "R$",
+        separator: ",",
+        delimiter: ".",
+        format: "%u %n"
+      )
+      expect(response.body).to include(formatted_price)
     end
   end
 
@@ -65,9 +58,9 @@ RSpec.describe "Baths", type: :request do
           post pet_baths_path(pet), params: { bath: attributes_for(:bath, date: nil) } # Data inválida
         }.not_to change(Bath, :count)
 
-        expect(response).to have_http_status(:unprocessable_entity) # ou :unprocessable_entity dependendo do controller
+        expect(response).to have_http_status(:unprocessable_content) # ou :unprocessable_entity dependendo do controller
         
-        expect(response.body).to match(/Date can('|&#39;)t be blank/) # Mensagem de erro
+        expect(response.body).to match(/Campo data obrigatório./) # Mensagem de erro
       end
     end
   end
