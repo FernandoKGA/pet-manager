@@ -1,0 +1,13 @@
+<%= stylesheet_link_tag "vaccinations", "data-turbo-track": "reload" %>
+
+<div class="dashboard-container">
+  <div class="vaccination-form-page">
+    <div class="vaccination-form-card">
+      <%= link_to "← Voltar para as vacinas", pet_vaccinations_path(@pet), class: "btn-back" %>
+      <h1>Registrar vacina</h1>
+      <p>Preencha os dados da aplicação para manter a carteira do <%= @pet.name %> atualizada.</p>
+
+      <%= render "form" %>
+    </div>
+  </div>
+</div>

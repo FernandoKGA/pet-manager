@@ -1,0 +1,54 @@
+<%= form_with(model: [@pet, @vaccination], html: { class: "vaccination-form" }) do |form| %>
+  <% if @vaccination.errors.any? %>
+    <div class="vaccination-alert">
+      <h3><%= pluralize(@vaccination.errors.count, "erro") %> impediram o salvamento:</h3>
+      <ul>
+        <% @vaccination.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="vaccination-form-grid">
+    <div class="form-group">
+      <%= form.label :vaccine_name, "Vacina" %>
+      <%= form.text_field :vaccine_name, class: "form-control", autofocus: true, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :administered_on, "Data de aplicação" %>
+      <%= form.date_field :administered_on, class: "form-control", required: true, max: Date.current %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :dose, "Dose" %>
+      <%= form.text_field :dose, class: "form-control", placeholder: "Ex.: 1ª dose, reforço, anual" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :manufacturer, "Fabricante" %>
+      <%= form.text_field :manufacturer, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :batch_number, "Lote" %>
+      <%= form.text_field :batch_number, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :next_due_on, "Próxima dose" %>
+      <%= form.date_field :next_due_on, class: "form-control", min: Date.current %>
+    </div>
+  </div>
+
+  <div class="form-group form-group--full">
+    <%= form.label :notes, "Observações" %>
+    <%= form.text_area :notes, rows: 4, class: "form-control", placeholder: "Anote possíveis reações, orientações do veterinário, etc." %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit (@vaccination.persisted? ? "Atualizar vacina" : "Salvar vacina"), class: "btn-primary" %>
+    <%= link_to "Cancelar", pet_vaccinations_path(@pet), class: "btn-secondary" %>
+  </div>
+<% end %>

@@ -104,6 +104,22 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_01_161048) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "vaccinations", force: :cascade do |t|
+    t.bigint "pet_id", null: false
+    t.string "vaccine_name", null: false
+    t.date "administered_on", null: false
+    t.date "next_due_on"
+    t.string "dose"
+    t.string "manufacturer"
+    t.string "batch_number"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["next_due_on"], name: "index_vaccinations_on_next_due_on"
+    t.index ["pet_id", "administered_on"], name: "index_vaccinations_on_pet_id_and_administered_on"
+    t.index ["pet_id"], name: "index_vaccinations_on_pet_id"
+  end
+
   create_table "weights", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.decimal "weight"
@@ -120,5 +136,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_01_161048) do
   add_foreign_key "pets", "users"
   add_foreign_key "reminder_notifications", "pets"
   add_foreign_key "reminder_notifications", "users"
+  add_foreign_key "vaccinations", "pets"
   add_foreign_key "weights", "pets"
 end

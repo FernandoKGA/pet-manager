@@ -9,6 +9,7 @@ class Pet < ApplicationRecord
 
   has_many :baths, dependent: :destroy
   has_many :medications, dependent: :destroy
+  has_many :vaccinations, dependent: :destroy
   has_many :reminder_notifications, dependent: :destroy
   has_many :expenses, dependent: :destroy
   has_many :weights, dependent: :destroy

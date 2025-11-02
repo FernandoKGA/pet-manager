@@ -1,0 +1,94 @@
+<%= stylesheet_link_tag "vaccinations", "data-turbo-track": "reload" %>
+
+<div class="dashboard-container">
+  <div class="vaccinations-page">
+    <div class="vaccinations-header">
+      <%= link_to "← Voltar para o Dashboard", user_path(@pet.user), class: "btn-back" %>
+      <h1 class="vaccinations-title">Vacinas: <%= @pet.name %></h1>
+      <p class="vaccinations-subtitle">
+        Registre cada aplicação para manter a carteira de vacinação sempre em dia.
+      </p>
+    </div>
+
+    <div class="vaccinations-content">
+      <div class="vaccinations-actions">
+        <% upcoming = @pet.vaccinations.upcoming.limit(3) %>
+        <% if upcoming.any? %>
+          <div class="vaccinations-upcoming">
+            <h2>Próximas doses</h2>
+            <ul>
+              <% upcoming.each do |item| %>
+                <li>
+                  <span class="vaccination-name"><%= item.vaccine_name %></span>
+                  <span class="vaccination-next-date">
+                    <%= l(item.next_due_on, format: "%d/%m/%Y") %>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <%= link_to "Adicionar vacina", new_pet_vaccination_path(@pet), class: "btn-primary" %>
+      </div>
+
+      <div class="vaccinations-list">
+        <% if @vaccinations.any? %>
+          <% @vaccinations.each do |vaccination| %>
+            <div class="vaccination-card">
+              <div class="card-header">
+                <h3><%= vaccination.vaccine_name %></h3>
+                <div class="card-actions">
+                  <%= link_to "Editar", edit_pet_vaccination_path(@pet, vaccination), class: "btn-primary" %>
+                  <%= button_to "Remover", pet_vaccination_path(@pet, vaccination), method: :delete,
+                                data: { confirm: "Tem certeza que deseja remover este registro?" },
+                                class: "btn-secondary" %>
+                </div>
+              </div>
+
+              <div class="card-details">
+                <div>
+                  <span class="label">Aplicação</span>
+                  <span><%= l(vaccination.administered_on, format: "%d/%m/%Y") %></span>
+                </div>
+                <% if vaccination.next_due_on.present? %>
+                  <div>
+                    <span class="label">Próxima dose</span>
+                    <span><%= l(vaccination.next_due_on, format: "%d/%m/%Y") %></span>
+                  </div>
+                <% end %>
+                <% if vaccination.dose.present? %>
+                  <div>
+                    <span class="label">Dose</span>
+                    <span><%= vaccination.dose %></span>
+                  </div>
+                <% end %>
+                <% if vaccination.manufacturer.present? %>
+                  <div>
+                    <span class="label">Fabricante</span>
+                    <span><%= vaccination.manufacturer %></span>
+                  </div>
+                <% end %>
+                <% if vaccination.batch_number.present? %>
+                  <div>
+                    <span class="label">Lote</span>
+                    <span><%= vaccination.batch_number %></span>
+                  </div>
+                <% end %>
+              </div>
+
+              <% if vaccination.notes.present? %>
+                <p class="card-notes"><%= vaccination.notes %></p>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <div class="vaccinations-empty">
+            <p>Nenhuma vacina registrada ainda.</p>
+            <p>Comece adicionando a carteira do <%= @pet.name %>.</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
