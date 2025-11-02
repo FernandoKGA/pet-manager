@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_04_001655) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_01_161048) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "baths", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.datetime "date"
-    t.decimal "price"
+    t.decimal "price", precision: 8, scale: 2
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -116,6 +116,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_04_001655) do
     t.datetime "updated_at", null: false
     t.string "password_reset_token"
     t.datetime "password_reset_token_expires_at"
+    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
@@ -127,6 +128,18 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_04_001655) do
     t.bigint "pet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "pet_id", null: false
+    t.string "vaccine_name", null: false
+    t.date "administered_on", null: false
+    t.date "next_due_on"
+    t.string "dose"
+    t.string "manufacturer"
+    t.string "batch_number"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["next_due_on"], name: "index_vaccinations_on_next_due_on"
+    t.index ["pet_id", "administered_on"], name: "index_vaccinations_on_pet_id_and_administered_on"
     t.index ["pet_id"], name: "index_vaccinations_on_pet_id"
   end
 
