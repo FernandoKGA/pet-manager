@@ -29,6 +29,7 @@ Rails.application.routes.draw do
     resources :weight, only: [:new, :create], path: 'weight'
     resources :diary_entries, only: [:index, :create, :destroy]
     resources :medications, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :vaccinations, only: [:index, :new, :create, :edit, :update, :destroy]
   end
   
   resources :expenses, only: [:index, :new, :create]

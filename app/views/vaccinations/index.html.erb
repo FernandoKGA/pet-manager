@@ -1,0 +1,34 @@
+<h1>Vacinas de <%= @pet.name %></h1>
+<% if @vaccinations.present? %>
+    <table>
+      <thead>
+        <tr>
+         <th>Nome da Vacina</th>
+         <th>Data da Vacinação</th>
+         <th>Aplicada</th>
+         <th>Responsável</th>
+         <th colspan="3">Ações</th>
+       </tr>
+     </thead>
+     <tbody>
+       <% @vaccinations.each do |vaccination| %>
+       <tr>
+         <td><%= vaccination.name %></td>
+         <td><%= vaccination.applied_date.strftime('%d/%m/%Y') %></td>
+         <td><%= vaccination.applied ? "Sim" : "Não" %></td>
+         <td><%= vaccination.applied_by %></td>
+         <td><%= link_to 'Editar', edit_pet_vaccinations_path(vaccination) %></td>
+         <td><%= link_to 'Excluir', vaccination, method: :delete, data: { confirm: 'Tem certeza que deseja excluir o registro?' } %></td>
+         </tr>
+       <% end %>
+     </tbody>
+    </table>
+  <br>
+<% else %>
+   <p class="empty-state-text">
+     Você ainda não cadastrou nenhuma vacinação.
+   </p>
+<% end %>
+<br>
+<%= link_to 'Adicionar vacina', new_pet_vaccination_path(@pet) , class: "btn btn-primary" %>
+<%= link_to "Voltar para o Dashboard", user_path(@pet.user), class: "btn btn-secondary", data: { turbo: false } %>

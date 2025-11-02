@@ -9,14 +9,15 @@
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
-ActiveRecord::Schema[7.1].define(version: 2025_11_01_161048) do
+
+ActiveRecord::Schema[7.1].define(version: 2025_11_02_194905) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "baths", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.datetime "date"
-    t.decimal "price"
+    t.decimal "price", precision: 8, scale: 2
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -49,9 +50,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_01_161048) do
   create_table "medications", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.string "name", null: false
-    t.string "dosage"
-    t.string "frequency"
-    t.date "start_date"
+    t.string "dosage", null: false
+    t.string "frequency", null: false
+    t.date "start_date", null: false
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["pet_id"], name: "index_medications_on_pet_id"
@@ -104,6 +106,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_01_161048) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "vaccinations", force: :cascade do |t|
+    t.string "name"
+    t.date "applied_date"
+    t.string "applied_by"
+    t.boolean "applied"
+    t.bigint "pet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_vaccinations_on_pet_id"
+  end
+
   create_table "weights", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.decimal "weight"
@@ -120,5 +133,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_01_161048) do
   add_foreign_key "pets", "users"
   add_foreign_key "reminder_notifications", "pets"
   add_foreign_key "reminder_notifications", "users"
+  add_foreign_key "vaccinations", "pets"
   add_foreign_key "weights", "pets"
 end
