@@ -17,8 +17,8 @@
          <td><%= vaccination.applied_date.strftime('%d/%m/%Y') %></td>
          <td><%= vaccination.applied ? "Sim" : "Não" %></td>
          <td><%= vaccination.applied_by %></td>
-         <td><%= link_to 'Editar', edit_pet_vaccinations_path(vaccination) %></td>
-         <td><%= link_to 'Excluir', vaccination, method: :delete, data: { confirm: 'Tem certeza que deseja excluir o registro?' } %></td>
+         <td><%= link_to 'Editar', edit_pet_vaccination_path(@pet, vaccination) %></td>
+         <td><%= link_to 'Excluir', pet_vaccination_path(@pet, vaccination), data: { turbo_method: :delete } %></td>
          </tr>
        <% end %>
      </tbody>

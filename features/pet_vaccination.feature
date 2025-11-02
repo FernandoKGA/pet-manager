@@ -14,14 +14,15 @@ Feature: Add pet vaccination
     When I click in the link "Vacinas"
     And I click in the link "Adicionar vacina"
     And I fill the vaccine form with valid data
-    And I click in "Adicionar"
+    And I click in "Salvar"
     Then I should see the new entry on my pet vaccine table
 
   Scenario: Edit a vaccine
     Given I have added some vaccines to my pet
     And I am at the pet vaccine page
+    And I enter the vaccine name "Rab Dose 1"
     When I edit the vaccine with name "Rab Dose 1 Edited"
-    And I click in "Atualizar"
+    And I click in "Salvar"
     Then I should see the updated entry on my pet vaccine table
   
   Scenario: Remove a vaccine

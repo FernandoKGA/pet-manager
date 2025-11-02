@@ -1,0 +1,25 @@
+<%= form_with(model: [@pet, @vaccination], local: true) do |f| %>
+  <div class="form-group">
+    <%= f.label :name do %>
+      Nome da vacina<span style="color: red;">*</span>
+    <% end %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :applied_date do %>
+      Data de vacinação <span style="color: red;">*</span>
+    <% end %>
+    <%= f.date_field :applied_date, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :applied_by, "Responsável" %>
+    <%= f.text_field :applied_by, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :applied, "Aplicada" %>
+    <%= f.check_box :applied %>
+  </div>
+  <div class="form-actions">
+    <%= f.submit "Salvar", class: "btn" %>
+  </div>
+<% end %>

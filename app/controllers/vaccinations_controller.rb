@@ -28,7 +28,7 @@ class VaccinationsController < ApplicationController
     if @vaccination.update(vaccination_params)
       redirect_to pet_vaccinations_path(@pet), info: 'Vacinação atualizada com sucesso.'
     else
-      render :edit
+      render edit_pet_vaccinations_path([@pet, @vaccination])
     end
   end
 
