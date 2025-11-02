@@ -1,4 +1,5 @@
 <%= stylesheet_link_tag "dashboard", "data-turbo-track": "reload" %>
+
 <div class="dashboard-container">
 
   <!-- Card de Boas-vindas -->
@@ -56,7 +57,11 @@
             <!-- Conteúdo Principal -->
             <div class="pet-card-content">
               <div class="pet-avatar">
-                🐶
+                <% if pet.photo_attached? %>
+                  <%= image_tag pet.photo_data_uri, alt: pet.name, style: "width:80px; height:80px; object-fit:cover; border-radius:50%;" %>
+                <% else %>
+                  🐶
+                <% end %>
               </div>
               
               <h3 class="pet-name">
@@ -65,7 +70,9 @@
               
               <p class="pet-info">
                 <%= pet.species %> • <%= pet.breed || 'SRD' %>
-                • <%= pet.current_weight %> kg
+                <% if pet.current_weight.present? %>
+                  • <%= pet.current_weight %> kg
+                <% end %>
               </p>
             </div>
 
