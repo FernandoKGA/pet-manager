@@ -25,3 +25,9 @@ Feature: Medication management
     And I press the medication button "Atualizar"
     Then I should see the medication message "Medicamento atualizado com sucesso"
     And I should see the dosage "10ml" in the medication list
+
+  Scenario: Delete existing medication record
+    Given I have an existing medication registered for my pet
+    When I click delete on that medication
+    Then I should see the medication message "Medicamento excluído com sucesso"
+    And the medication should not appear in the dashboard

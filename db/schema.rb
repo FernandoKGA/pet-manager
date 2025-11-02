@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_002745) do
   create_table "baths", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.datetime "date"
-    t.decimal "price"
+    t.decimal "price", precision: 8, scale: 2
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
