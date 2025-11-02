@@ -1,3 +1,14 @@
-<div class="vaccination-new">
-  <%= render 'form' %>
+<%= stylesheet_link_tag "vaccination", "data-turbo-track": "reload" %>
+
+<div class="vaccine-page-container">
+  
+  <div class="vaccine-header">
+    <%= link_to "← Voltar para o Pet", pet_vaccinations_path(@pet), class: 'btn-back' %>
+    <h1 class="vaccine-title">Editar Vacina</h1>
+    <p class="vaccine-subtitle">Atualize os dados da vacina de <%= @pet.name %>.</p>
+  </div>
+
+  <div class="vaccine-form-section">
+    <%= render 'form' %>
+  </div>
 </div>
