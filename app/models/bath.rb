@@ -39,7 +39,7 @@ class Bath < ApplicationRecord
    )
   end
 
-    def update_expense_record
+  def update_expense_record
     return unless expense.present?
 
     expense.update(
