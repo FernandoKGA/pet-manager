@@ -31,8 +31,6 @@ class MedicationsController < ApplicationController
   end
 
   def destroy
-    @pet = Pet.find(params[:pet_id])
-    @medication = @pet.medications.find(params[:id])
     @medication.destroy
     redirect_to user_path(current_user), notice: "Medicamento excluído com sucesso."
   end
@@ -44,7 +42,7 @@ class MedicationsController < ApplicationController
   end
 
   def set_medication
-    @medication = Medication.find(params[:id])
+    @medication = @pet.medications.find(params[:id])
   end
 
   def medication_params

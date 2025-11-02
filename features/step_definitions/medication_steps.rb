@@ -74,16 +74,31 @@ Then('I should see the dosage {string} in the medication list') do |dosage|
 end
 
 Then('the medication should not appear in the dashboard') do
-  expect(page).not_to have_content('Vermífugo X')
+  expect(page).not_to have_content(@medication.name)
 end
 
 # ==================== MEDICATION MANAGEMENT STEPS ====================
 Given('I have an existing medication registered for my pet') do
   @pet = create(:pet, user: @user)
   @medication = create(:medication, pet: @pet, name: 'Vermífugo X', dosage: '5ml')
-  visit pet_medications_path(@pet)
+  visit user_path(@user)
 end
 
 When('I click edit on that medication') do
-  click_link 'Editar', href: %r{medications/\d+/edit}
+  # Expande a seção de medicamentos se estiver colapsada
+  find("button[data-bs-target='#medications-#{@pet.id}']").click if page.has_css?("button[data-bs-target='#medications-#{@pet.id}'][aria-expanded='false']")
+  
+  within("#medications-#{@pet.id}") do
+    click_link '✏️', href: edit_pet_medication_path(@pet, @medication)
+  end
+end
+
+When('I click delete on that medication') do
+  # Expande a seção de medicamentos se estiver colapsada
+  if page.has_css?("button[data-bs-target='#medications-#{@pet.id}'][aria-expanded='false']")
+    find("button[data-bs-target='#medications-#{@pet.id}']").click 
+  end
+  
+  # Simula o DELETE request diretamente
+  page.driver.submit :delete, pet_medication_path(@pet, @medication), {}
 end
