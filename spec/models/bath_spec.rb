@@ -42,4 +42,41 @@ RSpec.describe Bath, type: :model do
       expect(bath).to be_valid
     end
   end
+
+  describe "callbacks de despesa" do
+    it "cria uma despesa automaticamente ao criar um banho" do
+      bath = Bath.create!(pet: pet, date: Time.zone.now, price: 50.00)
+
+      expect(bath.expense).to be_present
+      expect(bath.expense.amount).to eq(50.00)
+      expect(bath.expense.category).to eq("higiene")
+      expect(bath.expense.pet).to eq(pet)
+      expect(bath.expense.user).to eq(user)
+    end
+
+    it "atualiza a despesa quando o preço do banho é alterado" do
+      bath = Bath.create!(pet: pet, date: Time.zone.now, price: 50.00)
+      bath.update!(price: 75.00)
+
+      expect(bath.expense.reload.amount).to eq(75.00)
+    end
+
+    it "atualiza a despesa quando a data do banho é alterada" do
+      bath = Bath.create!(pet: pet, date: Time.zone.now, price: 50.00)
+      new_date = 2.days.from_now
+      bath.update!(date: new_date)
+
+      expect(bath.expense.reload.date.to_date).to eq(new_date.to_date)
+    end
+
+    it "exclui a despesa associada ao excluir o banho" do
+      bath = Bath.create!(pet: pet, date: Time.zone.now, price: 50.00)
+      expense_id = bath.expense.id
+
+      bath.destroy
+
+      expect(Expense.find_by(id: expense_id)).to be_nil
+    end
+  end
+
 end
