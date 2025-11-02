@@ -23,6 +23,17 @@ require 'capybara/rspec'
 require 'selenium-webdriver'
 require 'securerandom'
 
+CHROME_BINARY_PATH = begin
+  candidates = [
+    ENV['CHROME_PATH'],
+    '/usr/bin/google-chrome',
+    '/usr/bin/google-chrome-stable',
+    '/usr/bin/chromium',
+    '/usr/bin/chromium-browser'
+  ].compact
+  candidates.find { |path| File.exist?(path) && File.executable?(path) }
+end
+
 begin
   ActiveRecord::Migration.maintain_test_schema!
 rescue ActiveRecord::PendingMigrationError => e
@@ -47,18 +58,13 @@ end
 
 Capybara.register_driver :selenium_chrome_headless_custom do |app|
   options = Selenium::WebDriver::Options.chrome
-  options.add_argument('--headless=new') # Modo headless moderno
+  options.add_argument('--headless=new')
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-dev-shm-usage')
   options.add_argument('--window-size=1400,900')
-  
-  if ENV['CHROME_PATH'].present?
-    options.binary = ENV['CHROME_PATH']
-  end
+  options.binary = CHROME_BINARY_PATH if CHROME_BINARY_PATH
 
   service = Selenium::WebDriver::Service.chrome
-  
-  # Você especificou um caminho para o chromedriver, então vamos mantê-lo:
   service.executable_path = "./config/webdrivers/chromedriver/chromedriver"
 
   Capybara::Selenium::Driver.new(
@@ -71,16 +77,16 @@ end
 
 # 2. Configure o RSpec para usar o driver
 RSpec.configure do |config|
-  # ... (suas outras configs: fixture_paths, use_transactional_fixtures, etc.)
-
-  # Diga ao RSpec para usar seu driver customizado para testes :system
   config.before(:each, type: :system) do
-    # O :rack_test é para testes rápidos (não-JS)
-    # O :selenium_chrome_headless_custom é para testes com JS (como o seu)
     driven_by :rack_test 
   end
 
-  config.before(:each, type: :system, js: true) do
+  config.before(:each, type: :system, js: true) do |example|
+    unless CHROME_BINARY_PATH
+      example.skip "Chrome/Chromium indisponível no ambiente de testes. Configure CHROME_PATH ou instale o navegador."
+      next
+    end
+
     driven_by :selenium_chrome_headless_custom
   end
 end
