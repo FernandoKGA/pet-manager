@@ -1,6 +1,7 @@
 class Expense < ApplicationRecord
   belongs_to :user
   belongs_to :pet
+  belongs_to :bath, optional: true
 
   validates :amount, presence: true, numericality: { greater_than: 0 }
   validates :category, presence: true

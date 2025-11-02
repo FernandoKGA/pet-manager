@@ -43,6 +43,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_194905) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "bath_id"
+    t.index ["bath_id"], name: "index_expenses_on_bath_id"
     t.index ["pet_id"], name: "index_expenses_on_pet_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
   end
@@ -127,6 +129,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_194905) do
 
   add_foreign_key "baths", "pets"
   add_foreign_key "diary_entries", "pets"
+  add_foreign_key "expenses", "baths"
   add_foreign_key "expenses", "pets"
   add_foreign_key "expenses", "users"
   add_foreign_key "medications", "pets"
