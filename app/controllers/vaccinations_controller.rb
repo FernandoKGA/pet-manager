@@ -14,9 +14,9 @@ class VaccinationsController < ApplicationController
     @vaccination = @pet.vaccinations.new(vaccination_params)
 
     if @vaccination.save
-      redirect_to pet_vaccinations_path(@pet), info: 'Vacinação cadastrada com sucesso.'
+      redirect_to pet_vaccinations_path(@pet), notice: 'Vacinação cadastrada com sucesso.'
     else
-      flash.now[:danger] = "Não foi possível salvar as informações de vacinação do pet."
+      flash[:danger] = "Não foi possível salvar as informações de vacinação do pet."
       render :new, status: :unprocessable_content
     end
   end
@@ -26,16 +26,16 @@ class VaccinationsController < ApplicationController
 
   def update
     if @vaccination.update(vaccination_params)
-      redirect_to pet_vaccinations_path(@pet), info: 'Vacinação atualizada com sucesso.'
+      redirect_to pet_vaccinations_path(@pet), notice: 'Vacinação atualizada com sucesso.'
     else
-      render edit_pet_vaccinations_path([@pet, @vaccination])
+      render :edit, status: :unprocessable_content
     end
   end
 
   def destroy
     @vaccination.destroy
 
-    redirect_to pet_vaccinations_path(@pet), info: 'Vacinação removida com sucesso.'
+    redirect_to pet_vaccinations_path(@pet), notice: 'Vacinação removida com sucesso.'
   end
 
   private

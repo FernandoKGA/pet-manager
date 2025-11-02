@@ -1,9 +1,15 @@
 FactoryBot.define do
   factory :vaccination do
-    name { "MyString" }
-    applied_date { "2025-11-02" }
-    applied_by { "MyString" }
-    applied { false }
-    pet { nil }
+    name { "V10" }
+    applied_date { Date.today }
+    applied_by { "Dr. House" }
+    applied { true }
+
+    association :pet
+
+    trait :invalid do
+      name { nil }
+      applied_date { nil }
+    end
   end
 end
