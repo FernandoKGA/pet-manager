@@ -1,5 +1,5 @@
-
 <%= stylesheet_link_tag "dashboard", "data-turbo-track": "reload" %>
+
 <div class="dashboard-container">
 
   <!-- Card de Boas-vindas -->
@@ -17,12 +17,10 @@
         <span>📬 Central de notificações</span>
         <span class="badge bg-danger ms-2" data-testid="notification-indicator"><%= @unread_count %></span>
       <% end %>
-
       <%= button_to 'Editar cadastro',
-                    edit_user_path(@user),
-                    class: 'btn-primary',
-                    method: :get %>
-
+                edit_user_path(@user),
+                class: 'btn-primary',
+                method: :get %>
       <%= link_to "Cadastrar pet", new_pet_path, class: "btn-secondary" %>
     </div>
   </div>
@@ -32,7 +30,9 @@
              unread_count: @unread_count,
              selected_notification: @selected_notification,
              panel_open: @notifications_panel_open,
-             user: @user %>
+             user: @user,
+             custom_reminder_form: @custom_reminder_form,
+             show_custom_reminder_modal: @show_custom_reminder_modal %>
 
   <!-- Seção dos Pets -->
   <div class="pets-section">
@@ -54,10 +54,14 @@
             <!-- Decoração -->
             <div class="pet-card-decoration"></div>
             
-            <!-- Conteúdo -->
+            <!-- Conteúdo Principal -->
             <div class="pet-card-content">
               <div class="pet-avatar">
-                🐶
+                <% if pet.photo_attached? %>
+                  <%= image_tag pet.photo_data_uri, alt: pet.name, style: "width:80px; height:80px; object-fit:cover; border-radius:50%;" %>
+                <% else %>
+                  🐶
+                <% end %>
               </div>
               
               <h3 class="pet-name">
@@ -66,16 +70,69 @@
               
               <p class="pet-info">
                 <%= pet.species %> • <%= pet.breed || 'SRD' %>
-                • <%= pet.current_weight %> kg
+                <% if pet.current_weight.present? %>
+                  • <%= pet.current_weight %> kg
+                <% end %>
               </p>
+            </div>
+
+            <!-- Seção de Medicamentos com Collapse -->
+            <div class="pet-medications-section">
+              <button class="medications-header medications-toggle" 
+                      type="button"
+                      data-bs-toggle="collapse" 
+                      data-bs-target="#medications-<%= pet.id %>" 
+                      aria-expanded="false" 
+                      aria-controls="medications-<%= pet.id %>">
+                <div class="medications-header-content">
+                  <h4 class="medications-title">💊 Medicamentos</h4>
+                  <span class="medications-count">
+                    <%= pet.medications.count %>
+                  </span>
+                </div>
+                <span class="collapse-icon">▼</span>
+              </button>
+
+              <div class="collapse" id="medications-<%= pet.id %>">
+                <% if pet.medications.any? %>
+                  <div class="medications-list">
+                    <% pet.medications.each do |medication| %>
+                      <div class="medication-item">
+                        <div class="medication-info">
+                          <p class="medication-name"><strong><%= medication.name %></strong></p>
+                          <p class="medication-dosage"><%= medication.dosage %> • <%= medication.frequency %></p>
+                        </div>
+                        <div class="medication-actions">
+                          <%= link_to "✏️", edit_pet_medication_path(pet, medication), class: "btn-small btn-edit", title: "Editar" %>
+                          <%= link_to "🗑️", pet_medication_path(pet, medication), 
+                              class: "btn-small btn-delete", 
+                              title: "Excluir",
+                              data: { 
+                                turbo_method: :delete, 
+                                turbo_confirm: "Tem certeza que deseja excluir o medicamento #{medication.name}?" 
+                              } %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                <% else %>
+                  <div class="medications-empty">
+                    <p class="medications-empty-text">Nenhum medicamento registrado</p>
+                  </div>
+                <% end %>
+                <%= link_to "+ Adicionar Medicamento", new_pet_medication_path(pet), class: "btn-add-medication" %>
+              </div>
             </div>
 
             <!-- Botão Editar -->
             <div class="pet-card-footer">
               <%= link_to "✏️ Editar", edit_pet_path(pet), class: "btn-edit" %>
               <%= link_to "Atualizar peso", new_pet_weight_path(pet), class: "btn-edit" %>
+              <%= link_to "Banho e Tosa", pet_baths_path(pet), class: "btn-edit" %>
               <%= link_to "Diário", pet_diary_entries_path(pet), class: "btn-edit" %>
+              <%= link_to "Vacinas", pet_vaccinations_path(pet), class: "btn-edit" %>
             </div>
+            
           </div>
         <% end %>
       </div>
@@ -92,6 +149,7 @@
     <% end %>
   </div>
 
+</div>
   <% if flash[:notice] %>
     <p style="color: green;"><%= flash[:notice] %></p>
   <% end %>

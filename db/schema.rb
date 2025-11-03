@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_02_194905) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "baths", force: :cascade do |t|
+    t.bigint "pet_id", null: false
+    t.datetime "date"
+    t.decimal "price", precision: 8, scale: 2
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "tosa", default: false
+    t.index ["pet_id"], name: "index_baths_on_pet_id"
+  end
 
   create_table "diary_entries", force: :cascade do |t|
     t.text "content"
@@ -32,8 +43,22 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "bath_id"
+    t.index ["bath_id"], name: "index_expenses_on_bath_id"
     t.index ["pet_id"], name: "index_expenses_on_pet_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
+  end
+
+  create_table "medications", force: :cascade do |t|
+    t.bigint "pet_id", null: false
+    t.string "name", null: false
+    t.string "dosage", null: false
+    t.string "frequency", null: false
+    t.date "start_date", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_medications_on_pet_id"
   end
 
   create_table "pets", force: :cascade do |t|
@@ -47,6 +72,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "photo_base64"
+    t.string "photo_content_type"
+    t.string "photo_filename"
+    t.integer "photo_size"
     t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
@@ -60,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
     t.datetime "due_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "recurrence", default: "none", null: false
     t.index ["due_at"], name: "index_reminder_notifications_on_due_at"
     t.index ["pet_id"], name: "index_reminder_notifications_on_pet_id"
     t.index ["user_id", "status"], name: "index_reminder_notifications_on_user_id_and_status"
@@ -78,6 +108,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "vaccinations", force: :cascade do |t|
+    t.string "name"
+    t.date "applied_date"
+    t.string "applied_by"
+    t.boolean "applied"
+    t.bigint "pet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_vaccinations_on_pet_id"
+  end
+
   create_table "weights", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.decimal "weight"
@@ -86,11 +127,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_10_19_224334) do
     t.index ["pet_id"], name: "index_weights_on_pet_id"
   end
 
+  add_foreign_key "baths", "pets"
   add_foreign_key "diary_entries", "pets"
+  add_foreign_key "expenses", "baths"
   add_foreign_key "expenses", "pets"
   add_foreign_key "expenses", "users"
+  add_foreign_key "medications", "pets"
   add_foreign_key "pets", "users"
   add_foreign_key "reminder_notifications", "pets"
   add_foreign_key "reminder_notifications", "users"
+  add_foreign_key "vaccinations", "pets"
   add_foreign_key "weights", "pets"
 end

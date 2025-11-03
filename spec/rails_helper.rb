@@ -30,6 +30,13 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  # Linha crucial para habilitar 'sign_in', 'sign_out', etc. em Request Specs
+  #config.include Devise::Test::IntegrationHelpers, type: :request
+
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_paths = [
+    Rails.root.join('spec/fixtures')
+  ]
   config.fixture_paths = [Rails.root.join('spec/fixtures')]
 
   config.use_transactional_fixtures = true
@@ -44,6 +51,10 @@ Capybara.register_driver :selenium_chrome_headless_custom do |app|
   options.add_argument('--no-sandbox')
   options.add_argument('--disable-dev-shm-usage')
   options.add_argument('--window-size=1400,900')
+  
+  if ENV['CHROME_PATH'].present?
+    options.binary = ENV['CHROME_PATH']
+  end
 
   service = Selenium::WebDriver::Service.chrome
   

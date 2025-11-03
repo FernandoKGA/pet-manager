@@ -1,0 +1,44 @@
+<p style="color: green"><%= notice %></p>
+<h1>Banhos de <%= @pet.name %></h1>
+
+
+<div class="pets-counter">
+   <%= @baths.count %> <%= @baths.count == 1 ? 'bath' : 'baths' %>
+</div>
+
+
+<% if @baths.present? %>
+    <table>
+      <thead>
+        <tr>
+         <th>Data e Hora</th>
+         <th>Tosa</th>
+         <th>Preço</th>
+         <th>Observações</th>
+         <th colspan="3"></th>
+       </tr>
+     </thead>
+     <tbody>
+       <% @baths.each do |bath| %>
+       <tr>
+         <td><%= bath.date.strftime('%d/%m/%Y %H:%M') %></td>
+         <td><%= bath.tosa ? "Sim" : "Não" %></td>
+         <td><%= number_to_currency(bath.price, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></td>
+
+         <td><%= bath.notes %></td>
+         <td><%= link_to 'Mostrar', bath %></td>
+         <td><%= link_to 'Editar', edit_bath_path(bath) %></td>
+         <td><%= link_to 'Excluir', bath, method: :delete, data: { confirm: 'Tem certeza que deseja excluir o registro?' } %></td>
+         </tr>
+       <% end %>
+     </tbody>
+    </table>
+  <br>
+<% else %>
+   <p class="empty-state-text">
+     Você ainda não cadastrou nenhum banho e tosa.
+   </p>
+<% end %>
+<br>
+<%= link_to 'Cadastrar Novo Banho', new_pet_bath_path(@pet) , class: "btn btn-primary" %>
+<%= link_to "Voltar para o Pet", user_path(@pet.user), class: "btn btn-secondary", data: { turbo: false } %>

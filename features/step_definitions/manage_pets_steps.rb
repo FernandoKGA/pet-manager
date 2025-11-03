@@ -1,71 +1,73 @@
-Given('I am a registered user') do
-  @user = User.create!(
-    email: "teste@teste.com",
-    password: "tester",
-    first_name: "teste",
-    last_name: "teste"
-  )
-end
-
-And('I am logged into my account') do
-  visit login_path
-  fill_in 'Email', with: @user.email
-  fill_in 'Senha', with: 'tester'
-  click_button 'Logar'
-end
-
-When('I navigate to the {string} page') do |page_name|
-  case page_name
-  when 'Add Pet'
+# Cenário: Adicionar informações de um novo pet
+When('I navigate to the {string} page') do |page|
+  case page
+  when "Add Pet"
     visit new_pet_path
-  when 'Edit Pet'
-    visit edit_pet_path(@pet)
+  else
+    raise "Unknown page: #{page}"
   end
 end
 
-When('I navigate to the {string} page for that pet') do |page_name|
-  case page_name
-  when 'Edit Pet'
+When('I navigate to the {string} page for that pet') do |page|
+  case page
+  when "Edit Pet"
     visit edit_pet_path(@pet)
+  else
+    raise "Unknown page: #{page}"
   end
 end
 
-And('I fill in the pet form with valid information') do
-  fill_in 'Nome', with: 'Rex'
-  fill_in 'Data de Nascimento', with: '2020-01-01'
-  fill_in 'Tamanho', with: '50'
-  fill_in 'Espécie', with: 'Cachorro'
-  fill_in 'Raça', with: 'Labrador'
-  fill_in 'Gênero', with: 'Macho'
-  fill_in 'ID Sinpatinhas', with: '12345'
+When('I fill in the pet form with valid information') do
+  fill_in "Nome", with: "Rex"
+  fill_in "Espécie", with: "Dog"
+  fill_in "Data de Nascimento", with: "2020-01-15"
+  fill_in "Tamanho", with: "10"
+  fill_in "Raça", with: "Labrador"
+  fill_in "Gênero", with: "Macho"
 end
 
 Then('I should see the new pet listed in my pets page') do
-  # Verifica apenas se o pet foi criado - conteúdo principal
-  expect(page).to have_content('Rex')
+  expect(page).to have_content("Pet cadastrado com sucesso!")
+  expect(page).to have_content("Rex")
+  expect(page).to have_content("Dog")
 end
 
+# Cenário: Atualizar informações de um pet existente
 Given('I have an existing pet registered') do
   @pet = Pet.create!(
-    name: 'Buddy',
-    species: 'Cachorro',
-    breed: 'Golden Retriever',
-    birthdate: '2019-05-15',
-    size: 60,
-    gender: 'Macho',
-    sinpatinhas_id: '54321',
+    name: "Luna",
+    species: "Cat",
+    birthdate: Date.new(2019, 5, 10),
+    size: 5,
+    breed: "Siamese",
+    gender: "Fêmea",
     user: @user
   )
 end
 
-And('I update the pet information with valid data') do
-  fill_in 'Nome', with: 'Buddy Updated'
-  fill_in 'Espécie', with: 'Cachorro'
-  fill_in 'Raça', with: 'Golden Retriever'
-  fill_in 'Tamanho', with: '65'
+When('I update the pet information with valid data') do
+  fill_in "Nome", with: "Luna Updated"
+  fill_in "Data de Nascimento", with: "2019-06-15"
+  fill_in "Tamanho", with: "6"
 end
 
+When('I click the button {string}') do |button|
+  click_button button
+end
+
+
 Then('I should see the updated information in my pets page') do
-  # Verifica apenas se o nome foi atualizado
-  expect(page).to have_content('Buddy Updated')
+  expect(page).to have_content("Pet atualizado com sucesso!")
+  expect(page).to have_content("Luna Updated")
+end
+
+# Cenário: Remover informações de um pet
+When('I click the delete link for that pet') do |button|
+  visit user_path(@user)
+  click_link button, match: :first
+end
+
+Then('I should not see that pet in my pets page anymore') do
+  visit user_path(@user)
+  expect(page).not_to have_content(@pet.name)
 end
