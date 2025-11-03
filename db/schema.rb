@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_02_002745) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_02_194905) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -108,6 +108,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_002745) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "vaccinations", force: :cascade do |t|
+    t.string "name"
+    t.date "applied_date"
+    t.string "applied_by"
+    t.boolean "applied"
+    t.bigint "pet_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_vaccinations_on_pet_id"
+  end
+
   create_table "weights", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.decimal "weight"
@@ -125,5 +136,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_002745) do
   add_foreign_key "pets", "users"
   add_foreign_key "reminder_notifications", "pets"
   add_foreign_key "reminder_notifications", "users"
+  add_foreign_key "vaccinations", "pets"
   add_foreign_key "weights", "pets"
 end

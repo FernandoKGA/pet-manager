@@ -13,6 +13,7 @@ class Pet < ApplicationRecord
   has_many :expenses, dependent: :destroy
   has_many :weights, dependent: :destroy
   has_many :diary_entries, dependent: :destroy
+  has_many :vaccinations, dependent: :destroy
 
   validate :photo_content_type_whitelist
   validate :photo_size_limit
