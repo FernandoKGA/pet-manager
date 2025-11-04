@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     resources :custom_reminders, only: [:new, :create]
   end
   
-  resources :pets, only: [:new, :create, :show, :edit, :update] do
+  resources :pets, only: [:new, :create, :show, :edit, :update, :destroy] do
     resources :baths # Linha que aninha os Banhos dentro de Pets
     resources :weight, only: [:new, :create], path: 'weight'
     resources :diary_entries, only: [:index, :create, :destroy]

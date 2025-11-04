@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-  before_action :set_pet, only: [:show, :edit, :update]
+  before_action :set_pet, only: [:show, :edit, :update, :destroy]
 
   def new
     @pet = current_user.pets.build
@@ -38,6 +38,14 @@ class PetsController < ApplicationController
     else
       flash.now[:alert] = "Não foi possível atualizar as informações do pet."
       render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @pet.destroy
+      redirect_to user_path(current_user), notice: "Pet excluído com sucesso!"
+    else
+      redirect_to user_path(current_user), alert: "Não foi possível excluir o Pet."
     end
   end
 
