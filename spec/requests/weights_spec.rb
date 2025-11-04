@@ -19,19 +19,6 @@ RSpec.describe "Weights", type: :request do
         expect(response).to have_http_status(:ok)
         expect(response.body).to include("Diário de peso")
       end
-    end
-
-    context "quando o veterinário acessa" do
-      let(:current_user) { create(:user, :veterinarian) }
-
-      it "retorna sucesso" do
-        create(:weight, pet: pet, weight: 4.5)
-
-        get pet_weights_path(pet)
-
-        expect(response).to have_http_status(:ok)
-        expect(response.body).to include("Diário de peso")
-      end
 
       it "filtra por período quando informado" do
         older = create(:weight, pet: pet, weight: 4.5, created_at: 5.days.ago)
@@ -49,6 +36,18 @@ RSpec.describe "Weights", type: :request do
         expect(response.body).to include("Data inicial inválida")
       end
     end
+
+    context "quando um usuário diferente acessa" do
+      let(:other_user) { create(:user) }
+      let(:current_user) { other_user }
+
+      it "redireciona para a lista de pets com aviso" do
+        get pet_weights_path(pet)
+
+        expect(response).to redirect_to(pets_path)
+        expect(flash[:alert]).to eq("Somente o tutor pode registrar novos pesos.")
+      end
+    end
   end
 
   describe "POST /pets/:pet_id/weight" do
@@ -64,8 +63,9 @@ RSpec.describe "Weights", type: :request do
       end
     end
 
-    context "quando o veterinário tenta registrar" do
-      let(:current_user) { create(:user, :veterinarian) }
+    context "quando um usuário diferente tenta registrar" do
+      let(:other_user) { create(:user) }
+      let(:current_user) { other_user }
 
       it "bloqueia a ação" do
         expect do
@@ -73,8 +73,7 @@ RSpec.describe "Weights", type: :request do
         end.not_to change { pet.weights.reload.count }
 
         expect(response).to redirect_to(pet_weights_path(pet))
-        follow_redirect!
-        expect(response.body).to include("Somente o tutor pode registrar novos pesos")
+        expect(flash[:alert]).to eq("Somente o tutor pode registrar novos pesos.")
       end
     end
   end

@@ -23,16 +23,6 @@ require 'capybara/rspec'
 require 'selenium-webdriver'
 require 'securerandom'
 
-CHROME_BINARY_PATH = begin
-  candidates = [
-    ENV['CHROME_PATH'],
-    '/usr/bin/google-chrome',
-    '/usr/bin/google-chrome-stable',
-    '/usr/bin/chromium',
-    '/usr/bin/chromium-browser'
-  ].compact
-  candidates.find { |path| File.exist?(path) && File.executable?(path) }
-end
 
 begin
   ActiveRecord::Migration.maintain_test_schema!

@@ -23,6 +23,12 @@ class Pet < ApplicationRecord
     weights.order(created_at: :desc).first&.weight
   end
 
+  def weight_chart_points(scope = weights)
+    scope.order(:created_at).pluck(:created_at, :weight).map do |timestamp, value|
+      [timestamp, value.to_f]
+    end
+  end
+  
   def photo_attached?
     photo_base64.present?
   end

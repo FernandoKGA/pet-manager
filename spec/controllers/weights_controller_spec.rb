@@ -18,6 +18,16 @@ RSpec.describe WeightsController, type: :controller do
       expect(assigns(:weights)).to include(weight)
       expect(assigns(:chart_data)).to be_present
     end
+
+    it 'redireciona quando o usuário não é o tutor' do
+      other_user = create(:user, password: "senha123")
+      session[:user_id] = other_user.id
+
+      get :index, params: { pet_id: pet.id }
+
+      expect(response).to redirect_to(pets_path)
+      expect(flash[:alert]).to eq('Somente o tutor pode registrar novos pesos.')
+    end
   end
 
   describe 'GET #new' do
@@ -62,11 +72,11 @@ RSpec.describe WeightsController, type: :controller do
       end
     end
 
-    context 'quando o usuário não é tutor' do
-      let(:vet) { create(:user, :veterinarian) }
+    context 'quando o usuário não é o tutor' do
+      let(:other_user) { create(:user, password: "senha123") }
 
       before do
-        session[:user_id] = vet.id
+        session[:user_id] = other_user.id
       end
 
       it 'impede a criação' do

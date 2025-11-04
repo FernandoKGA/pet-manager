@@ -1,6 +1,6 @@
 class WeightsController < ApplicationController
   before_action :set_pet
-  before_action :ensure_owner!, only: [:new, :create]
+  before_action :ensure_owner!, only: [:index, :new, :create]
 
   def index
     @weights = @pet.weights.order(:created_at)
@@ -45,17 +45,14 @@ class WeightsController < ApplicationController
   private
 
   def set_pet
-    @pet = if current_user.respond_to?(:veterinarian?) && current_user.veterinarian?
-             Pet.find(params[:pet_id])
-           else
-             current_user.pets.find(params[:pet_id])
-           end
+    @pet = Pet.find(params[:pet_id])
   end
 
   def ensure_owner!
     return if @pet.user_id == current_user.id
 
-    redirect_to pet_weights_path(@pet), alert: 'Somente o tutor pode registrar novos pesos.'
+    redirect_path = action_name == 'index' ? pets_path : pet_weights_path(@pet)
+    redirect_to redirect_path, alert: 'Somente o tutor pode registrar novos pesos.'
   end
 
   def weight_params
