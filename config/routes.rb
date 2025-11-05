@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   
   resources :pets, only: [:new, :create, :show, :edit, :update] do
     resources :medical_appointments
+    resources :weights, only: [:index, :new, :create]
     resources :baths # Linha que aninha os Banhos dentro de Pets
     resources :weights, only: [:index, :new, :create]
     resources :diary_entries, only: [:index, :create, :destroy]
