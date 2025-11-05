@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe WeightsController, type: :controller do
-  let(:user) { create(:user) }
-  let(:pet) { create(:pet, user: user) }
+  let!(:user) { create(:user) }
+  let!(:other_user) { create(:user, email: 'test2@petmanager.com') }
+  let!(:pet) { create(:pet, user: user) }
+  let(:current_user) { user }
 
   before do
     allow(controller).to receive(:authenticate_user)
-    allow(controller).to receive(:current_user).and_return(user)
+    allow(controller).to receive(:current_user).and_return(current_user)
   end
 
   describe 'GET #index' do
@@ -20,14 +22,15 @@ RSpec.describe WeightsController, type: :controller do
       expect(assigns(:chart_data)).to be_present
     end
 
-    it 'redireciona quando o usuário não é o tutor' do
-      other_user = create(:user, password: "senha123")
-      session[:user_id] = other_user.id
+    context 'quando o usuário não é o tutor' do
+      let(:current_user) { other_user }
 
-      get :index, params: { pet_id: pet.id }
+      it 'redireciona quando o usuário não é o tutor' do
+        get :index, params: { pet_id: pet.id }
 
-      expect(response).to redirect_to(pets_path)
-      expect(flash[:alert]).to eq('Somente o tutor pode registrar novos pesos.')
+        expect(response).to redirect_to(pets_path)
+        expect(flash[:alert]).to eq('Somente o tutor pode registrar novos pesos.')
+      end
     end
   end
 
@@ -74,11 +77,7 @@ RSpec.describe WeightsController, type: :controller do
     end
 
     context 'quando o usuário não é o tutor' do
-      let(:other_user) { create(:user, password: "senha123") }
-
-      before do
-        session[:user_id] = other_user.id
-      end
+      let(:current_user) { other_user }
 
       it 'impede a criação' do
         expect {

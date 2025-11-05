@@ -116,7 +116,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_01_161048) do
     t.datetime "updated_at", null: false
     t.string "password_reset_token"
     t.datetime "password_reset_token_expires_at"
-    t.integer "role", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
