@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe WeightsController, type: :controller do
-  let(:user) { create(:user, password: "senha123") }
+  let(:user) { create(:user) }
   let(:pet) { create(:pet, user: user) }
 
   before do
