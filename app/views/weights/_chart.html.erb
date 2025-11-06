@@ -18,15 +18,18 @@
                        x: {
                          type: "time",
                          time: {
-                           tooltipFormat: "dd/MM/yyyy",
+                           tooltipFormat: "dd/MM/yyyy HH:mm",
                            displayFormats: {
+                             minute: "dd/MM HH:mm",
+                             hour: "dd/MM HH:mm",
                              day: "dd/MM",
                              month: "MM/yyyy",
                              year: "yyyy"
                            }
                          },
                          ticks: {
-                           color: "#4c1d95"
+                           color: "#4c1d95",
+                           source: "data"
                          },
                          grid: {
                            color: "rgba(148, 163, 184, 0.2)"
