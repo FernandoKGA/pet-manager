@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_02_194905) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_02_194905) do
     t.string "photo_content_type"
     t.string "photo_filename"
     t.integer "photo_size"
+    t.boolean "deceased", default: false, null: false
+    t.date "date_of_death"
+    t.index ["date_of_death"], name: "index_pets_on_date_of_death"
+    t.index ["deceased"], name: "index_pets_on_deceased"
     t.index ["user_id"], name: "index_pets_on_user_id"
   end
 
