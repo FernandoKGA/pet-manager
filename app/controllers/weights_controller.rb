@@ -20,6 +20,7 @@ class WeightsController < ApplicationController
     end
 
     @chart_data = @pet.weight_chart_points(@weights)
+    @single_day_weight_range = single_day_range?(@weights)
 
     respond_to do |format|
       format.html
@@ -65,5 +66,13 @@ class WeightsController < ApplicationController
     Date.parse(raw_value)
   rescue ArgumentError
     nil
+  end
+
+  def single_day_range?(scope)
+    first_point = scope.minimum(:created_at)
+    last_point = scope.maximum(:created_at)
+    return false if first_point.blank? || last_point.blank?
+
+    first_point.to_date == last_point.to_date
   end
 end

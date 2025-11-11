@@ -1,6 +1,29 @@
 <div class="weight-chart-card" data-testid="weight-chart-card">
   <h2 class="weight-chart-title">Evolução de peso de <%= @pet.name %></h2>
   <% if @chart_data.present? %>
+    <% time_config =
+         if @single_day_weight_range
+           {
+             tooltipFormat: "dd/MM/yyyy HH:mm",
+             displayFormats: {
+               minute: "dd/MM HH:mm",
+               hour: "dd/MM HH:mm",
+               day: "dd/MM",
+               month: "MM/yyyy",
+               year: "yyyy"
+             }
+           }
+         else
+           {
+             unit: "day",
+             tooltipFormat: "dd/MM/yyyy",
+             displayFormats: {
+               day: "dd/MM",
+               month: "MM/yyyy",
+               year: "yyyy"
+             }
+           }
+         end %>
     <%= line_chart @chart_data,
                    xtitle: "Data da medição",
                    ytitle: "Peso (kg)",
@@ -17,16 +40,7 @@
                      scales: {
                        x: {
                          type: "time",
-                         time: {
-                           tooltipFormat: "dd/MM/yyyy HH:mm",
-                           displayFormats: {
-                             minute: "dd/MM HH:mm",
-                             hour: "dd/MM HH:mm",
-                             day: "dd/MM",
-                             month: "MM/yyyy",
-                             year: "yyyy"
-                           }
-                         },
+                         time: time_config,
                          ticks: {
                            color: "#4c1d95",
                            source: "data"
