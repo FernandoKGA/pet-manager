@@ -4,8 +4,8 @@
 <%= render @bath %>
 
 <div>
-  <%= link_to "Editar", edit_bath_path(@bath), class: "btn btn-primary"%> 
-  <%= link_to "Voltar", pet_baths_path(@pet), class: "btn btn-secondary", data: { turbo: false } %>
+  <%= link_to "Editar", edit_bath_path(@bath), class: "btn btn-primary-custom"%> 
+  <%= link_to "Voltar", pet_baths_path(@pet), class: "btn btn-secondary-custom", data: { turbo: false } %>
 
   <%= button_to "Excluir o Banho", @bath, method: :delete %>
 </div>

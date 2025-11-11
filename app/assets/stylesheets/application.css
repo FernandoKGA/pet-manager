@@ -67,6 +67,53 @@
    FIM DO DESIGN SYSTEM
    ========================================================================== */
 
+/* Botões */
+.btn-primary-custom {
+  padding: 8px 16px;
+  background: var(--gradient-primary);
+  color: var(--neutral-0);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-brand);
+  transition: transform 0.2s;
+  --bs-btn-color: var(--neutral-0) !important;
+}
+
+.btn-primary-custom:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary-custom.disabled,
+.btn-primary-custom:disabled {
+  background: var(--neutral-200);
+  color: var(--neutral-600);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary-custom {
+  padding: 8px 16px;
+  background: var(--gradient-accent);
+  color: var(--neutral-0);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-danger);
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.btn-secondary-custom:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+}
 
 .closebtn {
   margin-left: auto;
@@ -87,8 +134,6 @@ body {
   background-color: var(--neutral-100); 
 }
 
-/* color: #0675e3; */
-
 .imagem-fixa {
   width: 500px;
   height: 300px;
@@ -96,15 +141,6 @@ body {
    object-fit: contain;  /* mostra tudo dentro do espaço */
   /* max-width: 30px;*/
   /* margin: auto;*/
-}
-
-
-footer {
-  background-color: #ccc;
-  text-align: center;
-  padding: 10px;
-  margin: 0 auto;     /* centraliza horizontalmente */
-
 }
 
 /* Notification Center layout */

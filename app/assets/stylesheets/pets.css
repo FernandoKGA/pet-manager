@@ -1,11 +1,8 @@
 .pets-new {
   font-family: "Arial", sans-serif;
-  background-color: var(--neutral-100); 
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
 }
 
 .pets-edit-page {
@@ -61,10 +58,10 @@
   margin-top: 1.5rem;
 }
 
-.btn {
+.btn-pets {
   background: var(--gradient-primary); 
   color: var(--neutral-0); 
-  padding: 0.7rem 1.5rem;
+  padding: 0.7rem;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
@@ -73,16 +70,16 @@
   margin: 0 0.5rem;
 }
 
-.btn:hover {
+.btn-pets:hover {
   background-color: #4338ca;
   background: var(--brand-primary-dark); 
 }
 
-.btn-secondary {
+.btn-pets-secondary {
   background-color: #6b7280;
 }
 
-.btn-secondary:hover {
+.btn-pets-secondary:hover {
   background-color: #4b5563;
 }
 

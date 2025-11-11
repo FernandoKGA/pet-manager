@@ -34,53 +34,6 @@
   flex-wrap: wrap;
 }
 
-/* Botões */
-.btn-primary {
-  padding: 8px 16px;
-  background: var(--gradient-primary);
-  color: var(--neutral-0);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-brand);
-  transition: transform 0.2s;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-}
-
-.btn-primary.disabled,
-.btn-primary:disabled {
-  background: var(--neutral-200);
-  color: var(--neutral-600);
-  box-shadow: none;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.btn-secondary {
-  padding: 8px 16px;
-  background: var(--gradient-accent);
-  color: var(--neutral-0);
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 600;
-  box-shadow: var(--shadow-danger);
-  transition: transform 0.2s;
-  display: inline-block;
-}
-
-.btn-secondary:hover {
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-
 /* Seção dos Pets */
 .pets-section {
   background: var(--neutral-0);
