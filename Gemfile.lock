@@ -384,8 +384,8 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker
-  image_processing (~> 1.13)
   htmlbeautifier
+  image_processing (~> 1.13)
   importmap-rails
   jbuilder
   letter_opener
