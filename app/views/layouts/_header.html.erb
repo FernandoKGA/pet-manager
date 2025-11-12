@@ -2,21 +2,34 @@
   <nav class="navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Pet Manager</a>
-      <ul class="navbar-nav flex-row flex-fill justify-content-evenly">
-        <li class="nav-item"><a href="#" class="nav-link">Sobre</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Funcionalidades</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Contato</a></li>
-      </ul>
-      <div class="flex-row justify-content-evenly">
-      <% if logged_in? %>
-        <% if current_page?(root_path) %>
-          <%= link_to "Dashboard", user_path(@current_user), class: 'btn btn-primary-custom' %>
-        <% end %>
-        <%= link_to "Sair", logout_path, data: { turbo_method: :delete }, class: 'btn btn-outline-danger' %>
+      <% if current_page?(root_path) %>
+        <ul class="navbar-nav flex-row flex-fill justify-content-evenly">
+          <li class="nav-item"><a href="#" class="nav-link">Sobre</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Funcionalidades</a></li>
+          <li class="nav-item"><a href="#" class="nav-link">Contato</a></li>
+        </ul>
       <% else %>
-        <a href="/login" class="btn btn-outline-secondary">Login</a>
-        <a href="/register" class="btn btn-primary-custom">Cadastre-se</a>
+        <% if logged_in? %>
+          <ul class="navbar-nav me-auto flex-row">
+            <li class="nav-item me-2">
+              <%= link_to "Dashboard", user_path(current_user), class: "nav-link #{'active' if current_page?(user_path(current_user))}" %>
+            </li>
+            <li class="nav-item me-2">
+              <%= link_to "Gastos", expenses_path, class: "nav-link #{'active' if current_page?(expenses_path)}" %>
+            </li>
+          </ul>
+        <% end %>
       <% end %>
+      <div class="flex-row justify-content-evenly">
+        <% if logged_in? %>
+          <% if current_page?(root_path) %>
+            <%= link_to "Dashboard", user_path(@current_user), class: 'btn btn-primary-custom' %>
+          <% end %>
+          <%= link_to "Sair", logout_path, data: { turbo_method: :delete }, class: 'btn btn-outline-danger' %>
+        <% else %>
+          <a href="/login" class="btn btn-outline-secondary">Login</a>
+          <a href="/register" class="btn btn-primary-custom">Cadastre-se</a>
+        <% end %>
       </div>
     </div>
   </nav>
