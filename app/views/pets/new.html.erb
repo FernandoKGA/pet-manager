@@ -1,7 +1,7 @@
 <div class="dashboard-container">
   <div class="pets-new">
     <%= form_with(model: @pet, local: true, html: { class: "pet-form", multipart: true }) do |f| %>
-      <%= link_to "← Voltar para o Dashboard", user_path(@current_user), class: 'btn-back' %>
+      <%= link_to "← Voltar para o Dashboard", user_path(current_user), class: 'btn-back' %>
       <h3>Adicionar pet</h3>
       <div class="form-group">
         <%= f.label :name do %>
