@@ -1,11 +1,22 @@
-<p style="color: green"><%= notice %></p>
-<h1>Mostrar o Banho e Tosa</h1>
-
-<%= render @bath %>
-
-<div>
-  <%= link_to "Editar", edit_bath_path(@bath), class: "btn btn-primary-custom"%> 
-  <%= link_to "Voltar", pet_baths_path(@pet), class: "btn btn-secondary-custom", data: { turbo: false } %>
-
-  <%= button_to "Excluir o Banho", @bath, method: :delete %>
+<div class="dashboard-container">
+  <div class="d-flex justify-content-center">
+    <div class="col-11 col-md-8 col-lg-6">
+      <div class="bath-content-section">
+        <% if notice %>
+          <p class="alert alert-success" role="alert">
+            <%= notice %>
+          </p>
+        <% end %>
+        <%= link_to "← Voltar", pet_baths_path(@pet), class: "btn btn-secondary-custom mb-3", data: { turbo: false } %>
+        <h1 class="mb-4">Detalhes do Banho e Tosa</h1>
+        <%= render @bath %>
+        <div class="mt-4 d-flex flex-wrap gap-2">
+          <%= link_to "Editar", edit_bath_path(@bath), class: "btn btn-primary-custom" %>
+          <%= button_to "Excluir o Banho", @bath, method: :delete, 
+                class: "btn btn-danger ms-auto", 
+                data: { confirm: 'Tem certeza que deseja excluir?' } %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,10 +1,11 @@
-<h1>Editar o Banho e Tosa</h1>
-
-<%= render "form", bath: @bath %>
-
-<br>
-
-<div>
-<!--  <%= link_to "Mostrar", @bath , class: "btn btn-primary-custom" %> -->
-  <%= link_to "Voltar", pet_baths_path(@pet), class: "btn btn-secondary-custom", data: { turbo: false } %>
+<div class="dashboard-container">
+  <div class="row justify-content-center">
+    <div class="col-11 col-md-8 col-lg-6">
+      <div class="bath-content-section">
+        <%= link_to "← Voltar", pet_baths_path(@pet), class: "btn btn-secondary-custom mb-3", data: { turbo: false } %>
+        <h1 class="mb-4">Editar o Banho e Tosa</h1>
+        <%= render "form", bath: @bath %>
+      </div>
+    </div>
+  </div>
 </div>
