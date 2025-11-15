@@ -1,5 +1,9 @@
 <h1>Detalhes da Consulta</h1>
 
+<div class="actions">
+  <%= link_to "Voltar para o Pet", pet_medical_appointments_path(@pet), class: "btn btn-secondary", data: { turbo: false } %>
+</div>
+
 <p><strong>Pet:</strong> <%= @pet.name %></p>
 <p><strong>Nome do Veterinário</strong> <%= @medical_appointment.veterinarian_name %></p>
 <p><strong>Data e hora da Consulta</strong> <%= l(@medical_appointment.appointment_date, format: :long) %></p>
@@ -7,7 +11,9 @@
 <p><strong>Observação</strong> <%= @medical_appointment.notes %></p>
 
 <div class="actions">
-  <%= link_to "Editar Consulta Veterinária", edit_pet_medical_appointment_path(@pet, @medical_appointment), class: "btn btn-warning" %>
-  <%= link_to "Excluir Consulta Veterinária", @medical_appointments, method: :delete , class: "btn btn-danger btn-sm"%>
-  <%= link_to "Voltar", pet_medical_appointments_path(@pet), class: "btn btn-secondary", data: { turbo: false } %>
+  <%= link_to "Editar Consulta", edit_pet_medical_appointment_path(@pet, @medical_appointment), class: "btn btn-warning" %>
+  <%= link_to "Excluir Consulta",
+            pet_medical_appointment_path(@pet, @medical_appointment),
+            data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir?" },
+            class: "btn btn-danger btn-sm" %>
 </div>

@@ -1,5 +1,9 @@
 <h1>Consultas do <%= @pet.name %></h1>
 
+<p>
+  <%= link_to "Voltar para o Pet", user_path(@pet.user), class: "btn btn-secondary", data: { turbo: false } %>
+</p>
+
 <div class="pets-counter">
   <%= @medical_appointments.count %> <%= @medical_appointments.count == 1 ? 'appointment' : 'appointments' %>
 </div>
@@ -23,9 +27,12 @@
           <td><%= medical_appointment.clinic_address %></td>
           <td><%= medical_appointment.notes %></td>
           <td>
-            <%= link_to "Ver", pet_medical_appointment_path(@pet, medical_appointment), class: "btn btn-info btn-sm" %>
-            <%= link_to "Editar Consulta Veterinária", edit_pet_medical_appointment_path(@pet, medical_appointment), class: "btn btn-warning btn-sm" %>
-            <%= link_to "Excluir Consulta Veterinária", pet_medical_appointment_path(@pet, medical_appointment), method: :delete, data: { confirm: "Tem certeza que deseja excluir?" }, class: "btn btn-danger btn-sm" %>
+            <%= link_to "Visualizar", pet_medical_appointment_path(@pet, medical_appointment), class: "btn btn-info btn-sm" %>
+            <%= link_to "Editar Consulta", edit_pet_medical_appointment_path(@pet, medical_appointment), class: "btn btn-warning btn-sm" %>
+            <%= link_to "Excluir Consulta",
+                         pet_medical_appointment_path(@pet, medical_appointment),
+                         data: { turbo_method: :delete, turbo_confirm: "Tem certeza que deseja excluir?" },
+                         class: "btn btn-danger btn-sm" %>
           </td>
         </tr>
       <% end %>
@@ -37,5 +44,4 @@
 
 <p>
   <%= link_to "Nova Consulta", new_pet_medical_appointment_path(@pet), class: "btn btn-success" %>
-  <%= link_to "Voltar para o Pet", user_path(@pet.user), class: "btn btn-secondary", data: { turbo: false } %>
 </p>

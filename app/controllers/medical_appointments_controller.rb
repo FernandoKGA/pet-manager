@@ -36,6 +36,8 @@ class MedicalAppointmentsController < ApplicationController
   end
 
   def destroy
+    @pet = Pet.find(params[:pet_id])
+    @medical_appointment = @pet.medical_appointments.find(params[:id])
     @medical_appointment.destroy
     redirect_to pet_medical_appointments_path(@pet), notice: 'Consulta Veterinária excluída com sucesso!'
   end
