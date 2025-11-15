@@ -25,11 +25,6 @@ class ExpensesController < ApplicationController
     @chart_data = @expenses.reorder(nil).group(:category).sum(:amount)
   end
 
-  def new
-    @expense = Expense.new
-    @pets = current_user.pets
-  end
-
   def create
     @expense = current_user.expenses.build(expense_params)
     if @expense.save

@@ -46,3 +46,15 @@ Then('I should see filters for {string} and {string}') do |filter1, filter2|
   expect(page).to have_content(filter1)
   expect(page).to have_content(filter2)
 end
+
+Then('I should see a table with my expenses') do
+  expect(page).to have_selector("table")
+end
+
+And('the table should have columns for "Data", "Descrição", "Quantidade", "Categoria" and "Pet"') do
+  expect(page).to have_selector("th", text: "Data")
+  expect(page).to have_selector("th", text: "Descrição")
+  expect(page).to have_selector("th", text: "Quantidade")
+  expect(page).to have_selector("th", text: "Categoria")
+  expect(page).to have_selector("th", text: "Pet")
+end
