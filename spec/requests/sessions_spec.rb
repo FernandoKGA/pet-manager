@@ -22,7 +22,7 @@ RSpec.describe "Sessions", type: :request do
       expect(response).to redirect_to(login_path)
 
       expect(session[:user_id]).to be_nil
-      expect(flash[:alert]).to eq("Algo deu errado! Por favor, verifique suas credenciais.")
+      expect(flash[:danger]).to eq("Algo deu errado! Por favor, verifique suas credenciais.")
     end
 
     it "logs the user and redirect to default page" do

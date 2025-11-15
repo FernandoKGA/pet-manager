@@ -60,8 +60,8 @@ RSpec.describe SessionsController, type: :controller do
         expect(response).to redirect_to(login_path)
       end
 
-      it 'sets an alert flash message' do
-        expect(flash[:alert]).to eq('Algo deu errado! Por favor, verifique suas credenciais.')
+      it 'sets an danger flash message' do
+        expect(flash[:danger]).to eq('Algo deu errado! Por favor, verifique suas credenciais.')
       end
     end
   end

@@ -28,7 +28,7 @@ class BathsController < ApplicationController
       redirect_to pet_baths_path(@pet), notice: 'Banho cadastrado com sucesso.'
     else
       flash.now[:alert] = "Não foi possível salvar as informações do banho do pet."
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
