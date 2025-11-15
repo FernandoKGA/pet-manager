@@ -1,81 +1,73 @@
-<div class="pets-new">
-
-  <%= form_with(model: @pet, local: true, html: { class: "pet-form", multipart: true }) do |f| %>
-    <div class="form-group">
-      <%= f.label :name do %>
-        Nome <span style="color: red;">*</span>
-      <% end %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :birthdate do %>
-        Data de Nascimento
-      <% end %>
-      <%= f.date_field :birthdate, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :size do %>
-        Tamanho
-      <% end %>
-      <%= f.number_field :size, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :species do %>
-        Espécie <span style="color: red;">*</span>
-      <% end %>
-      <%= f.text_field :species, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :breed do %>
-        Raça <span style="color: red;">*</span>
-      <% end %>
-      <%= f.text_field :breed, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :gender do %>
-        Gênero
-      <% end %>
-      <%= f.text_field :gender, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :sinpatinhas_id do %>
-        ID Sinpatinhas
-      <% end %>
-      <%= f.text_field :sinpatinhas_id, class: "form-control" %>
-    </div>
-
-    <!-- Nova seção: upload da foto -->
-    <div class="form-group">
-      <%= label_tag :pet_photo_file do %>
-        Foto do pet
-      <% end %>
-      <%= file_field_tag 'pet[photo_file]', accept: 'image/*', id: 'pet_photo_file', class: 'form-control-file' %>
-      <small class="form-text text-muted">Tipos permitidos: png, jpg, jpeg, gif. Máx: 5MB.</small>
-
-      <!-- Preview / mostra foto atual se existir -->
-      <div id="photo_preview" style="margin-top:10px;">
-        <% if @pet&.photo_attached? %>
-          <div class="current-photo">
-            <p>Foto atual:</p>
-            <%= image_tag @pet.photo_data_uri, alt: @pet.name, style: "max-width: 300px; max-height: 300px; display:block; margin-bottom:8px;" %>
-          </div>
+<div class="dashboard-container">
+  <div class="pets-new">
+    <%= form_with(model: @pet, local: true, html: { class: "pet-form", multipart: true }) do |f| %>
+      <%= link_to "← Voltar para o Dashboard", user_path(current_user), class: 'btn-back' %>
+      <h3>Adicionar pet</h3>
+      <div class="form-group">
+        <%= f.label :name do %>
+          Nome <span style="color: red;">*</span>
         <% end %>
+        <%= f.text_field :name, class: "form-control" %>
       </div>
-    </div>
-
-    <div class="form-actions">
-      <%= f.submit "Registrar Pet", class: "btn" %>
-    </div>
-  <% end %>
-
+      <div class="form-group">
+        <%= f.label :birthdate do %>
+          Data de Nascimento
+        <% end %>
+        <%= f.date_field :birthdate, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :size do %>
+          Tamanho
+        <% end %>
+        <%= f.number_field :size, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :species do %>
+          Espécie <span style="color: red;">*</span>
+        <% end %>
+        <%= f.text_field :species, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :breed do %>
+          Raça <span style="color: red;">*</span>
+        <% end %>
+        <%= f.text_field :breed, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :gender do %>
+          Gênero
+        <% end %>
+        <%= f.text_field :gender, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :sinpatinhas_id do %>
+          ID Sinpatinhas
+        <% end %>
+        <%= f.text_field :sinpatinhas_id, class: "form-control" %>
+      </div>
+      <!-- Nova seção: upload da foto -->
+      <div class="form-group">
+        <%= label_tag :pet_photo_file do %>
+          Foto do pet
+        <% end %>
+        <%= file_field_tag 'pet[photo_file]', accept: 'image/*', id: 'pet_photo_file', class: 'form-control-file' %>
+        <small class="form-text text-muted">Tipos permitidos: png, jpg, jpeg, gif. Máx: 5MB.</small>
+        <!-- Preview / mostra foto atual se existir -->
+        <div id="photo_preview" style="margin-top:10px;">
+          <% if @pet&.photo_attached? %>
+            <div class="current-photo">
+              <p>Foto atual:</p>
+              <%= image_tag @pet.photo_data_uri, alt: @pet.name, style: "max-width: 300px; max-height: 300px; display:block; margin-bottom:8px;" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="form-actions">
+        <%= f.submit "Registrar Pet", class: "btn-pets" %>
+      </div>
+    <% end %>
+  </div>
 </div>
-
 <!-- Inline JS para preview do cliente (copiar/colar no layout se preferir separar) -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {

@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Profile updated successfully'
       redirect_to @user
     else
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

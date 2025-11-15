@@ -274,7 +274,7 @@ Then('the unread counter pill should decrease by 1') do
 end
 
 Then('I should see a toast message {string}') do |message|
-  expect(page).to have_css('.alert', text: message)
+  expect(page).to have_css('.toast', text: message)
 end
 
 Then('all notification cards should appear without the badge {string}') do |badge_text|
@@ -296,6 +296,6 @@ Then('I should see the call to action button {string}') do |label|
   expect(find('[data-testid="empty-state"]')).to have_link(label)
 end
 
-Then('I should see the alert {string}') do |message|
-  expect(page).to have_css('.alert', text: message)
+Then('I should see the toast {string}') do |message|
+  expect(page).to have_css('.toast', text: message)
 end
