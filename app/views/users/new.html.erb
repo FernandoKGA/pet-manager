@@ -1,59 +1,54 @@
-<% content_for :body_class, 'registration-body' %>
-
-<div class="registration-container">
-  <h1>Registre-se</h1>
-  <p>Insira seus dados para criar uma conta.</p>
-
-  <%= form_with(model: @user, url: "/users", local: true) do |form| %>
-    
-    <% if @user.errors.any? %>
-      <div id="error_explanation">
-        <h2>Erro no registro</h2>
-        <ul>
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="form-group">
-      <%= form.label :first_name do %>
-        Nome <span style="color: red;">*</span>
+<div class="d-flex flex-fill">
+  <div class="left-panel"><%= image_tag "logo.png", size: "300x300", alt: "Logo Pet Manager", class: "logo-image" %></div>
+  <div class="right-panel">
+    <div class="registration-container m-5">
+      <h1>Registre-se</h1>
+      <p>Insira seus dados para criar uma conta.</p>
+      <%= form_with(model: @user, url: "/users", local: true) do |form| %>
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h2>Erro no registro</h2>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+          <div class="mb-3 text-start">
+            <%= form.label :first_name, class: 'form-label d-block text-start fw-bold' do %>
+              Nome <span style="color: red;">*</span>
+            <% end %>
+            <%= form.text_field :first_name, required: true, placeholder: 'Seu nome', class: 'form-control' %>
+          </div>
+          <div class="mb-3 text-start">
+            <%= form.label :last_name, class: 'form-label d-block fw-bold' do %>
+              Sobrenome <span style="color: red;">*</span>
+            <% end %>
+            <%= form.text_field :last_name, required: true, placeholder: 'Seu sobrenome', class: 'form-control' %>
+          </div>
+          <div class="mb-3 text-start">
+            <%= form.label :email, class: 'form-label d-block fw-bold' do %>
+              Email <span style="color: red;">*</span>
+            <% end %>
+            <%= form.text_field :email, required: true, placeholder: 'seu@email.com', class: 'form-control' %>
+          </div>
+          <div class="mb-3 text-start">
+            <%= form.label :password, class: 'form-label d-block fw-bold' do %>
+              Senha <span style="color: red;">*</span>
+            <% end %>
+            <%= form.password_field :password, required: true, placeholder: 'Mínimo de 6 caracteres', class: 'form-control' %>
+          </div>
+          <div class="mb-3 text-start">
+            <%= form.label :password_confirmation, class: 'form-label d-block fw-bold' do %>
+              Confirme sua senha <span style="color: red;">*</span>
+            <% end %>
+            <%= form.password_field :password_confirmation, required: true, placeholder: 'Insira a senha novamente', class: 'form-control' %>
+          </div>
+        <div class="form-actions">
+          <%= form.submit 'Registrar' %>
+        </div>
       <% end %>
-      <%= form.text_field :first_name, required: true, placeholder: 'Seu nome' %>
     </div>
-
-    <div class="form-group">
-      <%= form.label :last_name do %>
-        Sobrenome <span style="color: red;">*</span>
-      <% end %>
-      <%= form.text_field :last_name, required: true, placeholder: 'Seu sobrenome' %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :email do %>
-        Email <span style="color: red;">*</span>
-      <% end %>
-      <%= form.text_field :email, required: true, placeholder: 'seu@email.com' %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :password do %>
-        Senha <span style="color: red;">*</span>
-      <% end %>
-      <%= form.password_field :password, required: true, placeholder: 'Mínimo de 6 caracteres' %>
-    </div>
-
-    <div class="form-group">
-      <%= form.label :password_confirmation do %>
-        Confirme sua senha <span style="color: red;">*</span>
-      <% end %>
-      <%= form.password_field :password_confirmation, required: true, placeholder: 'Insira a senha novamente' %>
-    </div>
-
-    <div class="form-actions">
-      <%= form.submit 'Registrar' %>
-    </div>
-  <% end %>
+  </div>
 </div>

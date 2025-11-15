@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
       login(user)
       redirect_to user_path(user)
     else
-      message = "Algo deu errado! Por favor, verifique suas credenciais."
-      redirect_to login_path, alert: message
+      flash[:danger] = "Algo deu errado! Por favor, verifique suas credenciais."
+      redirect_to login_path
     end
   end
 

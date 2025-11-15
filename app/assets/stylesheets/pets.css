@@ -1,11 +1,8 @@
 .pets-new {
   font-family: "Arial", sans-serif;
-  background-color: #f9fafb;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
 }
 
 .pets-edit-page {
@@ -17,12 +14,12 @@
 
 .title {
   text-align: center;
-  color: #333;
+  color: var(--neutral-800); 
   margin-bottom: 2rem;
 }
 
 .pet-form {
-  background: #fff;
+  background: var(--neutral-0); 
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.1);
@@ -38,21 +35,22 @@
   display: block;
   margin-bottom: 0.4rem;
   font-weight: bold;
-  color: #555;
+  color: var(--neutral-600); 
 }
 
 .form-control {
   width: 100%;
   padding: 0.6rem;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--neutral-300); 
   font-size: 1rem;
 }
 
 .form-control:focus {
   outline: none;
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  border-color: var(--brand-primary-base); 
+  /* Atualizado para usar o RGB da cor primária */
+  box-shadow: 0 0 0 2px rgba(var(--brand-primary-base-rgb), 0.2); 
 }
 
 .form-actions {
@@ -60,10 +58,10 @@
   margin-top: 1.5rem;
 }
 
-.btn {
-  background-color: #4f46e5;
-  color: #fff;
-  padding: 0.7rem 1.5rem;
+.btn-pets {
+  background: var(--gradient-primary); 
+  color: var(--neutral-0); 
+  padding: 0.7rem;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
@@ -72,15 +70,16 @@
   margin: 0 0.5rem;
 }
 
-.btn:hover {
+.btn-pets:hover {
   background-color: #4338ca;
+  background: var(--brand-primary-dark); 
 }
 
-.btn-secondary {
+.btn-pets-secondary {
   background-color: #6b7280;
 }
 
-.btn-secondary:hover {
+.btn-pets-secondary:hover {
   background-color: #4b5563;
 }
 
