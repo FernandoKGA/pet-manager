@@ -1,2 +1,7 @@
-<h1>Editar perfil</h1>
-<%= render 'form' %>
+<div class="dashboard-container d-flex justify-content-center align-items-center">
+  <div class="bg-white p-4 rounded-3 shadow w-100 flex-column" style="max-width: 400px;">
+    <%= link_to "← Voltar para o Dashboard", user_path(@current_user), class: 'btn-back' %>
+    <h3>Editar perfil</h3>
+    <%= render 'form' %>
+  </div>
+</div>

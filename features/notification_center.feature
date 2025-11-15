@@ -70,4 +70,4 @@ Feature: Central de notificações do tutor
     Given I am not logged in
     When I try to access the notification center directly
     Then I should be redirected to the login page
-    And I should see the alert "Faça login para acessar a central de notificações"
+    And I should see the toast "Faça login para acessar a central de notificações"

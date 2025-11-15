@@ -16,7 +16,7 @@ class PetsController < ApplicationController
       redirect_to user_path(current_user), notice: "Pet cadastrado com sucesso!"
     else
       flash.now[:alert] = "Não foi possível guardar as informações do pet."
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -37,7 +37,7 @@ class PetsController < ApplicationController
       redirect_to user_path(current_user), notice: "Pet atualizado com sucesso!"
     else
       flash.now[:alert] = "Não foi possível atualizar as informações do pet."
-      render :edit, status: :unprocessable_entity
+      render :edit, status: :unprocessable_content
     end
   end
 

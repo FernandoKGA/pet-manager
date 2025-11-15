@@ -45,6 +45,6 @@ RSpec.describe "baths/edit", type: :view do
     end
 
     # Verifica se o link de voltar está presente
-    assert_select "a.btn-secondary[href=?]", pet_baths_path(pet)
+    assert_select "a.btn-secondary-custom[href=?]", pet_baths_path(pet)
   end
 end
