@@ -6,6 +6,7 @@
 <% custom_reminder_form ||= nil %>
 <% show_custom_reminder_modal = local_assigns.fetch(:show_custom_reminder_modal, false) %>
 <% show_custom_form = show_custom_reminder_modal && custom_reminder_form.present? %>
+<% filtered_results = @active_filter_tags.present? || @active_filter_summary.present? %>
 
 <div class="notification-overlay <%= 'is-open' if panel_open %>" data-testid="notification-overlay">
   <% if user.present? %>
@@ -50,22 +51,22 @@
         </div>
       </header>
 
-      <% if notifications_collection.blank? && !show_custom_form %>
-        <div class="notification-center__empty" data-testid="empty-state">
-          <div class="display-4 mb-3" aria-hidden="true">📭</div>
-          <h3 class="h5 mb-2">Você ainda não tem notificações</h3>
-          <p class="text-muted mb-4">Assim que você cadastrar lembretes, eles aparecem por aqui.</p>
-          <% if user.present? %>
-            <%= link_to 'Cadastrar um lembrete',
-                        user_path(user, notifications: 'open', reminder_modal: 'new'),
-                        class: 'btn btn-primary-custom',
-                        data: { testid: 'empty-state-cta' } %>
-          <% else %>
-            <span class="btn btn-primary-custom disabled">Cadastrar um lembrete</span>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="notification-center__body">
+      <div class="notification-center__body">
+        <% if notifications_collection.blank? && !show_custom_form && !filtered_results %>
+          <div class="notification-center__empty" data-testid="empty-state">
+            <div class="display-4 mb-3" aria-hidden="true">📭</div>
+            <h3 class="h5 mb-2">Você ainda não tem notificações</h3>
+            <p class="text-muted mb-4">Assim que você cadastrar lembretes, eles aparecem por aqui.</p>
+            <% if user.present? %>
+              <%= link_to 'Cadastrar um lembrete',
+                          user_path(user, notifications: 'open', reminder_modal: 'new'),
+                          class: 'btn btn-primary-custom',
+                          data: { testid: 'empty-state-cta' } %>
+            <% else %>
+              <span class="btn btn-primary-custom disabled">Cadastrar um lembrete</span>
+            <% end %>
+          </div>
+        <% else %>
           <aside class="notification-center__pane notification-center__filters" data-testid="notification-filters">
             <div class="notification-center__filters-card">
               <h3 class="h6 text-uppercase text-muted mb-3">Resumo</h3>
@@ -304,8 +305,8 @@
               </aside>
             <% end %>
           </section>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
