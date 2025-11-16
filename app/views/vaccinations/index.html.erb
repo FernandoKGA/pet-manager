@@ -1,54 +1,56 @@
 <%= stylesheet_link_tag "vaccination", "data-turbo-track": "reload" %>
-<div class="vaccine-page-container">
-  <div class="vaccine-header">
-    <%= link_to "← Voltar para o Dashboard", user_path(@pet.user), class: 'btn-back', data: { turbo: false } %>
-    <h1 class="vaccine-title">Vacinas de <%= @pet.name %></h1>
-    <p class="vaccine-subtitle">Veja e gerencie o histórico de vacinação do seu pet.</p>
-  </div>
-  <div class="vaccine-form-section">
-    <div class="vaccine-actions">
-      <h3>Histórico</h3>
-      <%= link_to 'Adicionar vacina', new_pet_vaccination_path(@pet), class: "btn btn-primary" %>
+<div class="dashboard-container">
+  <div class="vaccine-page-container">
+    <div class="vaccine-header">
+      <%= link_to "← Voltar para o Dashboard", user_path(@pet.user), class: 'btn-back', data: { turbo: false } %>
+      <h1 class="vaccine-title">Vacinas de <%= @pet.name %></h1>
+      <p class="vaccine-subtitle">Veja e gerencie o histórico de vacinação do seu pet.</p>
     </div>
-    <% if @vaccinations.present? %>
-      <div class="table-responsive">
-        <table class="table table-striped table-hover align-middle vaccine-table">
-          <thead>
-            <tr>
-              <th>Nome da Vacina</th>
-              <th>Data da Vacinação</th>
-              <th>Aplicada</th>
-              <th>Responsável</th>
-              <th class="text-end">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @vaccinations.each do |vaccination| %>
-              <tr>
-                <td><%= vaccination.name %></td>
-                <td><%= vaccination.applied_date.strftime('%d/%m/%Y') %></td>
-                <td>
-                  <% if vaccination.applied %>
-                    <span class="badge text-bg-success">Sim</span>
-                  <% else %>
-                    <span class="badge text-bg-warning">Não</span>
-                  <% end %>
-                </td>
-                <td><%= vaccination.applied_by %></td>
-                <td class="text-end">
-                  <%= link_to 'Editar', edit_pet_vaccination_path(@pet, vaccination), class: "btn btn-sm btn-outline-secondary" %>
-                  <%= link_to 'Excluir', pet_vaccination_path(@pet, vaccination), class: "btn btn-sm btn-outline-danger", data: { turbo_method: :delete } %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+    <div class="vaccine-form-section">
+      <div class="vaccine-actions">
+        <h3>Histórico</h3>
+        <%= link_to 'Adicionar vacina', new_pet_vaccination_path(@pet), class: "btn-primary-custom", style: "text-decoration: none" %>
       </div>
-      <br>
-    <% else %>
-      <p class="empty-state-text">
-        Você ainda não cadastrou nenhuma vacinação. 
-      </p>
-    <% end %>
+      <% if @vaccinations.present? %>
+        <div class="table-responsive">
+          <table class="table table-striped table-hover align-middle vaccine-table">
+            <thead>
+              <tr>
+                <th>Nome da Vacina</th>
+                <th>Data da Vacinação</th>
+                <th>Aplicada</th>
+                <th>Responsável</th>
+                <th class="text-end">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @vaccinations.each do |vaccination| %>
+                <tr>
+                  <td><%= vaccination.name %></td>
+                  <td><%= vaccination.applied_date.strftime('%d/%m/%Y') %></td>
+                  <td>
+                    <% if vaccination.applied %>
+                      <span class="badge text-bg-success">Sim</span>
+                    <% else %>
+                      <span class="badge text-bg-warning">Não</span>
+                    <% end %>
+                  </td>
+                  <td><%= vaccination.applied_by %></td>
+                  <td class="text-end">
+                    <%= link_to 'Editar', edit_pet_vaccination_path(@pet, vaccination), class: "btn btn-sm btn-outline-secondary" %>
+                    <%= link_to 'Excluir', pet_vaccination_path(@pet, vaccination), class: "btn btn-sm btn-outline-danger", data: { turbo_method: :delete } %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <br>
+      <% else %>
+        <p class="empty-state-text">
+          Você ainda não cadastrou nenhuma vacinação. 
+        </p>
+      <% end %>
+    </div>
   </div>
 </div>

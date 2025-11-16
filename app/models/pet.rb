@@ -8,6 +8,7 @@ class Pet < ApplicationRecord
 
   belongs_to :user
 
+  has_many :medical_appointments, dependent: :destroy
   has_many :baths, dependent: :destroy
   has_many :medications, dependent: :destroy
   has_many :reminder_notifications, dependent: :destroy

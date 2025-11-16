@@ -4,6 +4,13 @@
   border-top: 1px solid #f0f0f0;
 }
 
+.medications-content-section {
+  background: var(--neutral-0); 
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
 .medications-header {
   display: flex;
   justify-content: space-between;

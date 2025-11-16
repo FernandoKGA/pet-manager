@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
   create_table "baths", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.datetime "date"
-    t.decimal "price", precision: 8, scale: 2
+    t.decimal "price"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -47,6 +47,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
     t.index ["bath_id"], name: "index_expenses_on_bath_id"
     t.index ["pet_id"], name: "index_expenses_on_pet_id"
     t.index ["user_id"], name: "index_expenses_on_user_id"
+  end
+
+  create_table "medical_appointments", force: :cascade do |t|
+    t.bigint "pet_id", null: false
+    t.string "veterinarian_name"
+    t.datetime "appointment_date"
+    t.string "clinic_address"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pet_id"], name: "index_medical_appointments_on_pet_id"
   end
 
   create_table "medications", force: :cascade do |t|
@@ -136,6 +147,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
   add_foreign_key "expenses", "baths"
   add_foreign_key "expenses", "pets"
   add_foreign_key "expenses", "users"
+  add_foreign_key "medical_appointments", "pets"
   add_foreign_key "medications", "pets"
   add_foreign_key "pets", "users"
   add_foreign_key "reminder_notifications", "pets"

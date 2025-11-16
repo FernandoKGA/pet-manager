@@ -1,0 +1,7 @@
+<h1>Editar Consulta de <%= @pet.name %></h1>
+
+<%= render "form", medical_appointment: @medical_appointment  %>
+
+<div>
+ <%= link_to "Voltar", pet_medical_appointments_path(@pet), class: "btn btn-secondary", data: { turbo: false } %>
+</div>
