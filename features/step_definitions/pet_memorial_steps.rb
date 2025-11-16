@@ -1,3 +1,5 @@
+# features/step_definitions/pet_memorial_steps.rb
+
 Given('I am logged into the platform') do
   @user = FactoryBot.create(:user, password: 'password123', password_confirmation: 'password123')
   
@@ -33,8 +35,8 @@ Then('I should see the title "Pet Memorial"') do
   expect(page).to have_content('Pet Memorial')
 end
 
-Then('I should see a message like "In loving memory of our beloved pets"') do
-  expect(page).to have_content(/In loving memory/i)
+Then('I should see a message like "Em memória dos nossos amados animais de estimação"') do
+  expect(page).to have_content(/Em memória dos nossos amados animais de estimação/i)
 end
 
 Then('I should see at least one pet\'s name or photo displayed') do
@@ -42,7 +44,7 @@ Then('I should see at least one pet\'s name or photo displayed') do
 end
 
 Then('the date of passing should be visible') do
-  expect(page).to have_content(/Passed away on/i)
+  expect(page).to have_content(/Faleceu em/i)
 end
 
 Then('I should see the empty memorial message') do

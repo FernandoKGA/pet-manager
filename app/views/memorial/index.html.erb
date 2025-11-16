@@ -12,7 +12,7 @@
     
     <% if @has_deceased_pets %>
       <p class="welcome-subtitle">
-        In loving memory of our beloved pets 💙
+        Em memória dos nossos amados animais de estimação 💙
       </p>
     <% end %>
     
@@ -63,7 +63,7 @@
 
               <% if pet.date_of_death.present? %>
                 <div class="pet-death-info">
-                  <p class="death-date-label">Passed away on</p>
+                  <p class="death-date-label">Faleceu em</p>
                   <p class="death-date"><%= pet.formatted_death_date %></p>
                 </div>
               <% end %>

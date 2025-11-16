@@ -10,7 +10,7 @@ Feature: Pet memorial page
     Given there are deceased pets registered in the system
     When I visit the "Memorial" page
     Then I should see the title "Pet Memorial"
-    And I should see a message like "In loving memory of our beloved pets"
+    And I should see a message like "Em memória dos nossos amados animais de estimação"
     And I should see at least one pet's name or photo displayed
     And the date of passing should be visible
 
