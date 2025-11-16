@@ -26,7 +26,7 @@ Rails.application.routes.draw do
  
   get '/memorial', to: 'memorial#index', as: :memorial
   
-  resources :pets, only: [:new, :create, :show, :edit, :update] do
+  resources :pets, only: [:new, :create, :show, :edit, :update, :destroy] do
     resources :medical_appointments
     resources :weights, only: [:index, :new, :create]
     resources :baths # Linha que aninha os Banhos dentro de Pets

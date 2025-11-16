@@ -134,8 +134,46 @@
               <%= link_to "Diário", pet_diary_entries_path(pet), class: "btn-edit" %>
               <%= link_to "Vacinas", pet_vaccinations_path(pet), class: "btn-edit" %>
               <%= link_to "Consultas", pet_medical_appointments_path(pet), class: "btn-edit" %>
+              <button type="button"
+                      class="btn-destructive"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deletePetModal-<%= pet.id %>">
+                Excluir
+              </button>
             </div>
-            
+          </div>
+
+          <div class="modal fade pet-delete-modal"
+               id="deletePetModal-<%= pet.id %>"
+               tabindex="-1"
+               aria-labelledby="deletePetModalLabel-<%= pet.id %>"
+               aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deletePetModalLabel-<%= pet.id %>">Excluir Pet</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                  <p>
+                    Tem certeza que deseja excluir o Pet <strong><%= pet.name %></strong>?
+                    Essa ação remove todos os dados relacionados, incluindo banhos, vacinas e registros de saúde.
+                  </p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button"
+                          class="btn-outline"
+                          data-bs-dismiss="modal">
+                    Cancelar
+                  </button>
+                  <%= button_to "Sim, excluir",
+                                pet_path(pet),
+                                method: :delete,
+                                form: { class: "pet-delete-modal__form" },
+                                class: "btn-destructive" %>
+                </div>
+              </div>
+            </div>
           </div>
         <% end %>
       </div>
