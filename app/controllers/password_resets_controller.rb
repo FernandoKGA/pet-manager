@@ -30,7 +30,7 @@ class PasswordResetsController < ApplicationController
         redirect_to login_path
       else
         flash.now[:alert] = "Ocorreu um erro atualizando sua senha."
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_content
       end
     else
       flash[:error] = "Seu link de trocar de senha não é válido."

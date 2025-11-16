@@ -6,7 +6,7 @@
 }
 
 .diary-header {
-  background: white;
+  background: var(--neutral-0); 
   border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
@@ -15,18 +15,18 @@
 
 .diary-title {
   margin: 0 0 0.5rem 0;
-  color: #1a202c;
+  color: var(--neutral-800); 
   font-size: 2rem;
 }
 
 .diary-subtitle {
   margin: 0;
-  color: #718096;
+  color: var(--neutral-500); 
   font-size: 1.1rem;
 }
 
 .diary-content-section {
-  background: white;
+  background: var(--neutral-0); 
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -40,7 +40,7 @@
   gap: 1rem;
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--neutral-200); 
 }
 
 .filter-form {
@@ -51,13 +51,13 @@
 
 .filter-form label {
   font-weight: 600;
-  color: #4a5568;
+  color: var(--neutral-600); 
 }
 
 .filter-form input[type="date"] {
   padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--neutral-300); 
 }
 
 .diary-feed {
@@ -67,8 +67,8 @@
 }
 
 .diary-entry-card {
-  background: #f7fafc;
-  border: 1px solid #e2e8f0;
+  background: var(--neutral-100); 
+  border: 1px solid var(--neutral-200); 
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -76,13 +76,13 @@
 
 .entry-date {
   font-weight: 600;
-  color: #718096;
+  color: var(--neutral-500); 
   font-size: 0.9rem;
   margin: 0 0 0.75rem 0;
 }
 
 .entry-content {
-  color: #2d3748;
+  color: var(--neutral-700); 
   line-height: 1.6;
   margin: 0;
   white-space: pre-wrap;
@@ -97,11 +97,11 @@
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(30, 41, 59, 0.6);
+  background-color: rgba(var(--neutral-800-rgb), 0.6); 
 }
 
 .modal-content {
-  background-color: white;
+  background-color: var(--neutral-0); 
   margin: 10vh auto;
   padding: 2rem;
   border-radius: 16px;
@@ -120,12 +120,12 @@
 
 .modal-title {
   margin: 0;
-  color: #1a202c;
+  color: var(--neutral-800); 
   font-size: 1.5rem;
 }
 
 .close-btn {
-  color: #a0aec0;
+  color: var(--neutral-400); 
   background: none;
   border: none;
   font-size: 2rem;
@@ -135,7 +135,7 @@
 }
 
 .close-btn:hover {
-  color: #4a5568;
+  color: var(--neutral-600); 
 }
 
 .modal-form .form-group {
@@ -145,7 +145,7 @@
 .modal-form label {
   display: block;
   font-weight: 600;
-  color: #4a5568;
+  color: var(--neutral-600); 
   margin-bottom: 0.5rem;
 }
 
@@ -153,7 +153,7 @@
 .modal-form textarea {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #cbd5e0;
+  border: 1px solid var(--neutral-300); 
   border-radius: 6px;
   font-size: 1rem;
   box-sizing: border-box;
@@ -168,7 +168,7 @@
   display: inline-block;
   font-size: 1rem;
   font-weight: 600;
-  color: #764ba2;
+  color: var(--brand-primary-base); 
   text-decoration: none;
   margin-bottom: 1rem;
 }
@@ -190,8 +190,8 @@
 
 .btn-delete {
   padding: 4px 10px;
-  background: #f5576c;
-  color: white;
+  background: var(--status-danger-base); 
+  color: var(--neutral-0); 
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -201,7 +201,7 @@
 }
 
 .btn-delete:hover {
-  background: #d64555;
+  background: var(--status-danger-dark); 
 }
 
 @media (max-width: 768px) {

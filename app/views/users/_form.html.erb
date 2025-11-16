@@ -1,22 +1,35 @@
 <%= form_with model: @user do |f| %>
   <% if @user.errors.any? %>
     <div class="errors">
-      <h3><%= pluralize(@user.errors.count, "error") %> prohibited saving:</h3>
+      <h3><%= pluralize(@user.errors.count, "error") %> proibiram salvamento:</h3>
       <ul>
-        <% @user.errors.full_messages.each do |msg| %><li><%= msg %></li><% end %>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-
-  <div><%= f.label :first_name, 'Primeiro Nome' %><br><%= f.text_field :first_name %></div>
-  <div><%= f.label :last_name,  'Sobrenome'  %><br><%= f.text_field :last_name  %></div>
-  <div><%= f.label :email,      'Email'      %><br><%= f.email_field :email     %></div>
-
+  <div class="mb-3">
+    <%= f.label :first_name, 'Primeiro Nome', class: 'form-label fw-bold' %>
+    <%= f.text_field :first_name, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :last_name, 'Sobrenome', class: 'form-label fw-bold'  %>
+    <%= f.text_field :last_name, class: 'form-control' %>
+    </div>
+  <div class="mb-3">
+    <%= f.label :email, 'Email', class: 'form-label fw-bold'%>
+    <%= f.email_field :email, class: 'form-control'%>
+  </div>
   <%# senha opcional na edição %>
-  <div><%= f.label :password, 'Senha (deixe em branco para manter a mesma)' %><br><%= f.password_field :password %></div>
-  <div><%= f.label :password_confirmation, 'Confirmar senha' %><br><%= f.password_field :password_confirmation %></div>
-
-  <%= f.submit 'Salvar' %>
+  <div class="mb-3">
+    <%= f.label :password, 'Senha (deixe em branco para manter a mesma)', class: 'form-label' %>
+    <%= f.password_field :password, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= f.label :password_confirmation, 'Confirmar senha', class: 'form-label' %>
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+  <%= f.submit 'Salvar', class: 'btn-primary-custom' %>
   <%= link_to 'Cancelar', @user %>
-
 <% end %>

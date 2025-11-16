@@ -57,7 +57,7 @@ RSpec.describe "Baths", type: :request do
           post pet_baths_path(pet), params: { bath: attributes_for(:bath, date: nil) } # Data inválida
         }.not_to change(Bath, :count)
 
-        expect(response).to have_http_status(:unprocessable_content) # ou :unprocessable_entity dependendo do controller
+        expect(response).to have_http_status(:unprocessable_content) # ou :unprocessable_content dependendo do controller
         
         expect(response.body).to match(/Campo data obrigatório./) # Mensagem de erro
       end

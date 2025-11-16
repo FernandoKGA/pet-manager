@@ -14,11 +14,11 @@
         <%= form_with(url: pet_diary_entries_path(@pet), method: :get, class: 'filter-form') do |form| %>
           <%= form.label :filter_date, "Filtrar por dia:" %>
           <%= form.date_field :filter_date, value: params[:filter_date] %>
-          <%= form.submit "Filtrar", class: 'btn-primary' %>
-          <%= link_to "Limpar", pet_diary_entries_path(@pet), class: 'btn-secondary' %>
+          <%= form.submit "Filtrar", class: 'btn-primary-custom' %>
+          <%= link_to "Limpar", pet_diary_entries_path(@pet), class: 'btn-secondary-custom' %>
         <% end %>
 
-        <button type="button" id="open-modal-btn" class="btn-primary">
+        <button type="button" id="open-modal-btn" class="btn-primary-custom">
           Adicionar Entrada
         </button>
       </div>
@@ -85,7 +85,7 @@
       </div>
 
       <div class="form-actions">
-        <%= form.submit "Salvar Anotação", class: 'btn-primary' %>
+        <%= form.submit "Salvar Anotação", class: 'btn-primary-custom' %>
       </div>
     <% end %>
   </div>

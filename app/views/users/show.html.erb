@@ -12,16 +12,16 @@
     </p>
     <div class="welcome-actions">
       <%= link_to user_path(@user, notifications: 'open', anchor: 'notification-center-card'),
-                  class: 'btn-secondary notification-trigger',
+                  class: 'btn-secondary-custom notification-trigger',
                   data: { testid: 'open-notification-center' } do %>
         <span>📬 Central de notificações</span>
         <span class="badge bg-danger ms-2" data-testid="notification-indicator"><%= @unread_count %></span>
       <% end %>
       <%= button_to 'Editar cadastro',
                 edit_user_path(@user),
-                class: 'btn-primary',
+                class: 'btn-primary-custom',
                 method: :get %>
-      <%= link_to "Cadastrar pet", new_pet_path, class: "btn-secondary" %>
+      <%= link_to "Cadastrar pet", new_pet_path, class: "btn-secondary-custom" %>
     </div>
   </div>
 
@@ -131,6 +131,7 @@
               <%= link_to "Banho e Tosa", pet_baths_path(pet), class: "btn-edit" %>
               <%= link_to "Diário", pet_diary_entries_path(pet), class: "btn-edit" %>
               <%= link_to "Vacinas", pet_vaccinations_path(pet), class: "btn-edit" %>
+              <%= link_to "Consultas", pet_medical_appointments_path(pet), class: "btn-edit" %>
             </div>
             
           </div>
