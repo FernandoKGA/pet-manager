@@ -31,7 +31,7 @@
           <% if user.present? %>
             <%= link_to 'Cadastrar um lembrete',
                         user_path(user, notifications: 'open', reminder_modal: 'new'),
-                        class: 'btn btn-primary',
+                        class: 'btn btn-primary-custom',
                         data: { testid: 'open-custom-reminder' } %>
           <% end %>
           <% if notifications_collection.any? %>
@@ -58,10 +58,10 @@
           <% if user.present? %>
             <%= link_to 'Cadastrar um lembrete',
                         user_path(user, notifications: 'open', reminder_modal: 'new'),
-                        class: 'btn btn-primary',
+                        class: 'btn btn-primary-custom',
                         data: { testid: 'empty-state-cta' } %>
           <% else %>
-            <span class="btn btn-primary disabled">Cadastrar um lembrete</span>
+            <span class="btn btn-primary-custom disabled">Cadastrar um lembrete</span>
           <% end %>
         </div>
       <% else %>
@@ -118,7 +118,7 @@
                       <%= button_to 'Marcar como lida',
                                     notification_mark_as_read_path(notification),
                                     method: :patch,
-                                    class: "btn btn-sm btn-primary #{'disabled' if notification.read?}",
+                                    class: "btn btn-sm btn-primary-custom #{'disabled' if notification.read?}",
                                     disabled: notification.read?,
                                     data: { testid: 'mark-as-read-action' } %>
                     </div>
@@ -224,7 +224,7 @@
                                 user_path(user, notifications: 'open'),
                                 class: 'btn btn-outline-secondary',
                                 data: { testid: 'custom-reminder-cancel' } %>
-                    <%= form.submit 'Salvar lembrete', class: 'btn btn-primary', data: { testid: 'custom-reminder-submit' } %>
+                    <%= form.submit 'Salvar lembrete', class: 'btn btn-primary-custom', data: { testid: 'custom-reminder-submit' } %>
                   </div>
                 <% end %>
               </div>
@@ -240,7 +240,7 @@
                     <%= button_to 'Marcar como lida',
                                   notification_mark_as_read_path(selected_notification),
                                   method: :patch,
-                                  class: "btn btn-primary #{'disabled' if selected_notification.read?}",
+                                  class: "btn btn-primary-custom #{'disabled' if selected_notification.read?}",
                                   disabled: selected_notification.read?,
                                   data: { testid: 'detail-mark-as-read' } %>
                   </div>

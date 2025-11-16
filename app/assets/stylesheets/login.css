@@ -1,26 +1,21 @@
-.container-custom {
-    display: flex;
-    height: 100vh;
-}
-
 .left-panel {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #fff;
+    background: var(--neutral-0); 
 }
 
 .right-panel {
     flex: 1;
-    background: #007bff;
+    background: var(--gradient-primary); 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .login-box {
-    background: #fff;
+    background: var(--neutral-0); 
     padding: 40px;
     border-radius: 10px;
     width: 350px;
@@ -36,18 +31,14 @@
 
 .login-box p {
     margin: 10px 0 20px;
-    color: #555;
-}
-
-.input-group {
-    margin-bottom: 15px;
-    text-align: left;
+    color: var(--neutral-600); 
 }
 
 .input-group input {
-    width: calc(100% - 2 * 12px - 1px);
+    flex: 1;
+    margin-bottom: 10px;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--neutral-300); 
     border-radius: 25px;
     font-size: 14px;
     outline: none;
@@ -58,20 +49,20 @@
     padding: 12px;
     border: none;
     border-radius: 25px;
-    background: #007bff;
-    color: #fff;
+    background: var(--gradient-primary); 
+    color: var(--neutral-0); 
     font-size: 16px;
     cursor: pointer;
 }
 
 .btn-login:hover {
-    background: #0056b3;
+    background: var(--brand-primary-dark); 
 }
 
 .forgot-link {
     display: block;
     margin-top: 15px;
-    color: #007bff;
+    color: var(--brand-primary-base); 
     text-decoration: none;
     font-size: 14px;
 }
@@ -81,7 +72,7 @@
 }
 
 .register-link {
-    color: #007bff;
+    color: var(--brand-primary-base); 
     text-decoration: none;
 }
 

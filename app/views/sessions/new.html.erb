@@ -1,16 +1,16 @@
 <!-- app/views/sessions/new.html.erb -->
-<div class="container-custom">
+<div class="d-flex flex-fill">
   <div class="left-panel"><%= image_tag "logo.png", size: "300x300", alt: "Logo Pet Manager", class: "logo-image" %></div>
   <div class="right-panel">
-    <div class="login-box">
+    <div class="login-box m-5">
       <h2>Olá!</h2>
       <p>Logue para entrar no sistema</p>
 
       <%= form_for :session, url: login_path, method: :post, html: { class: "login-form" } do |form| %>
-        <div class="input-group">
+        <div class="input-group mb-15 t-start">
           <%= form.email_field :email, placeholder: "Email" %>
         </div>
-        <div class="input-group">
+        <div class="input-group mb-15 t-start">
           <%= form.password_field :password, placeholder: "Senha" %>
         </div>
         <%= form.submit "Logar", class: "btn-login" %>

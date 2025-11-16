@@ -41,7 +41,6 @@ end
 
 When('I select the current date and time for {string}') do |field_label|
   within("form") do
-    save_and_open_page
     fill_in field_label, with: Time.now.strftime("%Y-%m-%d %H:%M")
   end
 end

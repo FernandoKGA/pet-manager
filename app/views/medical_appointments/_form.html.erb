@@ -1,0 +1,36 @@
+<%= form_with(model: [@pet, medical_appointment], local: true) do |f| %>
+  <% if @medical_appointment.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@medical_appointment.errors.count, "erro") %>:</h4>
+      <ul>
+        <% @medical_appointment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :veterinarian_name, "Nome do Veterinário" %>
+    <%= f.text_field :veterinarian_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :appointment_date, "Data e hora da Consulta" %>
+    <%= f.datetime_field :appointment_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :clinic_address, "Endereço da Clínica" %>
+    <%= f.text_field :clinic_address %>
+  </div>
+
+  <div class="field">
+    <%= f.label :notes, "Observação" %>
+    <%= f.text_field :notes %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Salvar Consulta Veterinária", class: "btn btn-primary" %>
+  </div>
+<% end %>

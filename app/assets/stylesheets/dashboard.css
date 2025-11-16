@@ -1,16 +1,14 @@
 /* Container principal */
 .dashboard-container {
-  max-width: 1000px;
-  margin: 0 auto;
   padding: 2rem;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--gradient-primary);
   min-height: 100vh;
 }
 
 /* Card de Boas-vindas*/
 .welcome-card {
-  background: white;
+  background: var(--neutral-0);
   border-radius: 16px;
   padding: 2rem;
   margin-bottom: 2rem;
@@ -19,13 +17,13 @@
 
 .welcome-title {
   margin: 0 0 0.5rem 0;
-  color: #1a202c;
+  color: var(--neutral-800);
   font-size: 2rem;
 }
 
 .welcome-subtitle {
   margin: 0;
-  color: #718096;
+  color: var(--neutral-500);
   font-size: 1.1rem;
 }
 
@@ -36,56 +34,9 @@
   flex-wrap: wrap;
 }
 
-/* Botões */
-.btn-primary {
-  padding: 8px 16px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
-  transition: transform 0.2s;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-}
-
-.btn-primary.disabled,
-.btn-primary:disabled {
-  background: #e2e8f0;
-  color: #4a5568;
-  box-shadow: none;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.btn-secondary {
-  padding: 8px 16px;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 0.875rem;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
-  transition: transform 0.2s;
-  display: inline-block;
-}
-
-.btn-secondary:hover {
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-
 /* Seção dos Pets */
 .pets-section {
-  background: white;
+  background: var(--neutral-0);
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -100,18 +51,18 @@
 
 .pets-title {
   margin: 0;
-  color: #1a202c;
+  color: var(--neutral-800);
   font-size: 1.75rem;
 }
 
 .pets-subtitle {
   margin: 0.5rem 0 0 0;
-  color: #718096;
+  color: var(--neutral-500);
 }
 
 .pets-counter {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--gradient-primary);
+  color: var(--neutral-0);
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-weight: 600;
@@ -127,7 +78,7 @@
 
 /* Card do Pet */
 .pet-card {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: var(--gradient-neutral-card);
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
@@ -146,7 +97,7 @@
   right: -20px;
   width: 80px;
   height: 80px;
-  background: rgba(255, 255, 255, 0.3);
+  background: rgba(var(--neutral-0-rgb), 0.3);
   border-radius: 50%;
 }
 
@@ -157,7 +108,7 @@
 }
 
 .pet-avatar {
-  background: white;
+  background: var(--neutral-0);
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -171,14 +122,14 @@
 
 .pet-name {
   margin: 0 0 0.5rem 0;
-  color: #1a202c;
+  color: var(--neutral-800);
   font-size: 1.5rem;
   font-weight: 700;
 }
 
 .pet-info {
   margin: 0 0 1rem 0;
-  color: #4a5568;
+  color: var(--neutral-600);
   font-size: 1rem;
 }
 
@@ -194,14 +145,14 @@
   width: 100%;
   text-align: center;
   padding: 0.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--gradient-primary);
+  color: var(--neutral-0);
   text-decoration: none;
   border-radius: 6px;
   font-weight: 600;
   font-size: 0.875rem;
   transition: transform 0.2s;
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  box-shadow: var(--shadow-brand);
   box-sizing: border-box;
 }
 
@@ -369,9 +320,9 @@
 .empty-state {
   text-align: center;
   padding: 3rem;
-  background: #f7fafc;
+  background: var(--neutral-100);
   border-radius: 12px;
-  border: 2px dashed #cbd5e0;
+  border: 2px dashed var(--neutral-300);
 }
 
 .empty-state-icon {
@@ -380,13 +331,13 @@
 }
 
 .empty-state-text {
-  color: #718096;
+  color: var(--neutral-500);
   font-size: 1.1rem;
   margin: 0;
 }
 
 .empty-state-subtext {
-  color: #a0aec0;
+  color: var(--neutral-400);
   margin: 0.5rem 0 0 0;
 }
 
@@ -484,7 +435,7 @@
   align-items: flex-start;
   justify-content: center;
   padding: 4rem 1.5rem;
-  background: rgba(26, 32, 44, 0.45);
+  background: rgba(var(--neutral-800-rgb), 0.45);
   backdrop-filter: blur(4px);
   z-index: 1050;
 }
@@ -495,7 +446,7 @@
 
 .notification-overlay__content {
   position: relative;
-  background: #ffffff;
+  background: var(--neutral-0);
   border-radius: 20px;
   padding: 2rem;
   max-width: 1024px;
@@ -509,7 +460,7 @@
   position: absolute;
   inset: 0;
   display: block;
-  background: rgba(26, 32, 44, 0.45);
+  background: rgba(var(--neutral-800-rgb), 0.45);
 }
 
 .notification-overlay__close {
