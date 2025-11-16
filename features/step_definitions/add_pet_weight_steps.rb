@@ -20,10 +20,22 @@ And('I have added a pet') do
   @pet = Pet.last
 end
 
+Given('the pet has weight records') do
+  @pet ||= Pet.last
+
+  # Registros para alimentar o gráfico
+  @pet.weights.create!(weight: 28.0, created_at: 3.days.ago)
+  @pet.weights.create!(weight: 29.5, created_at: 1.day.ago)
+end
+
 When('I click in the link {string}') do |link_text|
   click_link link_text
 end
 
 Then('I should see the notice {string}') do |notice|
   expect(page).to have_content(notice)
+end
+
+Then('I should see the weight chart') do
+  expect(page).to have_css('#chart')
 end
