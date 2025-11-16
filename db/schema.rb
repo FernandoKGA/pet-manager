@@ -17,7 +17,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
   create_table "baths", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.datetime "date"
-    t.decimal "price", precision: 8, scale: 2
+    t.decimal "price"
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -131,18 +131,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
     t.bigint "pet_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "pet_id", null: false
-    t.string "vaccine_name", null: false
-    t.date "administered_on", null: false
-    t.date "next_due_on"
-    t.string "dose"
-    t.string "manufacturer"
-    t.string "batch_number"
-    t.text "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["next_due_on"], name: "index_vaccinations_on_next_due_on"
-    t.index ["pet_id", "administered_on"], name: "index_vaccinations_on_pet_id_and_administered_on"
     t.index ["pet_id"], name: "index_vaccinations_on_pet_id"
   end
 
