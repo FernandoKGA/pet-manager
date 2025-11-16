@@ -31,6 +31,10 @@ Given('I am editing my profile') do
   visit edit_user_path(@current_user)
 end
 
+When('I click the Cancelar link') do
+  click_link 'Cancelar'
+end
+
 Then('I should see the profile page') do
   expect(page).to have_current_path(user_path(@current_user))
 end
