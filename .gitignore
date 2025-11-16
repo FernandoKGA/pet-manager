@@ -39,3 +39,6 @@
 /spec/reports/*
 /rerun.txt
 cucumber.log
+
+# VSCode settings
+/.vscode/
