@@ -6,6 +6,7 @@
 <% custom_reminder_form ||= nil %>
 <% show_custom_reminder_modal = local_assigns.fetch(:show_custom_reminder_modal, false) %>
 <% show_custom_form = show_custom_reminder_modal && custom_reminder_form.present? %>
+<% filtered_results = @active_filter_tags.present? || @active_filter_summary.present? %>
 
 <div class="notification-overlay <%= 'is-open' if panel_open %>" data-testid="notification-overlay">
   <% if user.present? %>
@@ -50,22 +51,22 @@
         </div>
       </header>
 
-      <% if notifications_collection.blank? && !show_custom_form %>
-        <div class="notification-center__empty" data-testid="empty-state">
-          <div class="display-4 mb-3" aria-hidden="true">📭</div>
-          <h3 class="h5 mb-2">Você ainda não tem notificações</h3>
-          <p class="text-muted mb-4">Assim que você cadastrar lembretes, eles aparecem por aqui.</p>
-          <% if user.present? %>
-            <%= link_to 'Cadastrar um lembrete',
-                        user_path(user, notifications: 'open', reminder_modal: 'new'),
-                        class: 'btn btn-primary-custom',
-                        data: { testid: 'empty-state-cta' } %>
-          <% else %>
-            <span class="btn btn-primary-custom disabled">Cadastrar um lembrete</span>
-          <% end %>
-        </div>
-      <% else %>
-        <div class="notification-center__body">
+      <div class="notification-center__body">
+        <% if notifications_collection.blank? && !show_custom_form && !filtered_results %>
+          <div class="notification-center__empty" data-testid="empty-state">
+            <div class="display-4 mb-3" aria-hidden="true">📭</div>
+            <h3 class="h5 mb-2">Você ainda não tem notificações</h3>
+            <p class="text-muted mb-4">Assim que você cadastrar lembretes, eles aparecem por aqui.</p>
+            <% if user.present? %>
+              <%= link_to 'Cadastrar um lembrete',
+                          user_path(user, notifications: 'open', reminder_modal: 'new'),
+                          class: 'btn btn-primary-custom',
+                          data: { testid: 'empty-state-cta' } %>
+            <% else %>
+              <span class="btn btn-primary-custom disabled">Cadastrar um lembrete</span>
+            <% end %>
+          </div>
+        <% else %>
           <aside class="notification-center__pane notification-center__filters" data-testid="notification-filters">
             <div class="notification-center__filters-card">
               <h3 class="h6 text-uppercase text-muted mb-3">Resumo</h3>
@@ -77,11 +78,61 @@
               </dl>
             </div>
             <div class="notification-center__filters-card mt-4">
-              <h3 class="h6 text-uppercase text-muted mb-3">Filtros rápidos</h3>
-              <div class="d-grid gap-2">
-                <button type="button" class="btn btn-outline-secondary btn-sm" disabled>Todos</button>
-                <button type="button" class="btn btn-outline-secondary btn-sm" disabled>Não lidos</button>
-                <button type="button" class="btn btn-outline-secondary btn-sm" disabled>Próximos 7 dias</button>
+              <h3 class="h6 text-uppercase text-muted mb-3">Filtros</h3>
+              <%= form_with url: user_path(user), method: :get, local: true, class: 'd-grid gap-3', data: { testid: 'notification-filters-form' } do |form| %>
+                <%= hidden_field_tag :notifications, 'open' %>
+                <div>
+                  <%= form.label :status_filter, 'Status', class: 'form-label mb-1', for: 'filter-status' %>
+                  <%= form.select :status_filter,
+                                  options_for_select([['Todos', nil], ['Não lidas', 'unread'], ['Lidas', 'read']], @filter_selections[:status]),
+                                  {},
+                                  class: 'form-select form-select-sm',
+                                  id: 'filter-status',
+                                  data: { testid: 'filter-status' } %>
+                </div>
+
+                <div>
+                  <%= form.label :category_filter, 'Categoria', class: 'form-label mb-1', for: 'filter-category' %>
+                  <%= form.select :category_filter,
+                                  options_for_select([['Todas', nil]] + ReminderNotifications::CustomReminderForm::CATEGORY_OPTIONS.map { |c| [c, c] }, @filter_selections[:category]),
+                                  {},
+                                  class: 'form-select form-select-sm',
+                                  id: 'filter-category',
+                                  data: { testid: 'filter-category' } %>
+                </div>
+
+                <div class="row g-2">
+                  <div class="col">
+                    <%= form.label :due_from, 'De', class: 'form-label mb-1', for: 'filter-from' %>
+                    <%= form.date_field :due_from,
+                                        value: @filter_selections[:due_from]&.to_s,
+                                        class: 'form-control form-control-sm',
+                                        id: 'filter-from',
+                                        data: { testid: 'filter-from' } %>
+                  </div>
+                  <div class="col">
+                    <%= form.label :due_to, 'Até', class: 'form-label mb-1', for: 'filter-to' %>
+                    <%= form.date_field :due_to,
+                                        value: @filter_selections[:due_to]&.to_s,
+                                        class: 'form-control form-control-sm',
+                                        id: 'filter-to',
+                                        data: { testid: 'filter-to' } %>
+                  </div>
+                </div>
+
+                <div class="d-flex gap-2">
+                  <%= form.submit 'Aplicar filtros', class: 'btn btn-primary btn-sm flex-grow-1', data: { testid: 'apply-filters' } %>
+                  <%= link_to 'Limpar', user_path(user, notifications: 'open'), class: 'btn btn-outline-secondary btn-sm' %>
+                </div>
+              <% end %>
+
+              <div class="mt-3" data-testid="active-filter-tags">
+                <% @active_filter_tags.each do |tag| %>
+                  <span class="badge text-bg-secondary me-1 mb-1" data-testid="active-filter-tag"><%= tag %></span>
+                <% end %>
+                <% if @active_filter_summary.present? %>
+                  <p class="small text-muted mb-0" data-testid="active-filter-summary"><%= @active_filter_summary %></p>
+                <% end %>
               </div>
             </div>
           </aside>
@@ -254,8 +305,8 @@
               </aside>
             <% end %>
           </section>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
