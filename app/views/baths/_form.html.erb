@@ -1,8 +1,7 @@
 <%= form_with(model: [@pet, bath], local: true) do |form| %>
   <% if bath.errors.any? %>
-    <div id="error_explanation">
+    <div id="error_explanation" class="alert alert-danger">
       <h2><%= pluralize(bath.errors.count, "erro") %> impediram este banho de ser salvo:</h2>
-
       <ul>
         <% bath.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -10,29 +9,31 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :date, "Data e Hora" %>
-    <%= form.datetime_field :date %>
+  <div class="mb-3">
+    <%= form.label :date, "Data e Hora", class: "form-label" %>
+    <%= form.datetime_field :date, class: 'form-control' %>
   </div>
-
-  <div class="field">
-    <%= form.label :tosa, "Tosa" %>
-    <%= form.radio_button :tosa, true %> Sim
-    <%= form.radio_button :tosa, false %> Não
+  <div class="mb-3">
+    <%= form.label :tosa, "Tosa", class: "form-label d-block" %>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :tosa, true, class: 'form-check-input', id: 'bath_tosa_true' %>
+      <%= form.label :tosa_true, "Sim", class: 'form-check-label' %>
+    </div>
+    <div class="form-check form-check-inline">
+      <%= form.radio_button :tosa, false, class: 'form-check-input', id: 'bath_tosa_false', checked: true %>
+      <%= form.label :tosa_false, "Não", class: 'form-check-label' %>
+    </div>
   </div>
 
   <div class="field">
     <%= form.label :price, "Preço" %>
     <%= form.text_field :price %>
   </div>
-
-  <div class="field">
-    <%= form.label :notes, "Observações" %>
-    <%= form.text_area :notes %>
+  <div class="mb-3">
+    <%= form.label :notes, "Observações", class: "form-label" %>
+    <%= form.text_area :notes, class: 'form-control', rows: 3 %>
   </div>
-
-  <div class="form-actions">
-    <%= form.submit "Salvar Banho", class: "btn btn-primary" %>
+  <div class="d-grid mt-4">
+    <%= form.submit "Salvar Banho", class: "btn btn-primary-custom btn-lg" %>
   </div>
 <% end %>

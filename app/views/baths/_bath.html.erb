@@ -1,27 +1,16 @@
 <div id="<%= dom_id bath %>">
-  <p>
-    <strong>Pet:</strong>
-    <%= bath.pet_id %>
-  </p>
-
-  <p>
-    <strong>Data e Hora:</strong>
-    <%= bath.date %>
-  </p>
-
-  <p>
-    <strong>Tosa:</strong>
-    <%= bath.tosa ? "Sim" : "Não" %>
-  </p>
-
-  <p>
-    <strong>Preço:</strong>
-    <%= number_to_currency(bath.price, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %>
-  </p>
-
-  <p>
-    <strong>Observações:</strong>
-    <%= bath.notes %>
-  </p>
-
+  <dl class="row">
+    <dt class="col-sm-3">Pet:</dt>
+    <dd class="col-sm-9"><%= bath.pet.name %></dd>
+    <dt class="col-sm-3">Data e Hora:</dt>
+    <dd class="col-sm-9"><%= bath.date.strftime('%d/%m/%Y %H:%M') %></dd>
+    <dt class="col-sm-3">Tosa:</dt>
+    <dd class="col-sm-9"><%= bath.tosa ? "Sim" : "Não" %></dd>
+    <dt class="col-sm-3">Preço:</dt>
+    <dd class="col-sm-9"><%= number_to_currency(bath.price, unit: "R$", separator: ",", delimiter: ".", format: "%u %n") %></dd>
+    <dt class="col-sm-3">Observações:</dt>
+    <dd class="col-sm-9">
+      <%= bath.notes.presence || "Nenhuma observação." %>
+    </dd>
+  </dl>
 </div>

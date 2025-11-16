@@ -14,37 +14,105 @@
  *= require_self
  *= require dashboard
  */
-.alert {
-    position: fixed;
-    top: 20px;
-    right: -10px;
-    color: #1a202c;
-    background-color: rgba(255, 255, 255, 0.95);
-    z-index: 2100;
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 18px;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(31, 41, 55, 0.15);
-    min-width: 220px;
-    max-width: 280px;
-    border: 1px solid rgba(148, 163, 184, 0.35);
-    font-weight: 600;
-    text-align: left;
+
+/* ==========================================================================
+   DESIGN SYSTEM (PALETA 3)
+   ========================================================================== */
+:root {
+  /* 1. Cores da Marca (Brand) */
+  --brand-primary-base: #764ba2;
+  --brand-primary-light: #b09dc7;
+  --brand-primary-dark: #5e3a80;
+  --brand-primary-base-rgb: 118, 75, 162; /* Para box-shadows com alfa */
+
+  --brand-secondary-base: #667eea;
+  --brand-secondary-light: #a3b0f2;
+  --brand-secondary-dark: #4a61d1;
+  
+  /* 2. Cores Neutras (Neutrals) */
+  --neutral-0: #ffffff;
+  --neutral-0-rgb: 255, 255, 255;
+  --neutral-100: #f7fafc;  /* Fundo de seção/página (substitui #f8f9fa, #f9fafb, #f4f4f4) */
+  --neutral-200: #e2e8f0;  /* Bordas sutis, fundo de botão desabilitado */
+  --neutral-300: #cbd5e0;  /* Bordas de inputs (substitui #ccc, #ddd) */
+  --neutral-400: #a0aec0;  /* Placeholders, ícones sutis */
+  --neutral-500: #718096;  /* Sub-títulos, texto secundário */
+  --neutral-600: #4a5568;  /* Texto de corpo (parágrafos, substitui #555) */
+  --neutral-700: #2d3748;  /* Texto de corpo com destaque (substitui #333) */
+  --neutral-800: #1a202c;  /* Títulos principais (substitui #111827) */
+
+  /* 3. Cores Semânticas (Status) */
+  --status-danger-base: #f5576c;
+  --status-danger-light: #fde7ea; /* Fundo de erro (substitui #f8d7da) */
+  --status-danger-dark: #d64555;  /* Hover de perigo (substitui #721c24) */
+
+  --status-warning-base: #FB923C; /* Laranja */
+  --status-warning-light: #fff4e9;
+  --status-warning-dark: #e47514;
+  
+  --status-success-base: #10B981;
+  --status-success-light: #D1FAE5;
+  --status-success-dark: #047857;
+
+  /* 4. Gradientes (Gradients) */
+  --gradient-primary: linear-gradient(135deg, var(--brand-secondary-base) 0%, var(--brand-primary-base) 100%);
+  --gradient-accent: linear-gradient(135deg, #f093fb 0%, var(--status-danger-base) 100%);
+  --gradient-neutral-card: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+
+  /* 5. Sombras (Shadows) - Bônus */
+  --shadow-brand: 0 2px 8px rgba(102, 126, 234, 0.3);
+  --shadow-danger: 0 2px 8px rgba(245, 87, 108, 0.3);
+}
+/* ==========================================================================
+   FIM DO DESIGN SYSTEM
+   ========================================================================== */
+
+/* Botões */
+.btn-primary-custom {
+  padding: 8px 16px;
+  background: var(--gradient-primary);
+  color: var(--neutral-0);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-brand);
+  transition: transform 0.2s;
+  --bs-btn-color: var(--neutral-0) !important;
 }
 
-.alert-notice {
-  background-color: #ecfdf5;
-  color: #047857;
-  border-color: rgba(16, 185, 129, 0.4);
+.btn-primary-custom:hover {
+  transform: translateY(-2px);
 }
 
-.alert-alert,
-.alert-error {
-  background-color: #fef2f2;
-  color: #b91c1c;
-  border-color: rgba(239, 68, 68, 0.4);
+.btn-primary-custom.disabled,
+.btn-primary-custom:disabled {
+  background: var(--neutral-200);
+  color: var(--neutral-600);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary-custom {
+  padding: 8px 16px;
+  background: var(--gradient-accent);
+  color: var(--neutral-0);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-danger);
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.btn-secondary-custom:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
 }
 
 .closebtn {
@@ -59,44 +127,20 @@
 }
 
 .closebtn:hover {
-  color: #111827;
-}
-  
-header {
-  background-color: #f0f0f0;
-  padding: 12px; /* old 20px */
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 15px;
+  color: var(--neutral-800); 
 }
 
 body {
-  background-color: #f8f9fa;
+  background-color: var(--neutral-100); 
 }
 
-.text-azul-escuro {
-  color: #0675e3;
-}
-
-.imagem-fixa{
+.imagem-fixa {
   width: 500px;
   height: 300px;
   /*object-fit: cover;  opcional: ajusta o corte sem distorcer */
    object-fit: contain;  /* mostra tudo dentro do espaço */
   /* max-width: 30px;*/
   /* margin: auto;*/
-}
-
-
-footer {
-  background-color: #ccc;
-  text-align: center;
-  padding: 10px;
-  margin: 0 auto;     /* centraliza horizontalmente */
-
 }
 
 /* Notification Center layout */
