@@ -24,12 +24,10 @@
       <%= form.label :tosa_false, "Não", class: 'form-check-label' %>
     </div>
   </div>
-  <div class="mb-3">
-    <%= form.label :price, "Preço", class: "form-label" %>
-    <div class="input-group">
-      <span class="input-group-text">R$</span>
-      <%= form.text_field :price, placeholder: "90,00", class: 'form-control mb-0' %>
-    </div>
+
+  <div class="field">
+    <%= form.label :price, "Preço" %>
+    <%= form.text_field :price %>
   </div>
   <div class="mb-3">
     <%= form.label :notes, "Observações", class: "form-label" %>

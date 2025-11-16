@@ -1,7 +1,6 @@
 class BathsController < ApplicationController
   before_action :set_pet, only: [:index, :new, :create]
   before_action :set_bath, only: %i[ show edit update destroy ]
-  #before_action :set_bath, only: [:show, :edit, :update, :destroy]
 
 # GET /pets/:pet_id/baths
   def index
@@ -54,7 +53,7 @@ class BathsController < ApplicationController
   private
     # Define o pet pai
     def set_pet
-      @pet = Pet.find(params[:pet_id])
+      @pet = current_user.pets.find(params[:pet_id])
     end
 
    # Define o banho
