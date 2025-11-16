@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   namespace :notification_center do
     resources :custom_reminders, only: [:new, :create]
   end
+ 
+  get '/memorial', to: 'memorial#index', as: :memorial
   
   resources :pets, only: [:new, :create, :show, :edit, :update] do
     resources :medical_appointments

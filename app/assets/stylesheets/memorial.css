@@ -1,0 +1,129 @@
+/* app/assets/stylesheets/memorial.css */
+
+/* Estilos específicos para o memorial */
+.pet-tribute .pet-card-decoration {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.pet-photo-placeholder {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: white;
+  font-weight: bold;
+  margin: 0 auto;
+  border: 3px solid #667eea;
+}
+
+.pet-avatar img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 3px solid #667eea;
+}
+
+.pet-name {
+  margin-top: 1rem;
+}
+
+.pet-info {
+  color: #666;
+}
+
+.pet-death-info {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.death-date-label {
+  font-size: 0.85rem;
+  color: #999;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.death-date {
+  font-size: 1rem;
+  color: #667eea;
+  font-weight: 600;
+  margin: 0;
+}
+
+.pet-tribute {
+  position: relative;
+}
+
+.pet-tribute::before {
+  content: '🕊️';
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 1.5rem;
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.pet-tribute:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+}
+
+.pet-tribute .pet-card-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ajustes para o empty state do memorial */
+.empty-state-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+/* Estilo para o botão voltar */
+.btn-secondary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .pet-tribute::before {
+    font-size: 1.2rem;
+    top: 8px;
+    right: 8px;
+  }
+
+  .pet-photo-placeholder {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+  
+  .pet-avatar img {
+    width: 80px;
+    height: 80px;
+  }
+}
