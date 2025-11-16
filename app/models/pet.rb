@@ -4,6 +4,7 @@ class Pet < ApplicationRecord
   validates :name, presence: true, length: {maximum: 255}
   validates :species, presence: true, length: {maximum: 255}
   validates :breed, presence: true, length: {maximum: 255}
+  validates :date_of_death, presence: true, if: :deceased?
 
   belongs_to :user
 
@@ -18,6 +19,10 @@ class Pet < ApplicationRecord
 
   validate :photo_content_type_whitelist
   validate :photo_size_limit
+
+  scope :deceased, -> { where(deceased: true) }
+  scope :living, -> { where(deceased: false) }
+  scope :ordered_by_death_date, -> { order(date_of_death: :desc) }
 
   def current_weight
     weights.order(created_at: :desc).first&.weight
@@ -37,7 +42,6 @@ class Pet < ApplicationRecord
     return nil unless photo_attached?
     "data:#{photo_content_type};base64,#{photo_base64}"
   end
-
 
   def photo_size_bytes
     photo_size
@@ -60,7 +64,6 @@ class Pet < ApplicationRecord
 
   def attach_uploaded_file(uploaded_io)
     return unless uploaded_io.respond_to?(:read)
-
 
     bin = uploaded_io.read
 
@@ -90,9 +93,17 @@ class Pet < ApplicationRecord
     self
   end
 
+  def deceased?
+    deceased == true
+  end
+
+  def formatted_death_date
+    return nil unless deceased? && date_of_death.present?
+    date_of_death.strftime('%B %d, %Y')
+  end
+
   private
 
-  # aqui pdemos ajustar os tipos de arquivo
   def photo_content_type_whitelist
     return if photo_content_type.blank?
     allowed = %w(image/png image/jpg image/jpeg)

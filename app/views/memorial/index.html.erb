@@ -1,0 +1,88 @@
+<%# app/views/memorial/index.html.erb %>
+<%= stylesheet_link_tag "dashboard", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "memorial", "data-turbo-track": "reload" %>
+
+<div class="dashboard-container">
+
+  <!-- Card do Memorial -->
+  <div class="welcome-card">
+    <h1 class="welcome-title">
+      🕊️ Pet Memorial
+    </h1>
+    
+    <% if @has_deceased_pets %>
+      <p class="welcome-subtitle">
+        Em memória dos nossos amados animais de estimação 💙
+      </p>
+    <% end %>
+    
+    <div class="welcome-actions">
+      <%= link_to "← Voltar ao Dashboard", user_path(current_user), class: "btn-secondary" %>
+    </div>
+  </div>
+
+  <!-- Seção do Memorial -->
+  <div class="pets-section">
+    <% if @has_deceased_pets %>
+      <div class="pets-header">
+        <div>
+          <h2 class="pets-title">🌟 Pets que partiram</h2>
+          <p class="pets-subtitle">Guardados para sempre em nossos corações</p>
+        </div>
+        <div class="pets-counter">
+          <%= @deceased_pets.count %> <%= @deceased_pets.count == 1 ? 'pet' : 'pets' %>
+        </div>
+      </div>
+
+      <div class="pets-grid">
+        <% @deceased_pets.each do |pet| %>
+          <div class="pet-card pet-tribute">
+            
+            <!-- Decoração -->
+            <div class="pet-card-decoration"></div>
+            
+            <!-- Conteúdo Principal -->
+            <div class="pet-card-content">
+              <div class="pet-avatar">
+                <% if pet.photo_attached? %>
+                  <%= image_tag pet.photo_data_uri, alt: pet.name %>
+                <% else %>
+                  <div class="pet-photo-placeholder">
+                    <%= pet.name.first.upcase %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <h3 class="pet-name">
+                <%= pet.name %>
+              </h3>
+              
+              <p class="pet-info">
+                <%= pet.species %> • <%= pet.breed || 'SRD' %>
+              </p>
+
+              <% if pet.date_of_death.present? %>
+                <div class="pet-death-info">
+                  <p class="death-date-label">Faleceu em</p>
+                  <p class="death-date"><%= pet.formatted_death_date %></p>
+                </div>
+              <% end %>
+            </div>
+            
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="empty-state">
+        <div class="empty-state-icon">🕊️</div>
+        <p class="empty-state-text">
+          Não há nenhum pet no memorial
+        </p>
+        <p class="empty-state-subtext">
+          Todos os seus pets estão bem e saudáveis! 💚
+        </p>
+      </div>
+    <% end %>
+  </div>
+
+</div>
