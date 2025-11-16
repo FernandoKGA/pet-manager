@@ -37,6 +37,12 @@ class Pet < ApplicationRecord
     photo_size
   end
 
+  def weight_chart_points(scope = weights)
+    scope.order(:created_at).pluck(:created_at, :weight).map do |timestamp, value|
+      [timestamp, value.to_f]
+    end
+  end
+
   def remove_photo!
     update!(
       photo_base64: nil,
@@ -72,7 +78,7 @@ class Pet < ApplicationRecord
     end
 
     decoded = Base64.decode64(base64_str)
-    self.photo_base64 = Base64.strict_encode64(decoded) 
+    self.photo_base64 = Base64.strict_encode64(decoded)
     self.photo_size = decoded.bytesize
     self.photo_filename = filename if filename.present?
     self
