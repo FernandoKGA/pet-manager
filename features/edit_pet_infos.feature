@@ -26,3 +26,8 @@ Feature: Pet management
     When I open the delete modal for that pet
     Then I should not see the consultations link inside the delete modal
     And I should see the consultations link in the pet card actions
+
+  Scenario: Remove existing pet
+    Given I have an existing pet registered
+    When I click the delete link for that pet
+    Then I should not see that pet in my pets page anymore
