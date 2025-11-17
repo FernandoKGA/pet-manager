@@ -10,27 +10,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :veterinarian_name, "Nome do Veterinário" %>
-    <%= f.text_field :veterinarian_name %>
+  <div class="mb-3">
+    <%= f.label :appointment_date, "Data e hora da Consulta", class: "form-label" %>
+    <%= f.datetime_field :appointment_date, class: 'form-control' %>
   </div>
 
-  <div class="field">
-    <%= f.label :appointment_date, "Data e hora da Consulta" %>
-    <%= f.datetime_field :appointment_date %>
-  </div>
+ <div class="mb-3">
+   <%= f.label :veterinarian_name, "Nome do Veterinário", class: "form-label" %>
+   <%= f.text_field :veterinarian_name %>
+ </div>
 
-  <div class="field">
-    <%= f.label :clinic_address, "Endereço da Clínica" %>
-    <%= f.text_field :clinic_address %>
-  </div>
+ <div class="mb-3">
+   <%= f.label :clinic_address, "Endereço da Clínica", class: "form-label" %>
+   <%= f.text_area :clinic_address, class: 'form-control', rows: 2 %>
+ </div>
 
-  <div class="field">
-    <%= f.label :notes, "Observação" %>
-    <%= f.text_field :notes %>
-  </div>
+ <div class="mb-3">
+   <%= f.label :notes, "Observação", class: "form-label" %>
+   <%= f.text_area :notes, class: 'form-control', rows: 3 %>
+ </div>
 
-  <div class="actions">
-    <%= f.submit "Salvar Consulta Veterinária", class: "btn btn-primary" %>
+  <div class="d-grid mt-4">
+    <%= f.submit "Salvar Consulta", class: "btn btn-primary-custom btn-lg" %>
   </div>
 <% end %>
