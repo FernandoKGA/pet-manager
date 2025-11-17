@@ -62,9 +62,16 @@ Then('I should see the updated information in my pets page') do
 end
 
 # Cenário: Remover informações de um pet
-When('I click the delete link for that pet') do |button|
+When('I click the delete link for that pet') do
   visit user_path(@user)
-  click_link button, match: :first
+
+  # Abre o modal de exclusão do pet específico
+  find("button[data-bs-target='#deletePetModal-#{@pet.id}']").click
+
+  # Confirma a exclusão no modal
+  within("#deletePetModal-#{@pet.id}") do
+    click_button "Sim, excluir"
+  end
 end
 
 Then('I should not see that pet in my pets page anymore') do

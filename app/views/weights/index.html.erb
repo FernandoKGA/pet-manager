@@ -1,0 +1,73 @@
+<div class="dashboard-container">
+  <div class="weights-page">
+    <div class="weights-hero-card">
+      <%= link_to "← Voltar para o Dashboard",
+                  (current_user ? user_path(current_user) : root_path),
+                  class: "weights-back-link" %>
+      <h1 class="weights-title">Diário de peso: <%= @pet.name %></h1>
+      <p class="weights-subtitle">
+        Acompanhe todos os registros e mantenha o histórico de peso sempre atualizado.
+      </p>
+    </div>
+
+    <div class="weights-card">
+      <div class="weights-toolbar">
+        <%= form_with url: pet_weights_path(@pet), method: :get, local: true, class: "weights-filter-form" do %>
+          <div class="weights-filter-group">
+            <label class="weights-filter-label">Filtrar por período:</label>
+            <div class="weights-period-inputs">
+              <%= date_field_tag :start_date,
+                                 (@start_date&.strftime("%Y-%m-%d") if @start_date),
+                                 class: "weights-date-input",
+                                 max: Date.current %>
+              <span class="weights-period-separator">até</span>
+              <%= date_field_tag :end_date,
+                                 (@end_date&.strftime("%Y-%m-%d") if @end_date),
+                                 class: "weights-date-input",
+                                 max: Date.current %>
+            </div>
+          </div>
+          <div class="weights-toolbar-actions">
+            <%= submit_tag "Filtrar", class: "weights-button weights-button--primary" %>
+            <% if params[:start_date].present? || params[:end_date].present? %>
+              <%= link_to "Limpar", pet_weights_path(@pet), class: "weights-button weights-button--ghost" %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if current_user&.id == @pet.user_id %>
+          <%= link_to "Adicionar peso", new_pet_weight_path(@pet), class: "weights-button weights-button--accent" %>
+        <% end %>
+      </div>
+
+      <%= render "chart" %>
+
+      <div class="weights-table-wrapper">
+        <table class="weights-table">
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Peso (kg)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if @weights.any? %>
+              <% @weights.order(created_at: :desc).each do |weight| %>
+                <tr>
+                  <td><%= l(weight.created_at.to_date, format: "%d/%m/%Y") %></td>
+                  <td><%= number_with_precision(weight.weight, precision: 2) %></td>
+                </tr>
+              <% end %>
+            <% else %>
+              <tr>
+                <td colspan="2" class="weights-empty-state">
+                  Nenhum peso registrado para o período selecionado.
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

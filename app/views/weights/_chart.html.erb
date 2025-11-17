@@ -1,0 +1,68 @@
+<div class="weight-chart-card" data-testid="weight-chart-card">
+  <h2 class="weight-chart-title">Evolução de peso de <%= @pet.name %></h2>
+  <% if @chart_data.present? %>
+    <% time_config =
+         if @single_day_weight_range
+           {
+             tooltipFormat: "dd/MM/yyyy HH:mm",
+             displayFormats: {
+               minute: "dd/MM HH:mm",
+               hour: "dd/MM HH:mm",
+               day: "dd/MM",
+               month: "MM/yyyy",
+               year: "yyyy"
+             }
+           }
+         else
+           {
+             unit: "day",
+             tooltipFormat: "dd/MM/yyyy",
+             displayFormats: {
+               day: "dd/MM",
+               month: "MM/yyyy",
+               year: "yyyy"
+             }
+           }
+         end %>
+    <%= line_chart @chart_data,
+                   xtitle: "Data da medição",
+                   ytitle: "Peso (kg)",
+                   points: true,
+                   curve: false,
+                   suffix: " kg",
+                   colors: ["#6d28d9"],
+                   id: "chart",
+                   height: "360px",
+                   library: {
+                     plugins: {
+                       legend: { display: false }
+                     },
+                     scales: {
+                       x: {
+                         type: "time",
+                         time: time_config,
+                         ticks: {
+                           color: "#4c1d95",
+                           source: "data"
+                         },
+                         grid: {
+                           color: "rgba(148, 163, 184, 0.2)"
+                         }
+                       },
+                       y: {
+                         beginAtZero: true,
+                         ticks: {
+                           color: "#4c1d95"
+                         },
+                         grid: {
+                           color: "rgba(148, 163, 184, 0.15)"
+                         }
+                       }
+                     }
+                   } %>
+  <% else %>
+    <p class="weights-empty-chart">
+      Registre o primeiro peso do seu pet para visualizar o gráfico.
+    </p>
+  <% end %>
+</div>

@@ -23,10 +23,14 @@ Rails.application.routes.draw do
   namespace :notification_center do
     resources :custom_reminders, only: [:new, :create]
   end
+ 
+  get '/memorial', to: 'memorial#index', as: :memorial
   
-  resources :pets, only: [:new, :create, :show, :edit, :update] do
+  resources :pets, only: [:new, :create, :show, :edit, :update, :destroy] do
+    resources :medical_appointments
+    resources :weights, only: [:index, :new, :create]
     resources :baths # Linha que aninha os Banhos dentro de Pets
-    resources :weight, only: [:new, :create], path: 'weight'
+    resources :weights, only: [:index, :new, :create]
     resources :diary_entries, only: [:index, :create, :destroy]
     resources :medications, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :vaccinations, only: [:index, :new, :create, :edit, :update, :destroy]

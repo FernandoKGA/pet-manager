@@ -31,8 +31,5 @@
     <%= f.password_field :password_confirmation, class: 'form-control' %>
   </div>
   <%= f.submit 'Salvar', class: 'btn-primary-custom' %>
-  <%= button_to 'Cancelar',
-              @user,
-              method: :get,
-              class: 'btn btn-outline-danger' %>
+  <%= link_to 'Cancelar', @user, class: 'btn btn-outline-danger' %>
 <% end %>

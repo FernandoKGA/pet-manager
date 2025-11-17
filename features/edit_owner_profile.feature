@@ -26,7 +26,7 @@ Scenario: Try to save with invalid data
 
 Scenario: Cancel editing
     Given I am editing my profile
-    When I click the Cancel button
+    When I click the Cancelar link
     Then I should see the profile page
     And the profile information should remain unchanged
 

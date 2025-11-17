@@ -4,9 +4,11 @@ class Pet < ApplicationRecord
   validates :name, presence: true, length: {maximum: 255}
   validates :species, presence: true, length: {maximum: 255}
   validates :breed, presence: true, length: {maximum: 255}
+  validates :date_of_death, presence: true, if: :deceased?
 
   belongs_to :user
 
+  has_many :medical_appointments, dependent: :destroy
   has_many :baths, dependent: :destroy
   has_many :medications, dependent: :destroy
   has_many :reminder_notifications, dependent: :destroy
@@ -18,10 +20,20 @@ class Pet < ApplicationRecord
   validate :photo_content_type_whitelist
   validate :photo_size_limit
 
+  scope :deceased, -> { where(deceased: true) }
+  scope :living, -> { where(deceased: false) }
+  scope :ordered_by_death_date, -> { order(date_of_death: :desc) }
+
   def current_weight
     weights.order(created_at: :desc).first&.weight
   end
 
+  def weight_chart_points(scope = weights)
+    scope.order(:created_at).pluck(:created_at, :weight).map do |timestamp, value|
+      [timestamp, value.to_f]
+    end
+  end
+  
   def photo_attached?
     photo_base64.present?
   end
@@ -31,11 +43,10 @@ class Pet < ApplicationRecord
     "data:#{photo_content_type};base64,#{photo_base64}"
   end
 
-
   def photo_size_bytes
     photo_size
   end
-
+  
   def remove_photo!
     update!(
       photo_base64: nil,
@@ -47,7 +58,6 @@ class Pet < ApplicationRecord
 
   def attach_uploaded_file(uploaded_io)
     return unless uploaded_io.respond_to?(:read)
-
 
     bin = uploaded_io.read
 
@@ -71,15 +81,23 @@ class Pet < ApplicationRecord
     end
 
     decoded = Base64.decode64(base64_str)
-    self.photo_base64 = Base64.strict_encode64(decoded) 
+    self.photo_base64 = Base64.strict_encode64(decoded)
     self.photo_size = decoded.bytesize
     self.photo_filename = filename if filename.present?
     self
   end
 
+  def deceased?
+    deceased == true
+  end
+
+  def formatted_death_date
+    return nil unless deceased? && date_of_death.present?
+    date_of_death.strftime('%B %d, %Y')
+  end
+
   private
 
-  # aqui pdemos ajustar os tipos de arquivo
   def photo_content_type_whitelist
     return if photo_content_type.blank?
     allowed = %w(image/png image/jpg image/jpeg)
