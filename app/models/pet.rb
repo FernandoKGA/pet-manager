@@ -42,10 +42,6 @@ class Pet < ApplicationRecord
     return nil unless photo_attached?
     "data:#{photo_content_type};base64,#{photo_base64}"
   end
-
-  def photo_size_bytes
-    photo_size
-  end
   
   def remove_photo!
     update!(
