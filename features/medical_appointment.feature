@@ -12,6 +12,6 @@ Scenario: Registering a new appointment
 When I visit the medical appointments page for "Oliver"
 And I click on "Nova Consulta"
 And I fill in the medical appointment form with valid information
-And I click the button "Salvar Consulta Veterinária"
+And I click the button "Salvar Consulta"
 Then I should see the following message "Consulta Veterinária cadastrada com sucesso!"
 
