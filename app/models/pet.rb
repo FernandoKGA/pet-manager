@@ -24,6 +24,8 @@ class Pet < ApplicationRecord
   scope :living, -> { where(deceased: false) }
   scope :ordered_by_death_date, -> { order(date_of_death: :desc) }
 
+  attr_accessor :remove_photo
+
   def current_weight
     weights.order(created_at: :desc).first&.weight
   end

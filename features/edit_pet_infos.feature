@@ -21,6 +21,16 @@ Feature: Pet management
     And I press "Atualizar"
     Then I should see the updated information in my pets page
 
+  Scenario: Delete pet photo
+    Given I have an existing pet registered
+    And it has a photo
+    When I navigate to the "Edit Pet" page for that pet
+    And I update the pet information with valid data
+    And I check "Remover foto"
+    And I press "Atualizar"
+    Then I should see the updated information in my pets page
+    And it should not have a pet photo
+
   Scenario: Consultations action stays outside delete modal
     Given I have at least one pet registered
     When I open the delete modal for that pet
