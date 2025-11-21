@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-  before_action :set_pet, only: [:show, :edit, :update, :destroy]
+  before_action :set_pet, only: [:show, :edit, :update, :destroy, :add_to_memorial]
 
   def new
     @pet = current_user.pets.build
@@ -21,11 +21,9 @@ class PetsController < ApplicationController
   end
 
   def show
-
   end
 
   def edit
-
   end
 
   def update
@@ -46,6 +44,14 @@ class PetsController < ApplicationController
       redirect_to user_path(current_user), notice: "Pet excluído com sucesso!"
     else
       redirect_to user_path(current_user), alert: "Não foi possível excluir o Pet."
+    end
+  end
+
+  def add_to_memorial
+    if @pet.add_to_memorial!
+      redirect_to pets_path, notice: "#{@pet.name} foi adicionado ao memorial com sucesso."
+    else
+      redirect_to pet_path(@pet), alert: "Erro ao adicionar o pet ao memorial."
     end
   end
 

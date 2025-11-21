@@ -1,3 +1,4 @@
+<%# app/views/users/show.html.erb %>
 <%= stylesheet_link_tag "dashboard", "data-turbo-track": "reload" %>
 
 <div class="dashboard-container">
@@ -36,7 +37,7 @@
              custom_reminder_form: @custom_reminder_form,
              show_custom_reminder_modal: @show_custom_reminder_modal %>
 
-  <!-- Seção dos Pets -->
+  <!-- Seção dos Pets (apenas vivos) -->
   <div class="pets-section">
     <div class="pets-header">
       <div>
@@ -126,8 +127,9 @@
               </div>
             </div>
 
-            <!-- Botão Editar -->
+            <!-- Botão Editar e Ações -->
             <div class="pet-card-footer">
+              <%= link_to "Ver detalhes", pet_path(pet), class: "btn-edit" %>
               <%= link_to "✏️ Editar", edit_pet_path(pet), class: "btn-edit" %>
               <%= link_to "Banho e Tosa", pet_baths_path(pet), class: "btn-edit" %>
               <%= link_to "Gráfico de peso", pet_weights_path(pet), class: "btn-edit" %>

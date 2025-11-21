@@ -1,0 +1,61 @@
+<%# app/views/memorial/show.html.erb %>
+<%= stylesheet_link_tag "dashboard", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "memorial", "data-turbo-track": "reload" %>
+
+<div class="dashboard-container">
+
+  <!-- Card do Pet no Memorial -->
+  <div class="welcome-card">
+    <h1 class="welcome-title">
+      🕊️ <%= @pet.name %>
+    </h1>
+    <p class="welcome-subtitle">
+      Em memória de um amigo querido 💙
+    </p>
+    <div class="welcome-actions">
+      <%= link_to "← Voltar ao Memorial", memorial_path, class: "btn-secondary-custom" %>
+    </div>
+  </div>
+
+  <!-- Detalhes do Pet -->
+  <div class="pets-section">
+    <div class="pet-card pet-tribute">
+      <div class="pet-card-decoration"></div>
+      
+      <div class="pet-card-content">
+        <div class="pet-avatar">
+          <% if @pet.photo_attached? %>
+            <%= image_tag @pet.photo_data_uri, alt: @pet.name, style: "width:150px; height:150px; object-fit:cover; border-radius:50%;" %>
+          <% else %>
+            <div class="pet-photo-placeholder" style="width:150px; height:150px; font-size: 60px;">
+              <%= @pet.name.first.upcase %>
+            </div>
+          <% end %>
+        </div>
+        
+        <h3 class="pet-name" style="font-size: 2rem; margin-top: 1rem;">
+          <%= @pet.name %>
+        </h3>
+        
+        <p class="pet-info" style="font-size: 1.1rem;">
+          <%= @pet.species %> • <%= @pet.breed || 'SRD' %>
+        </p>
+
+        <% if @pet.deceased_at.present? %>
+          <div class="pet-death-info" style="margin-top: 2rem;">
+            <p class="death-date-label">Faleceu em</p>
+            <p class="death-date" style="font-size: 1.2rem;"><%= @pet.formatted_death_date %></p>
+          </div>
+        <% end %>
+
+        <% if @pet.birth_date.present? %>
+          <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e0e0e0;">
+            <p style="color: #666; font-size: 0.9rem;">Data de nascimento</p>
+            <p style="font-weight: 500;"><%= @pet.birth_date.strftime('%d/%m/%Y') %></p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>

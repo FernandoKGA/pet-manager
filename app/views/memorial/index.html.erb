@@ -36,40 +36,42 @@
 
       <div class="pets-grid">
         <% @deceased_pets.each do |pet| %>
-          <div class="pet-card pet-tribute">
-            
-            <!-- Decoração -->
-            <div class="pet-card-decoration"></div>
-            
-            <!-- Conteúdo Principal -->
-            <div class="pet-card-content">
-              <div class="pet-avatar">
-                <% if pet.photo_attached? %>
-                  <%= image_tag pet.photo_data_uri, alt: pet.name %>
-                <% else %>
-                  <div class="pet-photo-placeholder">
-                    <%= pet.name.first.upcase %>
+          <%= link_to memorial_pet_path(pet), style: 'text-decoration: none; color: inherit;' do %>
+            <div class="pet-card pet-tribute">
+              
+              <!-- Decoração -->
+              <div class="pet-card-decoration"></div>
+              
+              <!-- Conteúdo Principal -->
+              <div class="pet-card-content">
+                <div class="pet-avatar">
+                  <% if pet.photo_attached? %>
+                    <%= image_tag pet.photo_data_uri, alt: pet.name %>
+                  <% else %>
+                    <div class="pet-photo-placeholder">
+                      <%= pet.name.first.upcase %>
+                    </div>
+                  <% end %>
+                </div>
+                
+                <h3 class="pet-name">
+                  <%= pet.name %>
+                </h3>
+                
+                <p class="pet-info">
+                  <%= pet.species %> • <%= pet.breed || 'SRD' %>
+                </p>
+
+                <% if pet.deceased_at.present? %>
+                  <div class="pet-death-info">
+                    <p class="death-date-label">Faleceu em</p>
+                    <p class="death-date"><%= pet.formatted_death_date %></p>
                   </div>
                 <% end %>
               </div>
               
-              <h3 class="pet-name">
-                <%= pet.name %>
-              </h3>
-              
-              <p class="pet-info">
-                <%= pet.species %> • <%= pet.breed || 'SRD' %>
-              </p>
-
-              <% if pet.date_of_death.present? %>
-                <div class="pet-death-info">
-                  <p class="death-date-label">Faleceu em</p>
-                  <p class="death-date"><%= pet.formatted_death_date %></p>
-                </div>
-              <% end %>
             </div>
-            
-          </div>
+          <% end %>
         <% end %>
       </div>
     <% else %>

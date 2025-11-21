@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   
   def show
     @user = current_user
-    @pets = @user.pets  # pega todos os pets do usuário logado
+    @pets = current_user.pets.living  # pega todos os pets do usuário logado
     prepare_notification_center_context(user: @user)
   end
 

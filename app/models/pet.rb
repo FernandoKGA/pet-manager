@@ -20,9 +20,10 @@ class Pet < ApplicationRecord
   validate :photo_content_type_whitelist
   validate :photo_size_limit
 
-  scope :deceased, -> { where(deceased: true) }
-  scope :living, -> { where(deceased: false) }
-  scope :ordered_by_death_date, -> { order(date_of_death: :desc) }
+  # Scopes atualizados para usar deceased_at
+  scope :deceased, -> { where.not(deceased_at: nil) }
+  scope :living, -> { where(deceased_at: nil) }
+  scope :ordered_by_death_date, -> { order(deceased_at: :desc) }
 
   def current_weight
     weights.order(created_at: :desc).first&.weight
@@ -84,12 +85,20 @@ class Pet < ApplicationRecord
   end
 
   def deceased?
-    deceased == true
+    deceased_at.present?
+  end
+
+  def alive?
+    deceased_at.nil?
+  end
+
+  def add_to_memorial!
+    update!(deceased_at: Time.current)
   end
 
   def formatted_death_date
-    return nil unless deceased? && date_of_death.present?
-    date_of_death.strftime('%B %d, %Y')
+    return nil unless deceased? && deceased_at.present?
+    deceased_at.strftime('%B %d, %Y')
   end
 
   private
@@ -98,7 +107,7 @@ class Pet < ApplicationRecord
     return if photo_content_type.blank?
     allowed = %w(image/png image/jpg image/jpeg)
     unless allowed.include?(photo_content_type)
-      errors.add(:photo_content_type, "tipo inválido — permitido: png, jpg, jpeg")
+      errors.add(:photo_content_type, "tipo inválido – permitido: png, jpg, jpeg")
     end
   end
 
