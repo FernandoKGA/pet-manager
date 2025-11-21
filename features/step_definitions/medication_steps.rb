@@ -55,6 +55,9 @@ end
 When('I enter the medication start date {string}') do |date|
   fill_in 'Data de Início', with: date
 end
+When('I enter the medication end date {string}') do |date|
+  fill_in 'Data de Fim', with: date
+end
 
 When('I update the medication dosage to {string}') do |dosage|
   fill_in 'Dosagem', with: dosage

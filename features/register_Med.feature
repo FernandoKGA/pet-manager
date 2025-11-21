@@ -14,6 +14,7 @@ Feature: Medication management
     And I enter the medication dosage "5ml"
     And I enter the medication frequency "Uma vez por mês"
     And I enter the medication start date "2025-10-13"
+    And I enter the medication end date "2025-11-13"
     And I press the medication button "Criar Medicamento"
     Then I should see the medication message "Medicamento adicionado com sucesso"
     And I should see the medication "Vermífugo X" in the dashboard
