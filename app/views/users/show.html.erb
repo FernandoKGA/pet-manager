@@ -100,11 +100,10 @@
                   <div class="medications-list">
                     <% pet.medications.each do |medication| %>
                       <div class="medication-item">
+                      
                         <div class="medication-info">
                           <p class="medication-name"><strong><%= medication.name %></strong></p>
                           <p class="medication-dosage"><%= medication.dosage %> • <%= medication.frequency %></p>
-                          
-                          <!-- Exibição das datas -->
                           <% if medication.start_date.present? || medication.end_date.present? %>
                             <p class="medication-dates">
                               <% if medication.start_date.present? %>
@@ -117,12 +116,12 @@
                               <% css_class = medication.end_date >= Date.today ? "medication-date-active" : "medication-date-expired" %>
                               <% if medication.start_date.present? %>
                               <% end %>
+                              <div class="mb-3"></div> 
                               🏁 Fim:
                               <span class="<%= css_class %>">
                                 <%= medication.end_date.strftime("%d/%m/%Y") %>
                               </span>
                             <% end %>
-
                               <% end %>
                             </p>
                           <% end %>
