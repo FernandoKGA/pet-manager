@@ -103,6 +103,21 @@
                         <div class="medication-info">
                           <p class="medication-name"><strong><%= medication.name %></strong></p>
                           <p class="medication-dosage"><%= medication.dosage %> • <%= medication.frequency %></p>
+                          
+                          <!-- Exibição das datas -->
+                          <% if medication.start_date.present? || medication.end_date.present? %>
+                            <p class="medication-dates">
+                              <% if medication.start_date.present? %>
+                                📅 Início: <%= medication.start_date.strftime("%d/%m/%Y") %>
+                              <% end %>
+                              <% if medication.end_date.present? %>
+                                <% if medication.start_date.present? %>
+                                  •
+                                <% end %>
+                                🏁 Fim: <%= medication.end_date.strftime("%d/%m/%Y") %>
+                              <% end %>
+                            </p>
+                          <% end %>
                         </div>
                         <div class="medication-actions">
                           <%= link_to "✏️", edit_pet_medication_path(pet, medication), class: "btn-small btn-edit", title: "Editar" %>
