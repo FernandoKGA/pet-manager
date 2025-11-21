@@ -471,6 +471,15 @@
   text-decoration: none;
 }
 
+.medication-date-active {
+  color: #1c7c1c; 
+  font-weight: 600;
+}
+
+.medication-date-expired {
+    color: #c0392b; 
+    font-weight: 600;
+}
 /* Responsividade */
 @media (max-width: 768px) {
   .dashboard-container {
@@ -495,4 +504,5 @@
   .welcome-title {
     font-size: 1.5rem;
   }
+
 }
