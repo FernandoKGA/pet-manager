@@ -1,15 +1,26 @@
-<%= form_with(model: expense, url: expenses_path, local: true) do |f| %>
-  <div>
-    <%= f.label :amount do %>
-      Valor <span style="color: red;">*</span>
-    <% end %><br>
-    <%= f.number_field :amount, step: 0.01 %>
+<%= form_with(model: expense, url: expenses_path, class: "needs-validation") do |f| %>
+  <% if expense.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% expense.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="mb-3">
+    <%= f.label :amount, class: "form-label" do %>
+      Valor <span class="text-danger">*</span>
+    <% end %>
+    <div class="input-group">
+      <span class="input-group-text">R$</span>
+      <%= f.number_field :amount, step: 0.01, class: "form-control mb-0 #{'is-invalid' if expense.errors[:amount].any?}", placeholder: "0,00" %>
+    </div>
   </div>
-
-  <div>
-    <%= f.label :category do %>
-      Categoria <span style="color: red;">*</span>
-    <% end %><br>
+  <div class="mb-3">
+    <%= f.label :category, class: "form-label" do %>
+      Categoria <span class="text-danger">*</span>
+    <% end %>
     <%= f.select :category, 
       options_for_select([
         ['Alimentação', 'alimentacao'],
@@ -18,30 +29,26 @@
         ['Brinquedos', 'brinquedos'],
         ['Outros', 'outros']
       ], expense.category),
-      {}, 
-      class: "form-select" %>
+      { include_blank: "Selecione..." }, 
+      class: "form-select #{'is-invalid' if expense.errors[:category].any?}" %>
   </div>
-
-  <div>
-    <%= f.label :description, "Descrição" %><br>
-    <%= f.text_area :description %>
+  <div class="mb-3">
+    <%= f.label :pet_id, class: "form-label" do %>
+      Pet <span class="text-danger">*</span>
+    <% end %>
+    <%= f.collection_select :pet_id, pets, :id, :name, { prompt: "Selecione o Pet" }, { id: "expense_pet_select", class: "form-select #{'is-invalid' if expense.errors[:pet_id].any?}" } %>
   </div>
-
-  <div>
-    <%= f.label :date do %>
-      Data <span style="color: red;">*</span>
-    <% end %><br>
-    <%= f.date_field :date %>
+  <div class="mb-3">
+    <%= f.label :date, class: "form-label" do %>
+      Data <span class="text-danger">*</span>
+    <% end %>
+    <%= f.date_field :date, value: (expense.date || Date.current), class: "form-control #{'is-invalid' if expense.errors[:date].any?}" %>
   </div>
-
-  <div>
-    <%= f.label :pet_id do %>
-      Pet <span style="color: red;">*</span>
-    <% end %><br>
-    <%= f.collection_select :pet_id, pets, :id, :name, {}, { id: "expense_pet_select" } %>
+  <div class="mb-3">
+    <%= f.label :description, "Descrição (Opcional)", class: "form-label" %>
+    <%= f.text_area :description, rows: 3, class: "form-control", placeholder: "Detalhes do gasto..." %>
   </div>
-
-  <div style="margin-top: 1rem;">
+  <div class="modal-footer px-0 pb-0">
     <%= f.submit "Salvar", class: "btn btn-success" %>
   </div>
 <% end %>

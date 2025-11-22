@@ -1,14 +1,11 @@
 <%= stylesheet_link_tag "diary", "data-turbo-track": "reload" %>
-
 <div class="dashboard-container">
   <div class="diary-page-container">
-  
     <div class="diary-header">
       <%= link_to "← Voltar para o Dashboard", user_path(@pet.user), class: 'btn-back' %>
       <h1 class="diary-title">Diário de <%= @pet.name %></h1>
       <p class="diary-subtitle">Acompanhe todos os eventos e anotações importantes do seu pet.</p>
     </div>
-
     <div class="diary-content-section">
       <div class="diary-actions">
         <%= form_with(url: pet_diary_entries_path(@pet), method: :get, class: 'filter-form') do |form| %>
@@ -17,12 +14,10 @@
           <%= form.submit "Filtrar", class: 'btn-primary-custom' %>
           <%= link_to "Limpar", pet_diary_entries_path(@pet), class: 'btn-secondary-custom' %>
         <% end %>
-
-        <button type="button" id="open-modal-btn" class="btn-primary-custom">
+        <button type="button" class="btn-primary-custom" data-bs-toggle="modal" data-bs-target="#entry-modal">
           Adicionar Entrada
         </button>
       </div>
-
       <div class="diary-feed">
         <% if @diary_entries.any? %>
           <% @diary_entries.each do |entry| %>
@@ -39,55 +34,55 @@
             </div>
           <% end %>
         <% else %>
-          <div class="empty-state">
-            <p class="empty-state-text">Nenhuma entrada encontrada.</p>
-            <p class="empty-state-subtext">
+          <div class="empty-state-card">
+            <p>
               <% if params[:filter_date].present? %>
-                Tente limpar o filtro ou adicione uma nova entrada para este dia!
+                Nenhuma anotação encontrada para o dia <%= l(params[:filter_date].to_date, format: :long) %>.
               <% else %>
-                Que tal adicionar a primeira anotação no diário do <%= @pet.name %>?
+                Ainda não há anotações no diário. Que tal adicionar a primeira anotação no diário do <%= @pet.name %>?
               <% end %>
             </p>
           </div>
         <% end %>
       </div>
     </div>
-
   </div>
 </div>
-<div id="new-entry-modal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h2 class="modal-title">Nova Anotação</h2>
-      <button class="close-btn">&times;</button>
+<div id="entry-modal" class="modal fade" tabindex="-1"
+    data-controller="modal"
+    data-modal-open-on-error-value="<%= @diary_entry.errors.any? %>"
+    data-action="turbo:submit-end->modal#close">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Nova Anotação</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with(model: [@pet, @diary_entry], url: pet_diary_entries_path(@pet), class: 'modal-form') do |form| %>
+          <% if form.object.errors.any? %>
+            <div id="error_explanation" class="alert alert-danger">
+              <h5><%= pluralize(form.object.errors.count, "erro") %>:</h5>
+              <ul>
+                <% form.object.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="mb-3">
+            <%= form.label :entry_date, "Data e Hora", class: "form-label" %>
+            <%= form.datetime_local_field :entry_date, value: Time.current.strftime('%Y-%m-%dT%H:%M'), class: 'form-control' %>
+          </div>
+          <div class="mb-3">
+            <%= form.label :content, "Anotação", class: "form-label" %>
+            <%= form.text_area :content, rows: 6, placeholder: 'Descreva aqui...', class: 'form-control' %>
+          </div>
+          <div class="modal-footer">
+            <%= form.submit "Salvar Anotação", class: 'btn-primary-custom' %>
+          </div>
+        <% end %>
+      </div>
     </div>
-    
-    <%= form_with(model: [@pet, @diary_entry], url: pet_diary_entries_path(@pet), class: 'modal-form') do |form| %>
-      <% if form.object.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(form.object.errors.count, "erro") %> impediu a gravação:</h2>
-          <ul>
-            <% form.object.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
-
-      <div class="form-group">
-        <%= form.label :entry_date, "Data e Hora" %>
-        <%= form.datetime_local_field :entry_date, value: Time.current.strftime('%Y-%m-%dT%H:%M'), class: 'form-control' %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :content, "Anotação" %>
-        <%= form.text_area :content, rows: 6, placeholder: 'Descreva aqui o que aconteceu...', class: 'form-control' %>
-      </div>
-
-      <div class="form-actions">
-        <%= form.submit "Salvar Anotação", class: 'btn-primary-custom' %>
-      </div>
-    <% end %>
   </div>
 </div>
-<%= javascript_import_module_tag "diary" %>
