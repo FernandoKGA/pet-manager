@@ -1,83 +1,77 @@
 <div class="dashboard-container">
-
-<div class="pets-edit-page">
-  <%= form_with(model: @pet, local: true, html: { class: "pet-form", multipart: true }) do |f| %>
-    <%= link_to "← Voltar para o Dashboard", user_path(@current_user), class: 'btn-back' %>
-    <h3>Editar pet</h3>
-    <% if @pet.errors.any? %>
-      <div class="error-messages">
-        <h3><%= pluralize(@pet.errors.count, "erro") %> impediram o salvamento:</h3>
-        <ul>
-          <% @pet.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-
-    <div class="form-group">
-      <%= f.label :name do %>
-        Nome <span style="color: red;">*</span>
-      <% end %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :birthdate, "Data de Nascimento" %>
-      <%= f.date_field :birthdate, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :size, "Tamanho" %>
-      <%= f.number_field :size, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :species do %>
-        Espécie <span style="color: red;">*</span>
-      <% end %>
-      <%= f.text_field :species, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :breed do %>
-        Raça <span style="color: red;">*</span>
-      <% end %>
-      <%= f.text_field :breed, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :gender, "Gênero" %>
-      <%= f.text_field :gender, class: "form-control" %>
-    </div>
-
-    <div class="form-group">
-      <%= f.label :sinpatinhas_id, "ID Sinpatinhas" %>
-      <%= f.text_field :sinpatinhas_id, class: "form-control" %>
-    </div>
-
-    <!-- Seção de upload de foto -->
-    <div class="form-group">
-      <%= f.label :photo_file, "Foto do pet" %>
-      <%= f.file_field :photo_file, accept: 'image/*', id: 'pet_photo_file', class: 'form-control-file' %>
-      <small class="form-text text-muted">Tipos permitidos: png, jpg, jpeg, gif. Máx: 5MB.</small>
-
-      <% if @pet&.photo_attached? %>
-        <div class="current-photo" style="margin-top:10px;">
-          <p>Foto atual:</p>
-          <%= image_tag @pet.photo_data_uri, alt: @pet.name, style: "max-width: 300px; max-height: 300px; display:block; margin-bottom:8px;" %>
+  <div class="pets-edit-page">
+    <%= form_with(model: @pet, local: true, html: { class: "pet-form", multipart: true }) do |f| %>
+      <%= link_to "← Voltar para o Dashboard", user_path(@current_user), class: 'btn-back' %>
+      <h3>Editar pet</h3>
+      <% if @pet.errors.any? %>
+        <div class="error-messages">
+          <h3><%= pluralize(@pet.errors.count, "erro") %> impediram o salvamento:</h3>
+          <ul>
+            <% @pet.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
         </div>
       <% end %>
-
-      <div id="photo_preview" style="margin-top:10px;"></div>
-    </div>
-
-    <div class="form-actions">
-      <%= f.submit "Atualizar Pet", class: "btn-pets" %>
-      <%= link_to "Cancelar", user_path(current_user), class: "btn btn-outline-danger", data: { turbo: false }, style: 'text-decoration: none;' %>
-    </div>
-  <% end %>
-</div>
+      <div class="form-group">
+        <%= f.label :name do %>
+          Nome <span style="color: red;">*</span>
+        <% end %>
+        <%= f.text_field :name, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :birthdate, "Data de Nascimento" %>
+        <%= f.date_field :birthdate, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :size, "Tamanho" %>
+        <%= f.number_field :size, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :species do %>
+          Espécie <span style="color: red;">*</span>
+        <% end %>
+        <%= f.text_field :species, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :breed do %>
+          Raça <span style="color: red;">*</span>
+        <% end %>
+        <%= f.text_field :breed, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :gender, "Gênero" %>
+        <%= f.text_field :gender, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :sinpatinhas_id, "ID Sinpatinhas" %>
+        <%= f.text_field :sinpatinhas_id, class: "form-control" %>
+      </div>
+      <!-- Seção de upload de foto -->
+      <div class="form-group">
+        <%= f.label :photo_file, "Foto do pet" %>
+        <%= f.file_field :photo_file, accept: 'image/*', id: 'pet_photo_file', class: 'form-control-file' %>
+        <small class="form-text text-muted">Tipos permitidos: png, jpg, jpeg, gif. Máx: 5MB.</small>
+        <% if @pet&.photo_attached? %>
+          <div class="current-photo mt-10">
+            <div class="d-flex justify-content-between mb-1 mt-1">
+              <strong>Foto atual:</strong>
+              <div class="form-check">
+                <%= f.check_box :remove_photo, class: "form-check-input" %>
+                <%= f.label :remove_photo, "Remover foto", class: "form-check-label text-danger" %>
+              </div>
+            </div>
+            <%= image_tag @pet.photo_data_uri, alt: @pet.name, style: "max-width: 300px; max-height: 300px; display:block; margin-bottom:8px;" %>
+          </div>
+        <% end %>
+        <div id="photo_preview" class="mt-10"></div>
+      </div>
+      <div class="form-actions">
+        <%= f.submit "Atualizar Pet", class: "btn-pets" %>
+        <%= link_to "Cancelar", user_path(current_user), class: "btn btn-outline-danger", data: { turbo: false }, style: 'text-decoration: none;' %>
+      </div>
+    <% end %>
+  </div>
 </div>
 <!-- JS para preview da foto -->
 <script>
