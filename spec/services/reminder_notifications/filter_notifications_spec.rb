@@ -64,5 +64,29 @@ RSpec.describe ReminderNotifications::FilterNotifications do
 
       expect(result).to match_array([unread_health_today])
     end
+
+    it 'accepts localized read status' do
+      result = service.call(status: 'Lidas')
+
+      expect(result).to match_array([read_hygiene_in_5_days, read_food_in_12_days])
+    end
+
+    it 'ignores unknown status values' do
+      result = service.call(status: 'unknown')
+
+      expect(result).to match_array([unread_health_today, unread_vet_in_3_days, read_hygiene_in_5_days, read_food_in_12_days])
+    end
+
+    it 'filters by starting date only' do
+      result = service.call(due_from: today + 4.days)
+
+      expect(result).to match_array([read_hygiene_in_5_days, read_food_in_12_days])
+    end
+
+    it 'filters by end date only' do
+      result = service.call(due_to: today + 3.days)
+
+      expect(result).to match_array([unread_health_today, unread_vet_in_3_days])
+    end
   end
 end
