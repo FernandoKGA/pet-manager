@@ -8,7 +8,7 @@
 <% show_custom_form = show_custom_reminder_modal && custom_reminder_form.present? %>
 <% filtered_results = @active_filter_tags.present? || @active_filter_summary.present? %>
 
-<div class="notification-overlay <%= 'is-open' if panel_open %>" data-testid="notification-overlay">
+<div class="notification-overlay <%= 'd-flex' if panel_open %>" data-testid="notification-overlay">
   <% if user.present? %>
     <%= link_to '',
                 user_path(user),

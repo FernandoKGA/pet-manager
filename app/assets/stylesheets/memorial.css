@@ -28,10 +28,6 @@
   border: 3px solid #667eea;
 }
 
-.pet-name {
-  margin-top: 1rem;
-}
-
 .pet-info {
   color: #666;
 }
@@ -79,12 +75,6 @@
 .pet-tribute .pet-card-content {
   position: relative;
   z-index: 2;
-}
-
-/* Ajustes para o empty state do memorial */
-.empty-state-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
 }
 
 /* Responsividade */
