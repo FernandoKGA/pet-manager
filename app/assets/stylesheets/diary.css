@@ -169,7 +169,7 @@
   margin: 0;
 }
 
-.btn-delete {
+.btn-delete-diary {
   padding: 4px 10px;
   background: var(--status-danger-base); 
   color: var(--neutral-0); 
@@ -181,7 +181,7 @@
   transition: background-color 0.2s;
 }
 
-.btn-delete:hover {
+.btn-delete-diary:hover {
   background: var(--status-danger-dark); 
 }
 
