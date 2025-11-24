@@ -24,6 +24,8 @@ class Pet < ApplicationRecord
   scope :living, -> { where(deceased: false) }
   scope :ordered_by_death_date, -> { order(date_of_death: :desc) }
 
+  attr_accessor :remove_photo
+
   def current_weight
     weights.order(created_at: :desc).first&.weight
   end
@@ -41,10 +43,6 @@ class Pet < ApplicationRecord
   def photo_data_uri
     return nil unless photo_attached?
     "data:#{photo_content_type};base64,#{photo_base64}"
-  end
-
-  def photo_size_bytes
-    photo_size
   end
   
   def remove_photo!
