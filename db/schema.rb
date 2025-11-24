@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_21_021841) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "baths", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.datetime "date"
-    t.decimal "price"
+    t.decimal "price", precision: 8, scale: 2
     t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -69,6 +69,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "end_date"
     t.index ["pet_id"], name: "index_medications_on_pet_id"
   end
 
@@ -89,6 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_08_225025) do
     t.integer "photo_size"
     t.boolean "deceased", default: false, null: false
     t.date "date_of_death"
+    t.datetime "deceased_at"
     t.index ["date_of_death"], name: "index_pets_on_date_of_death"
     t.index ["deceased"], name: "index_pets_on_deceased"
     t.index ["user_id"], name: "index_pets_on_user_id"

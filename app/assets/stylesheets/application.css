@@ -385,4 +385,5 @@ body.notification-overlay-open {
   .btn.notification-center__back {
     display: inline-flex !important;
   }
+  
 }
