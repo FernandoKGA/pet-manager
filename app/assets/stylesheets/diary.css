@@ -145,19 +145,6 @@
   text-align: right;
 }
 
-.btn-back {
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--brand-primary-base); 
-  text-decoration: none;
-  margin-bottom: 1rem;
-}
-
-.btn-back:hover {
-  text-decoration: underline;
-}
-
 .entry-header {
   display: flex;
   justify-content: space-between;
