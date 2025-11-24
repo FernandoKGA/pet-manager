@@ -40,7 +40,7 @@
   <div class="pets-section">
     <div class="pets-header">
       <div>
-        <h2 class="pets-title">🐾 Meus Pets</h2>
+        <h2 class="pets-title m-0">🐾 Meus Pets</h2>
         <p class="pets-subtitle">Aqui estão seus pets cadastrados</p>
       </div>
       <div class="pets-counter">
@@ -100,7 +100,7 @@
                   <div class="medications-list">
                     <% pet.medications.each do |medication| %>
                       <div class="medication-item">
-                        <div class="medication-info">
+                        <div class="flex-grow-1">
                           <p class="medication-name"><strong><%= medication.name %></strong></p>
                           <p class="medication-dosage"><%= medication.dosage %> • <%= medication.frequency %></p>
                         </div>
@@ -169,8 +169,7 @@
                   <%= button_to "Sim, excluir",
                                 pet_path(pet),
                                 method: :delete,
-                                form: { class: "pet-delete-modal__form" },
-                                class: "btn-destructive" %>
+                                class: "btn-destructive m-0", style: "min-width: 140px;" %>
                 </div>
               </div>
             </div>

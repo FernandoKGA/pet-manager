@@ -145,19 +145,6 @@
   text-align: right;
 }
 
-.btn-back {
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--brand-primary-base); 
-  text-decoration: none;
-  margin-bottom: 1rem;
-}
-
-.btn-back:hover {
-  text-decoration: underline;
-}
-
 .entry-header {
   display: flex;
   justify-content: space-between;
@@ -169,7 +156,7 @@
   margin: 0;
 }
 
-.btn-delete {
+.btn-delete-diary {
   padding: 4px 10px;
   background: var(--status-danger-base); 
   color: var(--neutral-0); 
@@ -181,7 +168,7 @@
   transition: background-color 0.2s;
 }
 
-.btn-delete:hover {
+.btn-delete-diary:hover {
   background: var(--status-danger-dark); 
 }
 

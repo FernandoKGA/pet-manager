@@ -50,7 +50,6 @@
 }
 
 .pets-title {
-  margin: 0;
   color: var(--neutral-800);
   font-size: 1.75rem;
 }
@@ -138,6 +137,7 @@
   flex-direction: column;
   gap: 0.75rem;
   padding: 0 1.5rem 1.5rem 1.5rem;
+  margin-top: 15px;
 }
 
 .btn-edit {
@@ -207,10 +207,7 @@
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.medication-info {
-  flex: 1;
+  border-left: 3px solid #0066cc;
 }
 
 .medication-name {
@@ -236,6 +233,8 @@
   text-decoration: none;
   border-radius: 4px;
   transition: transform 0.2s;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-small:hover {
@@ -270,11 +269,15 @@
   font-size: 0.875rem;
   transition: transform 0.2s;
   box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+  border: 1px solid #bee5eb;
+  cursor: pointer;
 }
 
 .btn-add-medication:hover {
   transform: translateY(-2px);
   text-decoration: none;
+  background-color: #c3e6cb;
+  color: #155724;
 }
 
 /* Estilos para o Collapse de Medicamentos */
@@ -314,31 +317,6 @@
 
 .collapse {
   transition: height 0.3s ease;
-}
-
-/* Estado vazio */
-.empty-state {
-  text-align: center;
-  padding: 3rem;
-  background: var(--neutral-100);
-  border-radius: 12px;
-  border: 2px dashed var(--neutral-300);
-}
-
-.empty-state-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-}
-
-.empty-state-text {
-  color: var(--neutral-500);
-  font-size: 1.1rem;
-  margin: 0;
-}
-
-.empty-state-subtext {
-  color: var(--neutral-400);
-  margin: 0.5rem 0 0 0;
 }
 
 .btn-destructive {
@@ -419,14 +397,6 @@
   justify-content: flex-end;
 }
 
-.pet-delete-modal__form {
-  margin: 0;
-}
-
-.pet-delete-modal__form .btn-destructive {
-  min-width: 140px;
-}
-
 /* Notification overlay */
 .notification-overlay {
   position: fixed;
@@ -438,10 +408,6 @@
   background: rgba(var(--neutral-800-rgb), 0.45);
   backdrop-filter: blur(4px);
   z-index: 1050;
-}
-
-.notification-overlay.is-open {
-  display: flex;
 }
 
 .notification-overlay__content {
