@@ -48,3 +48,6 @@ When("I fill the filter by some grooming") do
   select "Sim", from: "Tosa"
 end
 
+Then("I should see only entries from that grooming") do
+ expect(page).to have_content('Sim')
+end
