@@ -24,14 +24,14 @@
           <%= form.date_field :to, value: params[:to] %>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-2">
           <%= form.label :tosa, "Tosa" %>
           <%= form.select :tosa, options_for_select([["Todos", "all"], ["Sim", "true"], ["Não", "false"]], params[:tosa])%>
         </div>
      </div>
 
      <div class="mt-3 d-flex gap-2">
-       <%= submit_tag "Filtrar", class: "btn btn-primary-custom" %>
+       <%= submit_tag "Filtrar Banhos", class: "btn btn-primary-custom" %>
        <%= link_to "Limpar filtros", pet_baths_path(@pet), class: "btn btn-secondary-custom" %>
      </div>
      <% end %>

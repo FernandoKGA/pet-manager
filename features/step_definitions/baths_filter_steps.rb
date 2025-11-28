@@ -1,31 +1,50 @@
-Given("a pet named {string} exists") do |name|
-  @pet = create(:pet, user: @user, name: name)
+Given("I have added some entrances to the pet bath") do
+    pet = Pet.create!(
+    name: 'Oliver 2',
+    species: 'Cachorro',
+    breed: 'Lhasa Apso',
+    birthdate: '2002-06-15',
+    size: 20,
+    gender: 'Macho',
+    sinpatinhas_id: '1207',
+    user: @user
+  )
+
+  bt1 = Bath.new(pet: pet,
+        date: "2025-08-30T14:30",
+        price: 90,
+        tosa: "Sim",
+        notes: "Táxi dog"
+  )
+  bt1.save
+
+  bt2 = Bath.new(pet: pet,
+        date: "2025-09-30T14:30",
+        price: 90,
+        tosa: "Não",
+        notes: "Vou levar"
+  )
+  bt2.save
 end
 
-Given("the following baths exist for {string}:") do |pet_name, table|
-  pet = Pet.find_by(name: pet_name)
-
-  table.hashes.each do |row|
-    tosa_value = row["grooming"].downcase == "sim"
-
-    create(:bath,
-           pet: pet,
-           date: DateTime.parse(row["date"]),
-           tosa: tosa_value)
-  end
+And("I am at the pet bath page") do
+  visit pet_baths_path(@pet)
 end
 
-Given("I am on the baths page for the pet {string}") do |pet_name|
-  pet = Pet.find_by(name: pet_name)
-  visit pet_baths_path(pet)
+When("I fill the bath filter by some date") do
+  fill_in "Data inicial", with: "2025-09-30"
+  fill_in "Data final", with: "2025-09-30"
 end
 
-#When("I fill the baths filter by some date") do
-#  fill_in "Data inicial:", with: "2025-01-10"
-#  fill_in "Data final:",   with: "2025-01-10"
-#end
+And('I run the filter by clicking the button {string}') do |button_name|
+ click_button button_name
+end
 
-#When("I fill the baths filter by some grooming") do
-#  fill_in "Tosa:", with: "Sim"
-#end
+Then("I should only see the bath entries from this data") do
+  expect(page).to have_content('Sim')
+end
+
+When("I fill the filter by some grooming") do
+  select "Sim", from: "Tosa"
+end
 
