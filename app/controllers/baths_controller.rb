@@ -13,13 +13,6 @@ class BathsController < ApplicationController
                   .between_dates(@q_from, @q_to)
                   .with_tosa(@q_tosa)
                   .order(date: :desc)
-
-
-    # opcional: paginação
-    # @baths = @baths.page(params[:page]).per(20)
-
-    # Lista apenas os banhos do pet atual
-    #@baths = @pet.baths.order(date: :desc)
   end
 
   # GET /baths/1
@@ -68,7 +61,6 @@ class BathsController < ApplicationController
   # Define o pet pai
   def set_pet
      @pet = current_user.pets.find(params[:pet_id])
-     #@pet = Pet.find(params[:pet_id])
   end
 
    # Define o banho
