@@ -76,7 +76,7 @@ When('I delete the expense {string}') do |description|
       accept_confirm do
         click_button "Excluir"
       end
-    rescue Capybara::ModalNotFound
+    rescue Capybara::NotSupportedByDriverError, Capybara::ModalNotFound
       click_button "Excluir"
     end
   end
