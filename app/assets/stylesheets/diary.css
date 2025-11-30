@@ -88,18 +88,6 @@
   white-space: pre-wrap;
 }
 
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(var(--neutral-800-rgb), 0.6); 
-}
-
 .modal-content {
   background-color: var(--neutral-0); 
   margin: 10vh auto;
@@ -109,13 +97,6 @@
   max-width: 500px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   position: relative;
-}
-
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
 }
 
 .modal-title {
@@ -164,19 +145,6 @@
   text-align: right;
 }
 
-.btn-back {
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--brand-primary-base); 
-  text-decoration: none;
-  margin-bottom: 1rem;
-}
-
-.btn-back:hover {
-  text-decoration: underline;
-}
-
 .entry-header {
   display: flex;
   justify-content: space-between;
@@ -188,7 +156,7 @@
   margin: 0;
 }
 
-.btn-delete {
+.btn-delete-diary {
   padding: 4px 10px;
   background: var(--status-danger-base); 
   color: var(--neutral-0); 
@@ -200,7 +168,7 @@
   transition: background-color 0.2s;
 }
 
-.btn-delete:hover {
+.btn-delete-diary:hover {
   background: var(--status-danger-dark); 
 }
 

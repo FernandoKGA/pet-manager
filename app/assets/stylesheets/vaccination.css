@@ -32,19 +32,6 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.btn-back {
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #764ba2;
-  text-decoration: none;
-  margin-bottom: 1rem;
-}
-
-.btn-back:hover {
-  text-decoration: underline;
-}
-
 .vaccine-form .form-actions {
   margin-top: 1.5rem;
   text-align: right;
@@ -98,16 +85,6 @@
 
 .vaccine-table .btn-sm {
   margin-right: 0.25rem;
-}
-
-.empty-state-text {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: #718096;
-  font-size: 1.1rem;
-  border: 2px dashed #e2e8f0;
-  border-radius: 12px;
-  background-color: #f8fafc;
 }
 
 @media (max-width: 768px) {

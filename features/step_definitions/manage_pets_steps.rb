@@ -78,3 +78,22 @@ Then('I should not see that pet in my pets page anymore') do
   visit user_path(@user)
   expect(page).not_to have_content(@pet.name)
 end
+
+Given('it has a photo') do
+  file_path = Rails.root.join('spec/fixtures/files/bee.png')
+  
+  uploaded_file = Rack::Test::UploadedFile.new(file_path, 'image/png')
+  
+  @pet.attach_uploaded_file(uploaded_file)
+  @pet.save!
+end
+
+When('I check {string}') do |field_label|
+  check field_label
+end
+
+Then('it should not have a pet photo') do
+  within(".pet-avatar") do
+    expect(page).not_to have_css('img')
+  end
+end

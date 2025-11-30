@@ -29,11 +29,15 @@ class PetsController < ApplicationController
   end
 
   def update
+    if params[:pet][:remove_photo] == '1' && params.dig(:pet, :photo_file).blank?
+      @pet.remove_photo!
+    end
+    
     if params.dig(:pet, :photo_file).present?
       @pet.attach_uploaded_file(params[:pet][:photo_file])
     end
 
-    if @pet.update(pet_params.except(:photo_file))
+    if @pet.update(pet_params.except(:photo_file, :remove_photo))
       redirect_to user_path(current_user), notice: "Pet atualizado com sucesso!"
     else
       flash.now[:alert] = "Não foi possível atualizar as informações do pet."
@@ -58,7 +62,7 @@ class PetsController < ApplicationController
   def pet_params
     params.require(:pet).permit(
       :name, :birthdate, :size, :species, :breed, :gender, :sinpatinhas_id,
-      :photo_file
+      :photo_file, :remove_photo
     )
   end
 end
