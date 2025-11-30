@@ -2,23 +2,21 @@
   <nav class="navbar">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Pet Manager</a>
-      <% if current_page?(root_path) %>
-        <ul class="navbar-nav flex-row flex-fill justify-content-evenly">
-          <li class="nav-item"><a href="#" class="nav-link">Sobre</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Funcionalidades</a></li>
-          <li class="nav-item"><a href="#" class="nav-link">Contato</a></li>
+      <% if logged_in? %>
+        <ul class="navbar-nav me-auto flex-row">
+          <li class="nav-item me-2">
+            <%= link_to "Dashboard", user_path(current_user), class: "nav-link #{'active' if current_page?(user_path(current_user))}" %>
+          </li>
+          <li class="nav-item me-2">
+            <%= link_to "Gastos", expenses_path, class: "nav-link #{'active' if current_page?(expenses_path)}" %>
+          </li>
         </ul>
       <% else %>
-        <% if logged_in? %>
-          <ul class="navbar-nav me-auto flex-row">
-            <li class="nav-item me-2">
-              <%= link_to "Dashboard", user_path(current_user), class: "nav-link #{'active' if current_page?(user_path(current_user))}" %>
-            </li>
-            <li class="nav-item me-2">
-              <%= link_to "Gastos", expenses_path, class: "nav-link #{'active' if current_page?(expenses_path)}" %>
-            </li>
-          </ul>
-        <% end %>
+        <ul class="navbar-nav flex-row flex-fill justify-content-evenly">
+          <li class="nav-item"><%= link_to "Sobre", about_path, class: "nav-link #{'active' if current_page?(about_path)}" %></li>
+          <li class="nav-item"><%= link_to "Funcionalidades", features_path, class: "nav-link #{'active' if current_page?(features_path)}" %></li>
+          <li class="nav-item"><%= link_to "Contato", contact_path, class: "nav-link #{'active' if current_page?(contact_path)}" %></li>
+        </ul>
       <% end %>
       <div class="flex-row justify-content-evenly">
         <% if logged_in? %>
