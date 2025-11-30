@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
   
   get 'home/index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  # 
-  # Defines the root path route ("/")
-  
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'sessions#create'
+
+  get 'sobre', to: 'home#about', as: 'about'
+  get 'contato', to: 'home#contact', as: 'contact'
+  get 'funcionalidades', to: 'home#features', as: 'features'
+
+  # Sessions
+  get    '/login',  to: 'sessions#new'
+  post   '/login',  to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   resources :password_resets, only: [:new, :create, :edit, :update]
 
