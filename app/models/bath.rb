@@ -47,4 +47,32 @@ class Bath < ApplicationRecord
       date: date
     )
   end
+
+    scope :between_dates, ->(from, to) {
+    return all if from.blank? && to.blank?
+
+
+    # Converte strings para date/datetime com segurança
+    begin
+      if from.present? && to.present?
+        where(date: Date.parse(from).beginning_of_day..Date.parse(to).end_of_day)
+      elsif from.present?
+        where('date >= ?', Date.parse(from).beginning_of_day)
+      elsif to.present?
+        where('date <= ?', Date.parse(to).end_of_day)
+      else
+        all
+      end
+    rescue ArgumentError
+      # Se parse falhar, não filtra
+      none
+    end
+  }
+
+  scope :with_tosa, ->(tosa_value) {
+    return all if tosa_value.blank? || tosa_value == 'all'
+
+    # tosa_value esperado 'true' ou 'false' (strings)
+    where(tosa: ActiveModel::Type::Boolean.new.cast(tosa_value))
+  }
 end

@@ -4,8 +4,15 @@ class BathsController < ApplicationController
 
 # GET /pets/:pet_id/baths
   def index
-    # Lista apenas os banhos do pet atual
-    @baths = @pet.baths.order(date: :desc)
+    @q_from = params[:from]
+    @q_to   = params[:to]
+    @q_tosa = params[:tosa] # expected: 'true' | 'false' | 'all' or nil
+
+
+    @baths = @pet.baths
+                  .between_dates(@q_from, @q_to)
+                  .with_tosa(@q_tosa)
+                  .order(date: :desc)
   end
 
   # GET /baths/1
@@ -51,10 +58,10 @@ class BathsController < ApplicationController
   end
 
   private
-    # Define o pet pai
-    def set_pet
-      @pet = current_user.pets.find(params[:pet_id])
-    end
+  # Define o pet pai
+  def set_pet
+     @pet = current_user.pets.find(params[:pet_id])
+  end
 
    # Define o banho
     def set_bath

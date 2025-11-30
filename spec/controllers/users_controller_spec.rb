@@ -138,4 +138,98 @@ RSpec.describe UsersController, type: :controller do
       end
     end
   end
+
+  describe 'GET #show' do
+    context 'when user is logged in' do
+      before do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :show, params: { id: user.id }
+      end
+
+      it 'assigns @user correctly' do
+        expect(assigns(:user)).to eq(user)
+      end
+
+      it 'renders the show template' do
+        expect(response).to render_template(:show)
+      end
+
+      it 'returns success status' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when user is not logged in' do
+      it 'redirects to login' do
+        get :show, params: { id: user.id }
+        expect(response).to redirect_to('/login')
+      end
+    end
+  end
+
+  describe 'GET #edit' do
+    context 'when user is the owner' do
+      before do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :edit, params: { id: user.id }
+      end
+
+      it 'returns success' do
+        expect(response).to be_successful
+      end
+
+      it 'renders the edit template' do
+        expect(response).to render_template(:edit)
+      end
+    end
+
+    context 'when user is NOT the owner' do
+      let(:other_user) { create(:user) }
+      it 'redirects to login' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :edit, params: { id: other_user.id }
+        expect(response).to redirect_to('/login')
+      end
+    end
+  end
+
+  describe 'DELETE #remove_photo' do
+    context 'authorized user' do
+      before do
+        allow(controller).to receive(:current_user).and_return(user)
+      end
+
+      it 'calls remove_photo! on the user' do
+        expect_any_instance_of(User).to receive(:remove_photo!)
+        delete :remove_photo, params: { id: user.id }
+      end
+
+      it 'redirects back to edit page' do
+        delete :remove_photo, params: { id: user.id }
+        expect(response).to redirect_to(edit_user_path(user))
+      end
+
+      it 'sets a flash message' do
+        delete :remove_photo, params: { id: user.id }
+        expect(flash[:notice]).to eq("Foto removida!")
+      end
+    end
+
+    context 'unauthorized user' do
+      let(:other_user) { create(:user) }
+      it 'does not remove photo and redirects to login' do
+        allow(controller).to receive(:current_user).and_return(user)
+        delete :remove_photo, params: { id: other_user.id }
+        expect(response).to redirect_to('/login')
+      end
+    end
+
+    context 'user not logged in' do
+      it 'redirects to login' do
+        delete :remove_photo, params: { id: user.id }
+        expect(response).to redirect_to('/login')
+      end
+    end
+  end
 end
+
