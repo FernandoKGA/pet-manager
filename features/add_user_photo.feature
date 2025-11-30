@@ -8,13 +8,15 @@ Background: I am an authenticated user
     Given I am logged in
     And I have an existing profile
 
-Scenario: Uploading and removing a profile photo for the first time
-  When I navigate to my profile settings
-  And I upload a valid photo file
+Scenario: Uploading and saving a profile photo for the first time
+  Given I am on my profile settings
+  When I upload a valid photo file
   And I save my profile
   Then I should see my new profile photo displayed
-  
-  When I navigate to my profile settings
-  And I remove my profile photo
+
+Scenario: Removing a profile photo
+  Given I have an existing profile with a photo
+  And I am on my profile settings
+  When I remove my profile photo
   Then I should not see a profile photo displayed
 

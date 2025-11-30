@@ -1,5 +1,13 @@
-When('I navigate to my profile settings') do
+Given('I am on my profile settings') do
   visit edit_user_path(@current_user)
+end
+
+Given('I have an existing profile with a photo') do
+  file = Rails.root.join('spec/fixtures/files/bee.png')
+  uploaded = Rack::Test::UploadedFile.new(file, 'image/png')
+
+  @current_user.attach_uploaded_file(uploaded)
+  @current_user.save!
 end
 
 When('I upload a valid photo file') do
