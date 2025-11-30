@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   
   get 'home/index'
-  
+
+  get 'sobre', to: 'home#about', as: 'about'
+  get 'contato', to: 'home#contact', as: 'contact'
+  get 'funcionalidades', to: 'home#features', as: 'features'
+
   # Sessions
   get    '/login',  to: 'sessions#new'
   post   '/login',  to: 'sessions#create'

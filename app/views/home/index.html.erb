@@ -1,4 +1,48 @@
-<main class="d-flex justify-content-center align-items-center mb-4" style="gap: 2rem;">
-  <%= image_tag("Pet_Gemini_00.png", alt: "Imagem de apresentação", class: "imagem-fixa") %>
-  <p class="fs-5 m-0">Bem-vindo à Pet Manager!</p>
-</main>
+<div class="container-fluid p-0 mb-5">
+  <div class="row g-0 align-items-center" style="background: var(--gradient-primary); min-height: 80vh; border-radius: 0 0 50% 50% / 4%;">
+    <div class="col-lg-6 p-5 text-white d-flex flex-column justify-content-center text-center text-lg-start">
+      <h1 class="display-3 fw-bold mb-4">Pet Manager</h1>
+      <p class="lead mb-4 fs-3">O cuidado que seu melhor amigo merece, organizado em um só lugar.</p>
+      <p class="mb-5 opacity-75">Centralize vacinas, medicamentos, consultas e muito mais.</p>
+      <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+        <%= link_to "Começar Agora", login_path, class: "btn btn-light btn-lg px-5 py-3 fw-bold shadow", style: "color: var(--brand-primary-base); border-radius: 50px;" %>
+        <%= link_to "Saber Mais", about_path, class: "btn btn-outline-light btn-lg px-5 py-3 fw-bold", style: "border-radius: 50px;" %>
+      </div>
+    </div>
+    <div class="col-lg-6 d-flex justify-content-center align-items-center p-5">
+      <div class="position-relative">
+        <div style="position: absolute; inset: -20px; background: rgba(255,255,255,0.2); border-radius: 50%; filter: blur(20px);"></div>
+        <%= image_tag("Pet_Gemini_00.png", alt: "Pet Manager Logo", class: "img-fluid position-relative", style: "max-height: 500px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2)); transform: rotate(-5deg);") %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mb-5">
+  <div class="text-center mb-5">
+    <h2 style="color: var(--brand-primary-dark); font-weight: 800;">Tudo que você precisa</h2>
+    <p class="text-muted">Funcionalidades pensadas para facilitar sua vida</p>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="p-4 h-100 text-center" style="background: var(--neutral-0); border-radius: 16px; box-shadow: var(--shadow-brand);">
+        <div class="fs-1 mb-3">🩺</div>
+        <h3 class="h5 fw-bold" style="color: var(--neutral-800);">Histórico Médico</h3>
+        <p class="text-muted small">Nunca mais perca uma receita ou esqueça o histórico de vacinas.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-4 h-100 text-center" style="background: var(--neutral-0); border-radius: 16px; box-shadow: var(--shadow-brand);">
+        <div class="fs-1 mb-3">⏰</div>
+        <h3 class="h5 fw-bold" style="color: var(--neutral-800);">Lembretes</h3>
+        <p class="text-muted small">Receba notificações para medicamentos, vacinas e consultas.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="p-4 h-100 text-center" style="background: var(--neutral-0); border-radius: 16px; box-shadow: var(--shadow-brand);">
+        <div class="fs-1 mb-3">💰</div>
+        <h3 class="h5 fw-bold" style="color: var(--neutral-800);">Controle Financeiro</h3>
+        <p class="text-muted small">Acompanhe os gastos com banho, tosa, ração e veterinário.</p>
+      </div>
+    </div>
+  </div>
+</div>
