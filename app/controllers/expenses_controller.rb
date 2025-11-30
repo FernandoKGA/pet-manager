@@ -3,8 +3,12 @@ class ExpensesController < ApplicationController
 
   def index
     @user = current_user
-    @pets = current_user.pets
-    @expenses = current_user.expenses.includes(:pet).order(date: :desc)
+    @pets = current_user.pets.active
+    @expenses = current_user.expenses
+                             .includes(:pet)
+                             .references(:pet)
+                             .merge(Pet.active)
+                             .order(date: :desc)
 
     # Lógica de filtro por pet e período (opcional, mas funcional)
     if params[:pet_id].present?
@@ -26,6 +30,11 @@ class ExpensesController < ApplicationController
   end
 
   def create
+    unless current_user.pets.active.exists?(expense_params[:pet_id])
+      redirect_to expenses_path, alert: 'Selecione um pet ativo para registrar o gasto.'
+      return
+    end
+
     @expense = current_user.expenses.build(expense_params)
     if @expense.save
       redirect_to expenses_path, notice: 'Gasto registrado com sucesso'

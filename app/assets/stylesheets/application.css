@@ -80,6 +80,8 @@
   box-shadow: var(--shadow-brand);
   transition: transform 0.2s;
   --bs-btn-color: var(--neutral-0) !important;
+  text-decoration: none;
+  text-align: center;
 }
 
 .btn-primary-custom:hover {

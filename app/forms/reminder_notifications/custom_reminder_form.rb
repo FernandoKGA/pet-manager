@@ -81,7 +81,7 @@ module ReminderNotifications
     def validate_pet_belongs_to_user
       return if user.blank? || pet_id.blank?
 
-      return if user.pets.exists?(pet_id)
+      return if user.pets.active.exists?(pet_id)
 
       errors.add(:pet_id, 'Selecione um pet válido')
     end

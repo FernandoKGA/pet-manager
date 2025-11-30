@@ -24,7 +24,7 @@ module NotificationCenter
 
     def render_invalid_form
       @user = current_user
-      @pets = @user.pets
+      @pets = @user.pets.active
       prepare_notification_center_context(
         user: @user,
         panel_open: true,

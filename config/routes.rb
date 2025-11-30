@@ -39,6 +39,13 @@ Rails.application.routes.draw do
   
   # Pets
   resources :pets, only: [:new, :create, :show, :edit, :update, :destroy] do
+    member do
+      patch :deactivate
+      patch :activate
+    end
+    collection do
+      get :inactive
+    end
     resources :medical_appointments
     resources :weights, only: [:index, :new, :create]
     resources :baths

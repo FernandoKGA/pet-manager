@@ -100,21 +100,36 @@ RSpec.describe Pet, type: :model do
   end
 
   describe 'scopes' do
-    # Usamos 'create' aqui pois scopes fazem queries no banco
-    let!(:living_pet) { FactoryBot.create(:pet, user: user, deceased: false) }
-    let!(:deceased_pet) { FactoryBot.create(:pet, user: user, deceased: true, date_of_death: 1.year.ago) }
-    let!(:recent_deceased_pet) { FactoryBot.create(:pet, user: user, deceased: true, date_of_death: 1.month.ago) }
+    context 'life status scopes' do
+      # Usamos 'create' aqui pois scopes fazem queries no banco
+      let!(:living_pet) { FactoryBot.create(:pet, user: user, deceased: false) }
+      let!(:deceased_pet) { FactoryBot.create(:pet, user: user, deceased: true, date_of_death: 1.year.ago) }
+      let!(:recent_deceased_pet) { FactoryBot.create(:pet, user: user, deceased: true, date_of_death: 1.month.ago) }
 
-    it '.living' do
-      expect(Pet.living).to contain_exactly(living_pet)
+      it '.living' do
+        expect(Pet.living).to contain_exactly(living_pet)
+      end
+
+      it '.deceased' do
+        expect(Pet.deceased).to contain_exactly(deceased_pet, recent_deceased_pet)
+      end
+
+      it '.ordered_by_death_date' do
+        expect(Pet.deceased.ordered_by_death_date).to eq([recent_deceased_pet, deceased_pet])
+      end
     end
 
-    it '.deceased' do
-      expect(Pet.deceased).to contain_exactly(deceased_pet, recent_deceased_pet)
-    end
+    context 'activation scopes' do
+      let!(:active_pet) { FactoryBot.create(:pet, user: user, active: true) }
+      let!(:inactive_pet) { FactoryBot.create(:pet, user: user, active: false) }
 
-    it '.ordered_by_death_date' do
-      expect(Pet.deceased.ordered_by_death_date).to eq([recent_deceased_pet, deceased_pet])
+      it '.active returns only active pets' do
+        expect(Pet.active).to contain_exactly(active_pet)
+      end
+
+      it '.inactive returns only inactive pets' do
+        expect(Pet.inactive).to contain_exactly(inactive_pet)
+      end
     end
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_11_29_013059) do
+ActiveRecord::Schema[7.1].define(version: 2025_11_30_225854) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,9 +63,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_29_013059) do
   create_table "medications", force: :cascade do |t|
     t.bigint "pet_id", null: false
     t.string "name", null: false
-    t.string "dosage"
-    t.string "frequency"
-    t.date "start_date"
+    t.string "dosage", null: false
+    t.string "frequency", null: false
+    t.date "start_date", null: false
+    t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "end_date"
@@ -89,13 +90,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_29_013059) do
     t.integer "photo_size"
     t.boolean "deceased", default: false, null: false
     t.date "date_of_death"
-    t.datetime "deceased_at"
-    t.text "vaccination_card_data"
-    t.string "vaccination_card_mime"
-    t.text "rga_data"
-    t.string "rga_mime"
-    t.text "pedigree_data"
-    t.string "pedigree_mime"
+    t.boolean "active", default: true, null: false
+    t.index ["active"], name: "index_pets_on_active"
     t.index ["date_of_death"], name: "index_pets_on_date_of_death"
     t.index ["deceased"], name: "index_pets_on_deceased"
     t.index ["user_id"], name: "index_pets_on_user_id"
@@ -127,6 +123,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_29_013059) do
     t.datetime "updated_at", null: false
     t.string "password_reset_token"
     t.datetime "password_reset_token_expires_at"
+    t.integer "role", default: 0, null: false
     t.text "photo_base64"
     t.string "photo_content_type"
     t.string "photo_filename"
