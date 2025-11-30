@@ -68,6 +68,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_29_013059) do
     t.date "start_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "end_date"
     t.index ["pet_id"], name: "index_medications_on_pet_id"
   end
 
@@ -88,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_29_013059) do
     t.integer "photo_size"
     t.boolean "deceased", default: false, null: false
     t.date "date_of_death"
+    t.datetime "deceased_at"
     t.text "vaccination_card_data"
     t.string "vaccination_card_mime"
     t.text "rga_data"

@@ -127,6 +127,27 @@
                         <div class="flex-grow-1">
                           <p class="medication-name"><strong><%= medication.name %></strong></p>
                           <p class="medication-dosage"><%= medication.dosage %> • <%= medication.frequency %></p>
+                          <% if medication.start_date.present? || medication.end_date.present? %>
+                            <p class="medication-dates">
+                              <% if medication.start_date.present? %>
+                                📅 Início: <%= medication.start_date.strftime("%d/%m/%Y") %>
+                              <% end %>
+                              <% if medication.end_date.present? %>
+                                <% if medication.start_date.present? %>
+                                <% end %>
+                                <% if medication.end_date.present? %>
+                              <% css_class = medication.end_date >= Date.today ? "medication-date-active" : "medication-date-expired" %>
+                              <% if medication.start_date.present? %>
+                              <% end %>
+                              <div class="mb-3"></div> 
+                              🏁 Fim:
+                              <span class="<%= css_class %>">
+                                <%= medication.end_date.strftime("%d/%m/%Y") %>
+                              </span>
+                            <% end %>
+                              <% end %>
+                            </p>
+                          <% end %>
                         </div>
                         <div class="medication-actions">
                           <%= link_to "✏️", edit_pet_medication_path(pet, medication), class: "btn-small btn-edit", title: "Editar" %>
