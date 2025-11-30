@@ -19,6 +19,29 @@ Feature: Medication management
     Then I should see the medication message "Medicamento adicionado com sucesso"
     And I should see the medication "Vermífugo X" in the dashboard
 
+  Scenario: Add medication record with end date
+    When I click on the medication button "Adicionar Medicamento"
+    And I enter the medication name "Antibiótico XYZ"
+    And I enter the medication dosage "2 comprimidos"
+    And I enter the medication frequency "Duas vezes ao dia"
+    And I enter the medication start date "2025-11-20"
+    And I enter the medication end date "2025-12-05"
+    And I press the medication button "Criar Medicamento"
+    Then I should see the medication message "Medicamento adicionado com sucesso"
+    And I should see the medication "Antibiótico XYZ" in the dashboard
+    And I should see the end date "2025-12-05" for medication "Antibiótico XYZ"
+
+  Scenario: Add medication record without end date
+    When I click on the medication button "Adicionar Medicamento"
+    And I enter the medication name "Suplemento Vitamínico"
+    And I enter the medication dosage "1 cápsula"
+    And I enter the medication frequency "Uma vez ao dia"
+    And I enter the medication start date "2025-11-15"
+    And I do not enter a medication end date
+    And I press the medication button "Criar Medicamento"
+    Then I should see the medication message "Medicamento adicionado com sucesso"
+    And I should see the medication "Suplemento Vitamínico" in the dashboard
+
   Scenario: Update existing medication record
     Given I have an existing medication registered for my pet
     When I click edit on that medication
