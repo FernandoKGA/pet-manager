@@ -1,4 +1,7 @@
-<%= form_with(model: expense, url: expenses_path, class: "needs-validation") do |f| %>
+<% modal_mode = local_assigns.fetch(:modal, false) %>
+<% submit_label = local_assigns.fetch(:submit_label, 'Salvar') %>
+
+<%= form_with(model: expense, class: "needs-validation") do |f| %>
   <% if expense.errors.any? %>
     <div class="alert alert-danger">
       <ul class="mb-0">
@@ -48,7 +51,10 @@
     <%= f.label :description, "Descrição (Opcional)", class: "form-label" %>
     <%= f.text_area :description, rows: 3, class: "form-control", placeholder: "Detalhes do gasto..." %>
   </div>
-  <div class="modal-footer px-0 pb-0">
-    <%= f.submit "Salvar", class: "btn btn-success" %>
+  <div class="<%= modal_mode ? 'modal-footer px-0 pb-0' : 'd-flex justify-content-end mt-3' %>">
+    <% unless modal_mode %>
+      <%= link_to "Cancelar", expenses_path, class: "btn btn-secondary me-2" %>
+    <% end %>
+    <%= f.submit submit_label, class: "btn btn-success" %>
   </div>
 <% end %>
