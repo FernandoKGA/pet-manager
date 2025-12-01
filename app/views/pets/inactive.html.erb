@@ -1,0 +1,83 @@
+<%= stylesheet_link_tag "dashboard", "data-turbo-track": "reload" %>
+
+<div class="dashboard-container">
+  <div class="pets-section">
+    <div class="pets-header">
+      <div>
+        <h2 class="pets-title m-0">Pets desativados</h2>
+        <p class="pets-subtitle">Ative novamente quando quiser voltar a vê-los na dashboard</p>
+      </div>
+      <div class="pets-counter">
+        <%= @inactive_pets.count %> <%= @inactive_pets.count == 1 ? 'pet' : 'pets' %>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap gap-2 mb-4">
+      <%= link_to "Voltar ao dashboard", user_path(current_user), class: "btn-secondary-custom" %>
+    </div>
+
+    <div data-testid="inactive-pets-list">
+      <% if @inactive_pets.present? %>
+        <div class="pets-grid">
+          <% @inactive_pets.each do |pet| %>
+            <div class="pet-card">
+              <div class="pet-card-decoration"></div>
+
+              <div class="pet-card-content">
+                <div class="pet-avatar">
+                  <% if pet.photo_attached? %>
+                    <%= image_tag pet.photo_data_uri,
+                                  alt: pet.name,
+                                  style: "width:80px; height:80px; object-fit:cover; border-radius:50%; filter: grayscale(0.6);" %>
+                  <% else %>
+                    😴
+                  <% end %>
+                </div>
+
+                <h3 class="pet-name">
+                  <%= pet.name %>
+                </h3>
+
+                <p class="pet-info">
+                  <%= pet.species %> • <%= pet.breed || 'SRD' %>
+                </p>
+              </div>
+
+              <div class="pet-medications-section">
+                <div class="medications-header">
+                  <div class="medications-header-content">
+                    <h4 class="medications-title">💤 Pet ocultado</h4>
+                    <span class="medications-count"><%= pet.medications.count %> meds</span>
+                  </div>
+                </div>
+
+                <div class="medications-empty">
+                  <p class="medications-empty-text">
+                    Reative para visualizar medicamentos e lembretes novamente.
+                  </p>
+                </div>
+              </div>
+
+              <div class="pet-card-footer">
+                <%= link_to "Ativar",
+                            activate_pet_path(pet),
+                            class: "btn-primary-custom btn-primary-custom-link",
+                            data: { turbo_method: :patch } %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="empty-state">
+          <div class="empty-state-icon">🐾</div>
+          <p class="empty-state-text">
+            Nenhum pet desativado no momento.
+          </p>
+          <p class="empty-state-subtext">
+            Todos os pets cadastrados estão sendo exibidos no dashboard.
+          </p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

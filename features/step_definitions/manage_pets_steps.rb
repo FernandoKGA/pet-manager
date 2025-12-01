@@ -52,7 +52,19 @@ When('I update the pet information with valid data') do
 end
 
 When('I click the button {string}') do |button|
-  click_button button
+  if page.has_button?(button, wait: 0.5)
+    click_button button
+  else
+    click_link button
+  end
+end
+
+Given('I visit my dashboard') do
+  visit user_path(@user)
+end
+
+Given('that pet is inactive') do
+  @pet.update!(active: false)
 end
 
 
@@ -96,4 +108,28 @@ Then('it should not have a pet photo') do
   within(".pet-avatar") do
     expect(page).not_to have_css('img')
   end
+end
+
+Then('I should not see that pet in the active pets list') do
+  visit user_path(@user)
+  within("[data-testid='active-pets-list']") do
+    expect(page).not_to have_content(@pet.name)
+  end
+end
+
+Then('I should see that pet in the inactive pets list') do
+  visit inactive_pets_path
+  within("[data-testid='inactive-pets-list']") do
+    expect(page).to have_content(@pet.name)
+  end
+end
+
+Then('I should see that pet in the active pets list') do
+  visit user_path(@user)
+  within("[data-testid='active-pets-list']") do
+    expect(page).to have_content(@pet.name)
+  end
+end
+When('I navigate to the inactive pets page') do
+  visit inactive_pets_path
 end

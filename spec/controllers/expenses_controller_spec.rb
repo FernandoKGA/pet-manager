@@ -90,7 +90,7 @@ RSpec.describe ExpensesController, type: :controller do
     context "com parâmetros inválidos" do
       it "falha ao criar gasto e redireciona com aviso" do
         expect {
-          post :create, params: { expense: { amount: nil, category: '', date: '', pet_id: nil } }
+          post :create, params: { expense: { amount: nil, category: '', date: '', pet_id: pet.id } }
         }.to_not change(Expense, :count)
 
         expect(response).to render_template(:index)

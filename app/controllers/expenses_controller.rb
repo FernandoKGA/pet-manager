@@ -46,7 +46,7 @@ class ExpensesController < ApplicationController
 
   def set_form_dependencies
     @user = current_user
-    @pets = current_user.pets
+    @pets = current_user.pets.active
   end
 
   def prepare_dashboard
