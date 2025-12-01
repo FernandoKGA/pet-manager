@@ -58,3 +58,36 @@ And('the table should have columns for "Data", "Descrição", "Quantidade", "Cat
   expect(page).to have_selector("th", text: "Categoria")
   expect(page).to have_selector("th", text: "Pet")
 end
+
+When('I edit the expense {string} changing description to {string} and amount to {string}') do |current_description, new_description, new_amount|
+  within("tr", text: current_description) do
+    click_link "Editar"
+  end
+  expect(page).to have_css('#expense-modal', visible: true)
+
+  fill_in "expense_description", with: new_description
+  fill_in "expense_amount", with: new_amount
+  click_button "Salvar"
+end
+
+When('I delete the expense {string}') do |description|
+  within("tr", text: description) do
+    begin
+      accept_confirm do
+        click_button "Excluir"
+      end
+    rescue Capybara::NotSupportedByDriverError, Capybara::ModalNotFound
+      click_button "Excluir"
+    end
+  end
+end
+
+Then('I should see {string} in the expenses table') do |content|
+  within("table") do
+    expect(page).to have_content(content)
+  end
+end
+
+Then('I should not see {string}') do |content|
+  expect(page).not_to have_content(content)
+end

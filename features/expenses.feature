@@ -18,3 +18,15 @@ Feature: Expenses page
     When I visit the expenses page
     Then I should see a table with my expenses
     And the table should have columns for "Data", "Descrição", "Quantidade", "Categoria" and "Pet"
+
+  Scenario: Edit an existing expense
+    When I visit the expenses page
+    And I edit the expense "Ração premium" changing description to "Ração básica" and amount to "200"
+    Then I should see "Gasto atualizado com sucesso"
+    And I should see "Ração básica" in the expenses table
+
+  Scenario: Delete an existing expense
+    When I visit the expenses page
+    And I delete the expense "Consulta de rotina"
+    Then I should see "Gasto excluído com sucesso"
+    And I should not see "Consulta de rotina"

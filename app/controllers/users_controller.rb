@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   
   def show
     @user = current_user
-    @pets = @user.pets
+    @pets = @user.pets.active
     prepare_notification_center_context(user: @user)
   end
 

@@ -209,7 +209,7 @@
                       <div class="col-md-6">
                         <%= form.label :pet_id, 'Pet', class: 'form-label' %>
                         <%= form.collection_select :pet_id,
-                                                   user.pets,
+                                                   user.pets.active,
                                                    :id,
                                                    :name,
                                                    { prompt: 'Selecione um pet' },

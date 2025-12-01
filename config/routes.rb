@@ -39,6 +39,13 @@ Rails.application.routes.draw do
   
   # Pets
   resources :pets, only: [:new, :create, :show, :edit, :update, :destroy] do
+    member do
+      patch :deactivate
+      patch :activate
+    end
+    collection do
+      get :inactive
+    end
     resources :medical_appointments
     resources :weights, only: [:index, :new, :create]
     resources :baths
@@ -48,7 +55,7 @@ Rails.application.routes.draw do
     resources :vaccinations,  only: [:index, :new, :create, :edit, :update, :destroy]
   end
   
-  resources :expenses, only: [:index, :new, :create]
+  resources :expenses, only: [:index, :new, :create, :edit, :update, :destroy]
 
   get "up" => "rails/health#show", as: :rails_health_check
   root 'home#index'

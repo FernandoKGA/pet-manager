@@ -10,6 +10,9 @@
           <li class="nav-item me-2">
             <%= link_to "Gastos", expenses_path, class: "nav-link #{'active' if current_page?(expenses_path)}" %>
           </li>
+          <li class="nav-item me-2">
+            <%= link_to "Pets desativados", inactive_pets_path, class: "nav-link #{'active' if current_page?(inactive_pets_path)}" %>
+          </li>
         </ul>
       <% else %>
         <ul class="navbar-nav flex-row flex-fill justify-content-evenly">

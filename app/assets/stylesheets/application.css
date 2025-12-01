@@ -82,6 +82,11 @@
   --bs-btn-color: var(--neutral-0) !important;
 }
 
+.btn-primary-custom-link {
+  text-decoration: none;
+  text-align: center;
+}
+
 .btn-primary-custom:hover {
   transform: translateY(-2px);
 }
@@ -398,6 +403,7 @@ body.notification-overlay-open {
   .btn.notification-center__back {
     display: inline-flex !important;
   }
+  
 }
 
 /* Estado vazio */

@@ -1,5 +1,5 @@
 class PetsController < ApplicationController
-  before_action :set_pet, only: [:show, :edit, :update, :destroy]
+  before_action :set_pet, only: [:show, :edit, :update, :destroy, :deactivate, :activate]
 
   def new
     @pet = current_user.pets.build
@@ -51,6 +51,27 @@ class PetsController < ApplicationController
     else
       redirect_to user_path(current_user), alert: "Não foi possível excluir o Pet."
     end
+  end
+
+  def deactivate
+    if @pet.update(active: false)
+      redirect_to user_path(current_user)
+    else
+      redirect_to user_path(current_user), alert: "Não foi possível desativar o Pet."
+    end
+  end
+
+  def activate
+    if @pet.update(active: true)
+      redirect_to user_path(current_user)
+    else
+      redirect_to user_path(current_user), alert: "Não foi possível reativar o Pet."
+    end
+  end
+
+  def inactive
+    @user = current_user
+    @inactive_pets = @user.pets.inactive
   end
 
   private

@@ -8,5 +8,6 @@ FactoryBot.define do
     breed { "MyString" }
     gender { "MyString" }
     sinpatinhas_id { "MyString" }
+    active { true }
   end
 end

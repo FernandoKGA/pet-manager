@@ -20,6 +20,8 @@ class Pet < ApplicationRecord
   validate :photo_content_type_whitelist
   validate :photo_size_limit
 
+  scope :active, -> { where(active: true) }
+  scope :inactive, -> { where(active: false) }
   scope :deceased, -> { where(deceased: true) }
   scope :living, -> { where(deceased: false) }
   scope :ordered_by_death_date, -> { order(date_of_death: :desc) }

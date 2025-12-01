@@ -42,6 +42,7 @@
                 <th>Quantidade</th>
                 <th>Categoria</th>
                 <th>Pet</th>
+                <th class="text-end">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -52,6 +53,14 @@
                   <td><%= number_to_currency(expense.amount, unit: "R$", separator: ",", delimiter: ".") %></td>
                   <td><%= expense.category %></td>
                   <td><%= expense.pet.name %></td>
+                  <td class="text-end">
+                    <%= link_to "Editar", edit_expense_path(expense), class: "btn btn-sm btn-outline-primary me-2", data: { turbo: false } %>
+                    <%= button_to "Excluir",
+                                  expense_path(expense),
+                                  method: :delete,
+                                  form: { data: { turbo_confirm: "Deseja excluir este gasto?" }, class: "d-inline" },
+                                  class: "btn btn-sm btn-outline-danger" %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>
@@ -62,23 +71,32 @@
       </div>
     </turbo-frame>
     <% modal_expense = @expense || Expense.new %>
+    <% modal_title = modal_expense.persisted? ? "Editar Gasto" : "Adicionar Gasto" %>
+    <% modal_classes = ["modal", "fade"] %>
+    <% modal_classes << "show d-block" if @open_modal %>
+    <% modal_style = @open_modal ? "display: block;" : nil %>
     <div id="expense-modal" 
-       class="modal fade" 
+       class="<%= modal_classes.join(' ') %>" 
+       <% if modal_style.present? %>style="<%= modal_style %>"<% end %>
        tabindex="-1" 
        data-controller="modal"
        data-modal-open-on-error-value="<%= modal_expense.errors.any? %>"
+       data-modal-open-value="<%= @open_modal ? 'true' : 'false' %>"
        data-action="turbo:submit-end->modal#close">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h2 class="modal-title fs-5">Adicionar Gasto</h2>
+            <h2 class="modal-title fs-5"><%= modal_title %></h2>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <%= render 'form', expense: Expense.new, pets: @pets %>
+            <%= render 'form', expense: modal_expense, pets: @pets, modal: true %>
           </div>
         </div>
       </div>
     </div>
+    <% if @open_modal %>
+      <div class="modal-backdrop fade show"></div>
+    <% end %>
   </div>
 </div>
