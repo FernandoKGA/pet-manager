@@ -1,5 +1,4 @@
 <% modal_mode = local_assigns.fetch(:modal, false) %>
-<% submit_label = local_assigns.fetch(:submit_label, 'Salvar') %>
 
 <%= form_with(model: expense, class: "needs-validation") do |f| %>
   <% if expense.errors.any? %>
@@ -55,6 +54,6 @@
     <% unless modal_mode %>
       <%= link_to "Cancelar", expenses_path, class: "btn btn-secondary me-2" %>
     <% end %>
-    <%= f.submit submit_label, class: "btn btn-success" %>
+    %= f.submit "Salvar", class: "btn btn-success" %>
   </div>
 <% end %>
