@@ -63,6 +63,10 @@ Given('I visit my dashboard') do
   visit user_path(@user)
 end
 
+Given('that pet is inactive') do
+  @pet.update!(active: false)
+end
+
 
 Then('I should see the updated information in my pets page') do
   expect(page).to have_content("Pet atualizado com sucesso!")

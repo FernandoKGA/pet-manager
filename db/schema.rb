@@ -123,7 +123,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_11_30_225854) do
     t.datetime "updated_at", null: false
     t.string "password_reset_token"
     t.datetime "password_reset_token_expires_at"
-    t.integer "role", default: 0, null: false
     t.text "photo_base64"
     t.string "photo_content_type"
     t.string "photo_filename"

@@ -9,10 +9,14 @@ Feature: Manage pet activation
     And I have an existing pet registered
     And I visit my dashboard
 
-  Scenario: Deactivate and reactivate a pet
+  Scenario: Deactivate a pet
     When I click the button "Desativar"
     Then I should not see that pet in the active pets list
-    When I navigate to the inactive pets page
+    And I navigate to the inactive pets page
     Then I should see that pet in the inactive pets list
-    When I click the button "Ativar"
+
+  Scenario: Reactivate a pet
+    Given that pet is inactive
+    When I navigate to the inactive pets page
+    And I click the button "Ativar"
     Then I should see that pet in the active pets list

@@ -180,10 +180,11 @@
                 <%= link_to "Diário", pet_diary_entries_path(pet), class: "btn-edit" %>
                 <%= link_to "Vacinas", pet_vaccinations_path(pet), class: "btn-edit" %>
                 <%= link_to "Consultas", pet_medical_appointments_path(pet), class: "btn-edit" %>
-                <%= link_to "Desativar",
-                            deactivate_pet_path(pet),
-                            class: "btn-edit",
-                            data: { turbo_method: :patch } %>
+                <%= button_to "Desativar",
+                              deactivate_pet_path(pet),
+                              method: :patch,
+                              class: "btn-edit border-0",
+                              form: { class: "d-inline" } %>
                 <button type="button"
                         class="btn-destructive"
                         data-bs-toggle="modal"

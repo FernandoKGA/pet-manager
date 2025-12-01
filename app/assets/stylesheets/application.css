@@ -80,6 +80,9 @@
   box-shadow: var(--shadow-brand);
   transition: transform 0.2s;
   --bs-btn-color: var(--neutral-0) !important;
+}
+
+.btn-primary-custom-link {
   text-decoration: none;
   text-align: center;
 }
