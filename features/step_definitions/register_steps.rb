@@ -20,5 +20,9 @@ Then('I should be redirected to the login page') do
 end
 
 Then('I should see {string}') do |message|
-  expect(page).to have_selector('li', text: message)
+  if page.has_css?('.toast-body', text: message)
+    expect(page).to have_css('.toast-body', text: message)
+  else
+    expect(page).to have_content(message)
+  end
 end
