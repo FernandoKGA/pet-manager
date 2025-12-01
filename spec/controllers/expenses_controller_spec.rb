@@ -135,7 +135,6 @@ RSpec.describe ExpensesController, type: :controller do
       end
     end
   end
-end
 
   describe "DELETE #destroy" do
     let!(:expense) { create(:expense, user: user, pet: pet, amount: 50.0, category: 'outros', date: Date.today) }

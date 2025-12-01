@@ -47,11 +47,6 @@ class ExpensesController < ApplicationController
   def set_form_dependencies
     @user = current_user
     @pets = current_user.pets.active
-    @expenses = current_user.expenses
-                             .includes(:pet)
-                             .references(:pet)
-                             .merge(Pet.active)
-                             .order(date: :desc)
   end
 
   def prepare_dashboard
@@ -69,7 +64,6 @@ class ExpensesController < ApplicationController
 
   def filtered_expenses
     expenses = current_user.expenses.includes(:pet).order(date: :desc)
-
 
     if params[:pet_id].present?
       expenses = expenses.where(pet_id: params[:pet_id])
@@ -89,22 +83,8 @@ class ExpensesController < ApplicationController
     expenses
   end
 
-  def create
-    unless current_user.pets.active.exists?(expense_params[:pet_id])
-      redirect_to expenses_path, alert: 'Selecione um pet ativo para registrar o gasto.'
-      return
-    end
-
-    @expense = current_user.expenses.build(expense_params)
-    if @expense.save
-      redirect_to expenses_path, notice: 'Gasto registrado com sucesso'
-    else
-      redirect_to expenses_path, notice: 'Seu gasto não foi registrado. Verifique os dados e tente novamente.'
-    end
-    
   def set_expense
     @expense = current_user.expenses.find(params[:id])
-
   end
 
   def expense_params
