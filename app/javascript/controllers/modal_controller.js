@@ -2,14 +2,14 @@ import { Controller } from "@hotwired/stimulus"
 
 // Conecta-se diretamente na div .modal
 export default class extends Controller {
-  static values = { openOnError: Boolean }
+  static values = { openOnError: Boolean, open: Boolean }
 
   connect() {
     // this.element é a própria div do modal
     this.modal = new bootstrap.Modal(this.element)
 
-    // Se houver erro no formulário, abre automaticamente
-    if (this.openOnErrorValue) {
+    // Se houver erro ou modo de edição, abre automaticamente
+    if (this.openOnErrorValue || this.openValue) {
       this.modal.show()
     }
   }

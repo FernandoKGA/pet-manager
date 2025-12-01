@@ -48,7 +48,7 @@ Rails.application.routes.draw do
     resources :vaccinations,  only: [:index, :new, :create, :edit, :update, :destroy]
   end
   
-  resources :expenses, only: [:index, :new, :create]
+  resources :expenses, only: [:index, :new, :create, :edit, :update, :destroy]
 
   get "up" => "rails/health#show", as: :rails_health_check
   root 'home#index'

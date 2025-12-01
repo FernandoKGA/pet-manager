@@ -93,9 +93,59 @@ RSpec.describe ExpensesController, type: :controller do
           post :create, params: { expense: { amount: nil, category: '', date: '', pet_id: nil } }
         }.to_not change(Expense, :count)
 
-        expect(response).to redirect_to(expenses_path)
-        expect(flash[:notice]).to eq('Seu gasto não foi registrado. Verifique os dados e tente novamente.')
+        expect(response).to render_template(:index)
+        expect(response).to have_http_status(:unprocessable_entity)
       end
+    end
+  end
+
+  describe "GET #edit" do
+    let!(:expense) { create(:expense, user: user, pet: pet, amount: 80.0, category: 'outros', date: Date.today) }
+
+    it "renderiza index com o modal aberto" do
+      get :edit, params: { id: expense.id }
+
+      expect(response).to render_template(:index)
+      expect(assigns(:expense)).to eq(expense)
+      expect(assigns(:open_modal)).to be_truthy
+    end
+  end
+
+  describe "PATCH #update" do
+    let!(:expense) { create(:expense, user: user, pet: pet, amount: 150.0, category: 'alimentacao', date: Date.today) }
+
+    context "com parâmetros válidos" do
+      it "atualiza o gasto e redireciona" do
+        patch :update, params: { id: expense.id, expense: { amount: 200.0 } }
+
+        expect(expense.reload.amount).to eq(200.0)
+        expect(response).to redirect_to(expenses_path)
+        expect(flash[:notice]).to eq('Gasto atualizado com sucesso')
+      end
+    end
+
+    context "com parâmetros inválidos" do
+      it "não atualiza o gasto e mantém o modal aberto" do
+        patch :update, params: { id: expense.id, expense: { amount: nil } }
+
+        expect(expense.reload.amount).to eq(150.0)
+        expect(response).to render_template(:index)
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(assigns(:open_modal)).to be_truthy
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    let!(:expense) { create(:expense, user: user, pet: pet, amount: 50.0, category: 'outros', date: Date.today) }
+
+    it "remove o gasto e redireciona" do
+      expect {
+        delete :destroy, params: { id: expense.id }
+      }.to change(Expense, :count).by(-1)
+
+      expect(response).to redirect_to(expenses_path)
+      expect(flash[:notice]).to eq('Gasto excluído com sucesso')
     end
   end
 end
