@@ -1,0 +1,10 @@
+Metrics/AbcSize:
+  Enabled: true
+  Max: 25
+  Exclude:
+    - 'db/migrate/**/*'
+    - 'spec/**/*'
+
+Metrics/CyclomaticComplexity:
+  Enabled: true
+  Max: 10
